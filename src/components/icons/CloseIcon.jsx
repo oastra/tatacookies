@@ -1,0 +1,19 @@
+const CloseIcon = ({ className = "" }) => (
+  <svg
+    width="36"
+    height="36"
+    viewBox="0 0 36 36"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className={className}
+    role="img"
+    aria-label="Close"
+  >
+    <path
+      d="M19.5907 18L27 10.5907L25.4093 9L18 16.4093L10.5907 9L9 10.5907L16.4093 18L9 25.4093L10.5907 27L18 19.5907L25.4093 27L27 25.4093L19.5907 18Z"
+      fill="currentColor"
+    />
+  </svg>
+);
+
+export default CloseIcon;

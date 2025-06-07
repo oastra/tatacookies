@@ -1,0 +1,22 @@
+const ArrowDownSlantedIcon = ({ className = "" }) => (
+  <svg
+    width="32"
+    height="32"
+    viewBox="0 0 32 32"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className={className}
+    role="img"
+    aria-label="Arrow Down"
+  >
+    <path
+      d="M7.51472 8.42864L22.364 23.2779M22.364 23.2779L22.7175 6.66087M22.364 23.2779L6.45406 22.9243"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+export default ArrowDownSlantedIcon;

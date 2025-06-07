@@ -1,0 +1,22 @@
+const AddSquareIcon = ({ className = "" }) => (
+  <svg
+    width="22"
+    height="22"
+    viewBox="0 0 22 22"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className={className}
+    role="img"
+    aria-label="Add item"
+  >
+    <path
+      d="M8.25016 20.1667H13.7502C18.3335 20.1667 20.1668 18.3334 20.1668 13.75V8.25004C20.1668 3.66671 18.3335 1.83337 13.7502 1.83337H8.25016C3.66683 1.83337 1.8335 3.66671 1.8335 8.25004V13.75C1.8335 18.3334 3.66683 20.1667 8.25016 20.1667Z"
+      stroke="currentColor"
+      strokeWidth="1.375"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+export default AddSquareIcon;
