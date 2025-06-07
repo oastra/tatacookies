@@ -87,14 +87,6 @@ npm install
 
 ## 3. Add environment variables
 
-Create a `.env.local` file and add:
-
-```env
-NEXT_PUBLIC_INSTAGRAM_ACCESS_TOKEN=your_token_here
-NEXT_PUBLIC_SHOPIFY_DOMAIN=your-shop.myshopify.com
-NEXT_PUBLIC_SHOPIFY_BUY_BUTTON_ID=your_buy_button_id
-```
-
 ## 4. Run the development server
 
 ```bash
@@ -124,4 +116,5 @@ Licensed under the MIT License
 
 Developed by Olha Chernysh for Tetiana Shypilova
 ABN: 81955710846
+
 # tatacookies
