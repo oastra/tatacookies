@@ -6,7 +6,7 @@ import { Navigation, Pagination } from "swiper/modules";
 
 import SectionWrapper from "../layout/SectionWrapper";
 import SectionTitle from "../layout/SectionTitle";
-import Card from "../ui/ProductCard";
+import ProductCard from "../ui/ProductCard";
 import bestSellersList from "@/data/bestSellersList";
 
 import "swiper/css";
@@ -44,14 +44,14 @@ const BestSellersSection = () => {
         >
           {bestSellersList.map((product) => (
             <SwiperSlide key={product.id}>
-              <Card {...product} type="link" />
+              <ProductCard {...product} type="link" />
             </SwiperSlide>
           ))}
         </Swiper>
       ) : (
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 mt-10">
           {bestSellersList.map((product) => (
-            <Card key={product.id} {...product} type="link" />
+            <ProductCard key={product.id} {...product} type="link" />
           ))}
         </div>
       )}
