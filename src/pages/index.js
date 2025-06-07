@@ -1,5 +1,5 @@
 // pages/index.jsx
-import Header from "@/components/layout/Header";
+import Header from "@/components/layout/Header.jsx";
 import HeroSection from "../components/sections/HeroSection";
 import GallerySection from "@/components/sections/GallerySection";
 import BestSellersSection from "@/components/sections/BestSellersSection";
