@@ -37,7 +37,7 @@ const BestSellersSection = () => {
           modules={[Navigation, Pagination]}
           slidesPerView={1.2}
           spaceBetween={16}
-          className="pb-8 mt-6"
+          className="pb-8 mt-6 !overflow-visible"
           breakpoints={{
             640: { slidesPerView: 2 },
           }}

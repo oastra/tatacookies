@@ -19,7 +19,7 @@ export default function Home() {
         <AboutSection />
         <FaqSection />
         <CustomCookieSection />
-        <ReviewsSection />
+        <ReviewsSection /> */
         {/* TODO: Add ThingsWeBake, BestSellers, InstagramFeed, Reviews, FAQ, ContactSection */}
       </main>
     </>

@@ -35,7 +35,7 @@ const CookieSwiper = ({ images, category }) => {
       >
         {images.map((src, i) => (
           <SwiperSlide key={src + i}>
-            <div className="overflow-hidden rounded-[20px] h-[240px] sm:h-[260px] sm:aspect-[16/9] relative">
+            <div className="overflow-hidden rounded-[20px] h-[250px] sm:h-[260px] sm:aspect-[16/9] relative">
               <Image
                 src={src}
                 alt={`${category} cookie ${i + 1}`}

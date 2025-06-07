@@ -1,7 +1,7 @@
 // components/HeroSection.jsx
 import { motion } from "framer-motion";
 import Image from "next/image";
-import Link from "next/link";
+
 import ButtonOrLink from "../layout/ButtonOrLink";
 import FlexContainer from "../layout/FlexContainer";
 import SectionWrapper from "../layout/SectionWrapper";
@@ -33,7 +33,7 @@ const HeroSection = () => {
               className="overflow-hidden max-h-[216px] rounded-[20px]"
             >
               <Image
-                src="/images/hero-1.webp"
+                src="/images/hero-rec.webp"
                 alt="Donut cookies"
                 width={600}
                 height={216}
@@ -51,7 +51,7 @@ const HeroSection = () => {
             className="h-[400px] lg:h-[529px] lg:flex-1 overflow-hidden rounded-[20px]"
           >
             <Image
-              src="/images/hero-1.webp"
+              src="/images/hero-sq.webp"
               alt="Easter cookies"
               width={608}
               height={529}

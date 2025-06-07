@@ -23,10 +23,11 @@ const FaqSection = () => {
             {/* Absolutely positioned stars matching full area */}
 
             <DecorativeStars />
-
-            <div className="flex flex-col lg:items-center lg:flex-row lg:p-6 gap-6 w-full lg:w-auto z-10 relative">
-              <ContactBox />
-              <FaqImage />
+            <div className="w-full flex justify-center">
+              <FlexContainer className="flex flex-col sm:flex-row md:flex-row-reverse items-center gap-6 lg:p-6 z-10 relative">
+                <FaqImage />
+                <ContactBox />
+              </FlexContainer>
             </div>
           </div>
         </FlexContainer>
