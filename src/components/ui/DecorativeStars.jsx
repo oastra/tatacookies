@@ -41,7 +41,7 @@ const DecorativeStars = () => {
       <motion.div
         animate={{ opacity: [1, 0.4, 1] }}
         transition={{ repeat: Infinity, duration: 2.5, ease: "easeInOut" }}
-        className="absolute left-[444px] top-[0px] z-0"
+        className="absolute left-[284px] top-[50px] sm:left-[444px] sm:top-[0px] z-0"
       >
         <StarIcon size={40} color="#FFC8CD" />
       </motion.div>
