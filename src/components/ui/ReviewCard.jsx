@@ -2,15 +2,15 @@ import Image from "next/image";
 import FlexContainer from "../layout/FlexContainer";
 
 const ReviewCard = ({ review }) => (
-  <FlexContainer className="max-h-[360px] rounded-[20px] overflow-hidden flex-col lg:flex-row">
-    <div className="w-full lg:max-w-[608px] relative">
-      <div className="overflow-hidden ">
+  <FlexContainer className="rounded-[20px] text-center lg:text-left overflow-hidden flex-col lg:flex-row lg:max-h-[360px]">
+    <div className="w-full  lg:max-w-[608px] relative">
+      <div className="max-h-[306px] overflow-hidden lg:max-h-[360px] h-full">
         <Image
           src={review.image}
           alt={review.name}
           width={800}
           height={500}
-          className="w-full h-auto object-cover"
+          className="w-full h-full object-cover object-center"
         />
       </div>
     </div>

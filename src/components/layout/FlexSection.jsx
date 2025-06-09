@@ -4,6 +4,7 @@ import Image from "next/image";
 import SectionTitle from "./SectionTitle";
 
 const FlexSection = ({
+  id,
   title,
   paragraphs = [],
   imageSrc,
@@ -45,6 +46,7 @@ const FlexSection = ({
 
   return (
     <section
+      id={id}
       className={`${bgColor} w-full py-[70px] md:py-[100px] lg:py-[120px]`}
     >
       <div className="max-w-[1440px] mx-auto px-[22px] md:px-[32px] xl:px-[100px] flex flex-col lg:flex-row gap-6 items-stretch">
@@ -63,7 +65,9 @@ const FlexSection = ({
             reverse ? "lg:order-1" : "lg:order-2"
           } order-2`}
         >
-          <SectionTitle className="lg:text-left">{title}</SectionTitle>
+          <SectionTitle className="text-center lg:text-left">
+            {title}
+          </SectionTitle>
 
           {/* Mobile image (conditionally placed) */}
           {(isImageAfterTitle || mobileOrder === "default") && (

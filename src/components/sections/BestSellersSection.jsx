@@ -27,7 +27,7 @@ const BestSellersSection = () => {
   }, []);
 
   return (
-    <SectionWrapper bg="bg-bgPink">
+    <SectionWrapper id="best-sellers" bg="bg-bgPink">
       <SectionTitle className="text-center text-title">
         Best Sellers
       </SectionTitle>

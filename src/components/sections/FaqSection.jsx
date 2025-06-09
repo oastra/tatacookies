@@ -12,27 +12,25 @@ const FaqSection = () => {
   const sectionRef = useRef(null);
 
   return (
-    <div ref={sectionRef}>
-      <SectionWrapper bg="bg-bgBlue">
-        <SectionTitle className="text-center text-title">
-          Common Questions
-        </SectionTitle>
-        <FlexContainer className="flex-col items-center lg:flex-row gap-6 items-start">
-          <FaqList faqs={faqData} />
-          <div className="relative w-full lg:w-auto">
-            {/* Absolutely positioned stars matching full area */}
+    <SectionWrapper id="faq" bg="bg-bgBlue">
+      <SectionTitle className="text-center text-title">
+        Common Questions
+      </SectionTitle>
+      <FlexContainer className="flex-col items-center lg:flex-row gap-6 items-start">
+        <FaqList faqs={faqData} />
+        <div className="relative w-full lg:w-auto">
+          {/* Absolutely positioned stars matching full area */}
 
-            <DecorativeStars />
-            <div className="w-full flex justify-center">
-              <FlexContainer className="flex flex-col sm:flex-row md:flex-row-reverse items-center gap-6 lg:p-6 z-10 relative">
-                <FaqImage />
-                <ContactBox />
-              </FlexContainer>
-            </div>
+          <DecorativeStars />
+          <div className="w-full flex justify-center">
+            <FlexContainer className="flex flex-col sm:flex-row md:flex-row-reverse items-center gap-6 lg:p-6 z-10 relative">
+              <FaqImage />
+              <ContactBox />
+            </FlexContainer>
           </div>
-        </FlexContainer>
-      </SectionWrapper>
-    </div>
+        </div>
+      </FlexContainer>
+    </SectionWrapper>
   );
 };
 

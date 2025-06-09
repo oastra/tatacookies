@@ -21,7 +21,7 @@ const ReviewsSection = () => {
   const [isEnd, setIsEnd] = useState(false);
 
   return (
-    <SectionWrapper bg="bg-bgPink">
+    <SectionWrapper id="review" bg="bg-bgPink">
       <SectionTitle className="text-center text-title">
         Customer Reviews
       </SectionTitle>
@@ -59,7 +59,7 @@ const ReviewsSection = () => {
         {/* Custom buttons */}
         {/* Prev Button */}
         <button
-          className="custom-prev group absolute right-[64px] top-0 -translate-y-1/2 z-10 
+          className="custom-prev group absolute bottom-[-80px] right-1/2 translate-x-[0%]  md:right-[76px] md:top-0 md:-translate-y-1/2 z-10 
              fill-white text-title 
              hover:fill-title hover:text-white 
              disabled:opacity-30 disabled:pointer-events-none"
@@ -70,7 +70,7 @@ const ReviewsSection = () => {
 
         {/* Next Button */}
         <button
-          className="custom-next group absolute right-0 top-0 -translate-y-1/2 z-10 
+          className="custom-next group absolute bottom-[-80px] right-1/2 translate-x-[130%] md:right-[64px] md:top-0 md:-translate-y-1/2 z-10 
                fill-white text-title 
              hover:fill-title hover:text-white 
   disabled:opacity-30 disabled:pointer-events-none"
