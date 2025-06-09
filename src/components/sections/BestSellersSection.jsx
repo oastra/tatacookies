@@ -37,13 +37,13 @@ const BestSellersSection = () => {
           modules={[Navigation, Pagination]}
           slidesPerView={1.2}
           spaceBetween={16}
-          className="pb-8 mt-6 !overflow-visible"
+          className="pb-8 mt-6 "
           breakpoints={{
             640: { slidesPerView: 2 },
           }}
         >
           {bestSellersList.map((product) => (
-            <SwiperSlide key={product.id}>
+            <SwiperSlide key={product.id} className="p-[2px]">
               <ProductCard {...product} type="link" />
             </SwiperSlide>
           ))}

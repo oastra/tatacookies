@@ -6,7 +6,7 @@ import BestSellersBuyIcon from "../icons/BestSellersBuyIcon";
 
 const ProductCard = ({ image, title, price }) => {
   return (
-    <div className="w-full h-full p-[16px] bg-white rounded-[20px] border border-gray-200 shadow-cookie overflow-hidden flex flex-col gap-4 justify-between transition-transform hover:scale-[1.01]">
+    <div className="w-full h-full p-4 bg-white rounded-[20px] border border-gray-200 shadow-cookie flex flex-col gap-4 justify-between transition-transform sm:hover:scale-[1.01]">
       {/* Image Section */}
       <div className="relative w-full aspect-square sm:h-[280px]">
         <Image
