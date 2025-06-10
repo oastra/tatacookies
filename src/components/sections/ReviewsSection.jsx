@@ -37,8 +37,8 @@ const ReviewsSection = () => {
 
         <Swiper
           modules={[Navigation, Pagination, EffectFade]}
+          slidesPerView={1}
           spaceBetween={30}
-          effect="fade"
           onSwiper={setSwiperInstance}
           onSlideChange={(swiper) => {
             setIsBeginning(swiper.isBeginning);
@@ -48,10 +48,10 @@ const ReviewsSection = () => {
             nextEl: ".custom-next",
             prevEl: ".custom-prev",
           }}
-          className="w-full"
+          className="w-full min-h-[1px]"
         >
           {reviews.map((review, index) => (
-            <SwiperSlide key={index}>
+            <SwiperSlide key={index} className="h-full">
               <ReviewCard review={review} />
             </SwiperSlide>
           ))}

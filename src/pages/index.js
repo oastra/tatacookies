@@ -7,6 +7,9 @@ import AboutSection from "@/components/sections/AboutSection";
 import CustomCookieSection from "@/components/sections/CustomCookieSection";
 import FaqSection from "@/components/sections/FaqSection";
 import ReviewsSection from "@/components/sections/ReviewsSection";
+import InstagramSection from "@/components/sections/InstagramSection";
+import BlogSection from "@/components/sections/BolgSection";
+import ContactSection from "@/components/sections/ContactSection";
 
 export default function Home() {
   return (
@@ -20,6 +23,9 @@ export default function Home() {
         <FaqSection />
         <CustomCookieSection />
         <ReviewsSection />
+        <InstagramSection />
+        <BlogSection />
+        <ContactSection />
         {/* TODO: Add ThingsWeBake, BestSellers, InstagramFeed, Reviews, FAQ, ContactSection */}
       </main>
     </>

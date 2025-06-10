@@ -18,7 +18,7 @@ module.exports = {
 
         title: "#1985A1",
         title2: "#FF66C4",
-        // title2: "#D648A6",
+        title3: "#D648A6",
 
         text: "#46494C",
         text2: "#4c5c68",
