@@ -34,7 +34,7 @@ const InstagramSection = () => {
   }, []);
 
   return (
-    <SectionWrapper id="instagram" bg="bg-white">
+    <SectionWrapper id="instagram">
       <SectionTitle className="text-center text-title mb-[32px] lg:mb-[40px]">
         We’re on Instagram
       </SectionTitle>

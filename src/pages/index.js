@@ -10,6 +10,7 @@ import ReviewsSection from "@/components/sections/ReviewsSection";
 import InstagramSection from "@/components/sections/InstagramSection";
 import BlogSection from "@/components/sections/BolgSection";
 import ContactSection from "@/components/sections/ContactSection";
+import Footer from "@/components/layout/Footer";
 
 export default function Home() {
   return (
@@ -28,6 +29,7 @@ export default function Home() {
         <ContactSection />
         {/* TODO: Add ThingsWeBake, BestSellers, InstagramFeed, Reviews, FAQ, ContactSection */}
       </main>
+      <Footer />
     </>
   );
 }
