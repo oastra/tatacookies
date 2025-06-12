@@ -1,13 +1,16 @@
 "use client";
 import ButtonOrLink from "../layout/ButtonOrLink";
+import Checkbox from "./Checkbox";
+import { useState } from "react";
 
 const ContactForm = () => {
+  const [accepted, setAccepted] = useState(false);
   return (
     <form
       onSubmit={(e) => e.preventDefault()}
       className="flex flex-col w-full justify-center items-stretch gap-5 text-text"
     >
-      <p className="text-title text-h4 md:text-h3 text-center mb-2">
+      <p className="text-title text-h4 md:text-h3 text-center mb-1">
         Have a question, custom order,
         <br /> or just want to say hi?
       </p>
@@ -38,39 +41,13 @@ const ContactForm = () => {
         />
       </div>
 
-      <label className="flex items-center gap-3 px-1 text-small text-text60 cursor-pointer">
-        {/* Peer checkbox (hidden) */}
-        <input type="checkbox" required className="peer hidden" />
-
-        {/* Custom checkbox box */}
-        <div className="w-[16px] h-[16px] rounded-md border-2 border-title flex items-center justify-center peer-checked:bg-title peer-checked:border-title transition-all duration-200">
-          {/* Checkmark appears on check */}
-          <svg
-            className="w-[10px] h-[10px] text-white opacity-0 peer-checked:opacity-100 transition-opacity duration-200"
-            viewBox="0 0 20 20"
-            fill="none"
-            stroke="white"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M4.5 10.5l3 3 7-7" />
-          </svg>
-        </div>
-
-        {/* Label text with link */}
-        <span>
-          I agree to the terms of the{" "}
-          <a
-            href="/privacy-policy"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline text-small hover:text-title"
-          >
-            Privacy Policy
-          </a>
-        </span>
-      </label>
+      <Checkbox
+        id="accept"
+        name="accept"
+        label="I agree to the Privacy Policy"
+        checked={accepted}
+        onChange={(e) => setAccepted(e.target.checked)}
+      />
 
       <ButtonOrLink
         type="submit"

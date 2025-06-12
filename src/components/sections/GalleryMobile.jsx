@@ -17,7 +17,12 @@ const GalleryMobile = ({ categories, imagesByCategory }) => {
         activeTab={activeTab}
         onTabClick={setActiveTab}
       />
-      <CookieSwiper images={imagesByCategory[activeTab]} category={activeTab} />
+
+      <CookieSwiper
+        key={activeTab}
+        images={imagesByCategory[activeTab]}
+        category={activeTab}
+      />
     </div>
   );
 };

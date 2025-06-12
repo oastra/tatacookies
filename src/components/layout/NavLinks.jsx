@@ -10,14 +10,8 @@ const navLinks = [
   { label: "Contact", href: "#contact" },
 ];
 
-const NavLinks = ({ isMobile = false }) => (
-  <div
-    className={`${
-      isMobile
-        ? "flex flex-col items-center gap-6 mb-6"
-        : "flex items-center gap-6 ml-6"
-    } text-base`}
-  >
+const NavLinks = () => (
+  <div className="text-base flex flex-col items-center gap-6 mb-6 md:flex-row md:flex-wrap md:justify-center md:gap-x-10 md:mb-0 lg:ml-6 lg:justify-start lg:gap-6">
     {navLinks.map(({ label, href }) => (
       <Link key={label} href={href} className="hover:text-primary transition">
         {label}

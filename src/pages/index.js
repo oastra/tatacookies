@@ -27,6 +27,7 @@ export default function Home() {
         <InstagramSection />
         <BlogSection />
         <ContactSection />
+
         {/* TODO: Add ThingsWeBake, BestSellers, InstagramFeed, Reviews, FAQ, ContactSection */}
       </main>
       <Footer />

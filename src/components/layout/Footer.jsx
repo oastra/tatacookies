@@ -9,32 +9,32 @@ const Footer = () => {
     <footer>
       <div className="bg-bgFooter text-white pt-10 pb-6 overflow-visible">
         <Container>
-          <div className="grid grid-cols-12 grid-rows-[auto_auto] gap-y-[36px] gap-x-4 items-start">
+          <div className="grid grid-cols-4 lg:grid-cols-12 grid-rows-[auto_auto] lg:gap-y-[36px] lg:gap-x-4 items-start">
             {/* 1️⃣ Row 1 */}
             {/* Logo: starts at col 1, spans 2 columns and 2 rows */}
-            <div className="col-span-2  row-span-1 flex flex-col items-center lg:items-start text-center lg:text-left gap-4">
+            <div className="flex justify-start col-span-2  sm:col-span-0 lg:col-span-2  lg:row-span-1 flex flex-col lg:items-center lg:items-start text-center lg:text-left gap-4">
               <Logo className=" w-[80px] h-[80px]" />
             </div>
 
             {/* NavLinks: col 3–9 (col-span-7) */}
-            <div className="col-span-7 flex flex-col lg:flex-row ">
-              <NavLinks isMobile={false} />
+            <div className="sm:col-span-2 lg:col-span-7 flex flex-col lg:flex-row ">
+              <NavLinks />
             </div>
 
             {/* Instagram icon + phone: col 10–12 (col-span-3) */}
-            <div className="col-span-3 flex flex-col items-center lg:items-end gap-4 text-right">
+            <div className="col-span-0 lg:flex-col sm:flex-col-reverse lg:col-span-3 flex flex-col sm:items-end gap-4 text-right">
               <InstagramIcon />
               <p className="text-white">Phone: +61 412 345 678</p>
             </div>
 
             {/* 2️⃣ Row 2 */}
             {/* Footer slogan: starts at col 2, spans 5 columns */}
-            <div className="col-start-2 col-span-6 flex justify-start translate-y-[-12px] overflow-visible">
+            <div className="col-start-1 col-span-4 lg:col-start-2 lg:col-span-6 mx-auto translate-y-[-30px]">
               <FooterSlogan />
             </div>
 
             {/* Acknowledgment: col 7–12 (col-span-6) */}
-            <div className="col-span-5 items-end text-right leading-snug">
+            <div className="text-center leading-[130%] sm:col-span-4 lg:col-span-5 items-end lg:text-right leading-snug">
               <p className="text-small text-text30">
                 We acknowledge the Traditional Owners of Country throughout
                 Australia and acknowledge their continuing connection to land,
