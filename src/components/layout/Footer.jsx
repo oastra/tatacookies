@@ -12,7 +12,7 @@ const Footer = () => {
           <div className="grid grid-cols-4 lg:grid-cols-12 grid-rows-[auto_auto] lg:gap-y-[36px] lg:gap-x-4 items-start">
             {/* 1️⃣ Row 1 */}
             {/* Logo: starts at col 1, spans 2 columns and 2 rows */}
-            <div className="flex justify-start col-span-2  sm:col-span-0 lg:col-span-2  lg:row-span-1 flex flex-col lg:items-center lg:items-start text-center lg:text-left gap-4">
+            <div className="flex justify-start col-span-2  sm:col-span-0 lg:col-span-2  lg:row-span-1 flex flex-col lg:items-start gap-4">
               <Logo className=" w-[80px] h-[80px]" />
             </div>
 
