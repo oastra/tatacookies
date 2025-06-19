@@ -35,7 +35,7 @@ const FaqList = ({ faqs = [] }) => {
                   <p className="text-text text-h4">{item.question}</p>
                   {/* Preview answer line (visible when closed) */}
                   {!isActive && (
-                    <p className="text-base text-text60 line-clamp-1 mt-3 pr-[8px]">
+                    <p className="text-base text-text60 line-clamp-1 mt-[18px] pr-[18px]">
                       {item.answer}
                     </p>
                   )}
@@ -43,7 +43,7 @@ const FaqList = ({ faqs = [] }) => {
               </div>
 
               {/* Number + Arrow toggle */}
-              <div className="flex flex-col gap-4 items-end gap-1 shrink-0">
+              <div className="flex flex-col gap-4 items-end shrink-0">
                 <span className="text-small pr-2 text-text60">{number}</span>
                 <button
                   onClick={() => toggle(idx)}
@@ -70,7 +70,7 @@ const FaqList = ({ faqs = [] }) => {
                   animate={{ height: "auto", opacity: 1 }}
                   exit={{ height: 0, opacity: 0 }}
                   transition={{ duration: 0.5, ease: "easeInOut" }}
-                  className="overflow-hidden relative text-base text-text60 mt-3 pl-[56px] pr-[16px]"
+                  className="overflow-hidden relative text-base text-text60  pl-[56px] pr-[18px]"
                 >
                   <p>{item.answer}</p>
                 </motion.div>

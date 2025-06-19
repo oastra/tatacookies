@@ -1,32 +1,23 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import SectionTitle from "../layout/SectionTitle";
-import ButtonOrLink from "../layout/ButtonOrLink";
-import Tabs from "../ui/Tabs";
+import SectionTitle from "../common/SectionTitle";
+import ButtonOrLink from "../ui/ButtonOrLink";
 import VectorIcon from "../icons/VectorIcon";
-import SectionWrapper from "../layout/SectionWrapper";
+import SectionWrapper from "../common/SectionWrapper";
+import fullImagesByCategory from "@/data/galleryImagesByCategory";
+import getRandomImagesByCategory from "@/utils/getRandomImagesByCategory";
 
-const GalleryDesktop = dynamic(() => import("./GalleryDesktop"), {
+const GalleryDesktop = dynamic(() => import("../gallery/GalleryDesktop"), {
   ssr: true,
 });
-const GalleryMobile = dynamic(() => import("./GalleryMobile"), {
-  ssr: false, // disable SSR for mobile to avoid hydration issues
+const GalleryMobile = dynamic(() => import("../gallery/GalleryMobile"), {
+  ssr: false,
 });
 
-const categories = [
-  "Holiday Cookies",
-  "Custom Orders",
-  "Kids' Favorites",
-  "Gifts & Art Cookies",
-];
-
-const imagesByCategory = {
-  "Holiday Cookies": Array(5).fill("/images/hero-1.webp"),
-  "Custom Orders": Array(5).fill("/images/hero-1.webp"),
-  "Kids' Favorites": Array(5).fill("/images/hero-1.webp"),
-  "Gifts & Art Cookies": Array(5).fill("/images/hero-1.webp"),
-};
+const categories = Object.keys(fullImagesByCategory);
+// Pick 5 random images per category on render
+const imagesByCategory = getRandomImagesByCategory(fullImagesByCategory, 5);
 
 const GallerySection = () => {
   return (
@@ -37,7 +28,6 @@ const GallerySection = () => {
         uniquely crafted just for you.
       </p>
 
-      {/* Tabs are shared */}
       <GalleryDesktop
         categories={categories}
         imagesByCategory={imagesByCategory}

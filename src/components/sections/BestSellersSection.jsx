@@ -4,10 +4,10 @@ import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 
-import SectionWrapper from "../layout/SectionWrapper";
-import SectionTitle from "../layout/SectionTitle";
-import ProductCard from "../ui/ProductCard";
-import bestSellersList from "@/data/bestSellersList";
+import SectionWrapper from "../common/SectionWrapper";
+import SectionTitle from "../common/SectionTitle";
+import ProductCard from "../ui/cards/ProductCard";
+import getBestSellersForToday from "@/utils/getBestSellersForToday";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -15,9 +15,13 @@ import "swiper/css/pagination";
 
 const BestSellersSection = () => {
   const [isMobile, setIsMobile] = useState(false);
+  const [products, setProducts] = useState([]);
 
-  // detect screen size to toggle Swiper
   useEffect(() => {
+    // Load products dynamically based on the date
+    setProducts(getBestSellersForToday());
+
+    // detect screen size
     const checkViewport = () => {
       setIsMobile(window.innerWidth < 640);
     };
@@ -37,21 +41,21 @@ const BestSellersSection = () => {
           modules={[Navigation, Pagination]}
           slidesPerView={1.2}
           spaceBetween={16}
-          className="pb-8 mt-6 "
+          className="pb-8 mt-6"
           breakpoints={{
             640: { slidesPerView: 2 },
           }}
         >
-          {bestSellersList.map((product) => (
+          {products.map((product) => (
             <SwiperSlide key={product.id} className="p-[2px]">
-              <ProductCard {...product} type="link" />
+              <ProductCard {...product} />
             </SwiperSlide>
           ))}
         </Swiper>
       ) : (
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 mt-10">
-          {bestSellersList.map((product) => (
-            <ProductCard key={product.id} {...product} type="link" />
+          {products.map((product) => (
+            <ProductCard key={product.id} {...product} />
           ))}
         </div>
       )}

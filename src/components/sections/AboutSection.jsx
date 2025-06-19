@@ -1,7 +1,7 @@
 // src/components/sections/AboutSection.jsx
 "use client";
 
-import FlexSection from "@/components/layout/FlexSection";
+import FlexSection from "@/components/common/FlexSection";
 
 const AboutSection = () => {
   return (

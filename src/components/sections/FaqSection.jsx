@@ -1,10 +1,10 @@
 import { useRef } from "react";
-import SectionWrapper from "@/components/layout/SectionWrapper";
-import SectionTitle from "@/components/layout/SectionTitle";
-import FlexContainer from "@/components/layout/FlexContainer";
+import SectionWrapper from "@/components/common/SectionWrapper";
+import SectionTitle from "@/components/common/SectionTitle";
+import FlexContainer from "@/components/common/FlexContainer";
 import FaqList from "../ui/FaqList";
 import FaqImage from "../ui/FaqImage";
-import ContactBox from "../ui/ContactBox";
+import ContactBox from "../contact/ContactBox";
 import DecorativeStars from "../ui/DecorativeStars";
 import faqData from "@/data/faqData"; // if stored externally
 

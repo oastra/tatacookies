@@ -8,10 +8,10 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/effect-fade";
 
-import SectionWrapper from "@/components/layout/SectionWrapper";
-import SectionTitle from "@/components/layout/SectionTitle";
+import SectionWrapper from "@/components/common/SectionWrapper";
+import SectionTitle from "@/components/common/SectionTitle";
 import reviews from "@/data/reviewsData";
-import ReviewCard from "../ui/ReviewCard";
+import ReviewCard from "../ui/cards/ReviewCard";
 import NextButton from "../icons/NextButton";
 import PrevButton from "../icons/PrevButton";
 

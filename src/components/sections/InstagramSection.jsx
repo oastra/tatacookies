@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import SectionWrapper from "@/components/layout/SectionWrapper";
-import SectionTitle from "@/components/layout/SectionTitle";
-import ButtonOrLink from "@/components/layout/ButtonOrLink";
+import SectionWrapper from "@/components/common/SectionWrapper";
+import SectionTitle from "@/components/common/SectionTitle";
+import ButtonOrLink from "@/components/ui/ButtonOrLink";
 import VectorIcon from "../icons/VectorIcon";
 
 const images = [

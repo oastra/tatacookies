@@ -1,23 +1,23 @@
 const faqData = [
   {
-    question: "How long do cookies stay fresh?",
+    question: "Do you deliver cookies across Australia?",
     answer:
-      "Our cookies stay fresh for up to 7 days when stored in an airtight container at room temperature. Our cookies stay fresh for up to 7 days when stored in an airtight container at room temperature. Our cookies stay fresh for up to 7 days when stored in an airtight container at room temperature.",
+      "Yes! Although we’re a Sydney-based cookie business, we offer fast and secure delivery of our handmade cookies Australia-wide. Whether you're in Melbourne, Brisbane, or Perth, your custom cookies will arrive fresh and beautifully packaged.",
   },
   {
-    question: "Can I customize my own cookie box?",
+    question: "Can I order custom designs or themed cookies?",
     answer:
-      "Yes! Use our Custom Cookie Pack feature to mix and match your favorite flavors.Yes! Use our Custom Cookie Pack feature to mix and match your favorite flavors.",
+      "Absolutely. We specialise in personalised cookies for all occasions — birthdays, weddings, baby showers, and more. From cartoon characters to elegant florals, we create custom decorated cookies to match your theme. Contact us to place your custom cookie order today.",
   },
   {
-    question: "Do you offer gluten-free options?",
+    question: "How much notice do I need to place an order?",
     answer:
-      "Currently, we do not offer gluten-free cookies, but we’re working on expanding our menu!Currently, we do not offer gluten-free cookies, but we’re working on expanding our menu!",
+      "To guarantee availability, we recommend ordering cookies online at least 7–10 days in advance. Our seasonal and event-themed cookies (like Christmas or Easter sets) often book out early, so don’t wait! We also accept rush orders — just send us a message.",
   },
   {
-    question: "Do you offer gluten-free options?",
+    question: "Do your cookies contain allergens?",
     answer:
-      "Currently, we do not offer gluten-free cookies, but we’re working on expanding our menu!Currently, we do not offer gluten-free cookies, but we’re working on expanding our menu!",
+      "Our cookies are made with love using high-quality ingredients. They contain gluten, eggs, and dairy, and are prepared in a kitchen that handles nuts. If you're ordering cookies for an event with dietary restrictions, please contact us for ingredient details.",
   },
 ];
 

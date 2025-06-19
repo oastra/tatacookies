@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import FlexSection from "@/components/layout/FlexSection";
-import ButtonOrLink from "@/components/layout/ButtonOrLink";
-import CustomCookieModal from "@/components/ui/CustomCookieModal";
+import FlexSection from "@/components/common/FlexSection";
+import ButtonOrLink from "@/components/ui/ButtonOrLink";
+import CustomCookieModal from "@/components/modals/CustomCookieModal";
 import VectorIcon from "@/components/icons/VectorIcon";
 
 const CustomCookieSection = () => {
@@ -27,10 +27,11 @@ const CustomCookieSection = () => {
             Create a cookie box that’s as unique as your cravings!
           </div>,
         ]}
-        imageSrc="/images/hero-1.webp"
+        imageSrc="/images/cookies/boy-easter.webp"
         imageAlt="Custom cookie box"
         bgColor="bgPink"
         mobileOrder="imageAfterTitle"
+        imgClassName="w-full object-cover [object-position:center_35%]"
         cta={
           <ButtonOrLink onClick={() => setOpen(true)} className="bg-primary">
             Start Your Box Design <VectorIcon className="ml-2" />

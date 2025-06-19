@@ -1,8 +1,8 @@
-import SectionWrapper from "@/components/layout/SectionWrapper";
-import SectionTitle from "@/components/layout/SectionTitle";
-import ContactInfo from "../ui/ContactInfo";
-import ContactForm from "../ui/ContactForm";
-import ContactImage from "../ui/ContactImage";
+import SectionWrapper from "@/components/common/SectionWrapper";
+import SectionTitle from "@/components/common/SectionTitle";
+import ContactInfo from "../contact/ContactInfo";
+import ContactForm from "../contact/ContactForm";
+import ContactImage from "../contact/ContactImage";
 
 const ContactSection = () => {
   return (

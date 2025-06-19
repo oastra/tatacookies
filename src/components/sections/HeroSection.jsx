@@ -2,9 +2,9 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 
-import ButtonOrLink from "../layout/ButtonOrLink";
-import FlexContainer from "../layout/FlexContainer";
-import SectionWrapper from "../layout/SectionWrapper";
+import ButtonOrLink from "../ui/ButtonOrLink";
+import FlexContainer from "../common/FlexContainer";
+import SectionWrapper from "../common/SectionWrapper";
 import VectorIcon from "../icons/VectorIcon";
 
 const HeroSection = () => {

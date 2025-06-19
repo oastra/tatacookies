@@ -1,7 +1,7 @@
 "use client";
-import SectionWrapper from "@/components/layout/SectionWrapper";
-import SectionTitle from "@/components/layout/SectionTitle";
-import BlogCard from "../ui/BlogCard";
+import SectionWrapper from "@/components/common/SectionWrapper";
+import SectionTitle from "@/components/common/SectionTitle";
+import BlogCard from "../ui/cards/BlogCard";
 import blogPosts from "@/data/blogPosts";
 
 const BlogSection = () => {
