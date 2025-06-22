@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useScroll, useMotionValueEvent } from "framer-motion";
 import ButtonOrLink from "../ui/ButtonOrLink";
+import CloseRoundIcon from "../icons/CloseRoundIcon";
 
 const ContactModal = ({ onClose }) => {
   const { scrollY } = useScroll();
@@ -30,7 +31,7 @@ const ContactModal = ({ onClose }) => {
           onClick={onClose}
           className="absolute top-6 right-6 text-2xl text-text hover:text-title font-bold"
         >
-          ×
+          <CloseRoundIcon />
         </button>
 
         {/* Title */}

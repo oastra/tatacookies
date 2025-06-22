@@ -12,17 +12,17 @@ const Footer = () => {
           <div className="grid grid-cols-4 lg:grid-cols-12 grid-rows-[auto_auto] lg:gap-y-[36px] lg:gap-x-4 items-start">
             {/* 1️⃣ Row 1 */}
             {/* Logo: starts at col 1, spans 2 columns and 2 rows */}
-            <div className="flex justify-start col-span-2  sm:col-span-0 lg:col-span-2  lg:row-span-1 flex flex-col lg:items-start gap-4">
+            <div className="flex sm:col-span-0 lg:col-span-2  lg:row-span-1 flex-col lg:items-start gap-4">
               <Logo className=" w-[80px] h-[80px]" />
             </div>
 
             {/* NavLinks: col 3–9 (col-span-7) */}
-            <div className="sm:col-span-2 lg:col-span-7 flex flex-col lg:flex-row ">
+            <div className="col-start-2 flex flex-col items-end justify-end lg:col-span-7  lg:flex-row ">
               <NavLinks />
             </div>
 
             {/* Instagram icon + phone: col 10–12 (col-span-3) */}
-            <div className="col-span-0 lg:flex-col sm:flex-col-reverse lg:col-span-3 flex flex-col sm:items-end gap-4 text-right">
+            <div className="flex flex-col-reverse md:col-span-0 lg:flex-col  lg:col-span-3 flex-col items-end gap-4 text-right">
               <InstagramIcon />
               <p className="text-white">Phone: +61 412 345 678</p>
             </div>
@@ -34,7 +34,7 @@ const Footer = () => {
             </div>
 
             {/* Acknowledgment: col 7–12 (col-span-6) */}
-            <div className="text-center leading-[130%] sm:col-span-4 lg:col-span-5 items-end lg:text-right leading-snug">
+            <div className="text-center leading-[130%] col-span-4 lg:col-span-5 items-end lg:text-right leading-snug">
               <p className="text-small text-text30">
                 We acknowledge the Traditional Owners of Country throughout
                 Australia and acknowledge their continuing connection to land,
@@ -48,7 +48,7 @@ const Footer = () => {
       {/* Bottom bar */}
       <div className="bg-bgFooter2">
         <Container>
-          <div className="py-4 flex flex-col lg:flex-row justify-between items-center text-base text-white gap-2">
+          <div className="py-4 flex flex-col sm:flex-row justify-between items-center text-base text-white gap-2">
             <span>Created by Olha Chernysh, 2025</span>
             <span>All rights reserved.</span>
             <Link

@@ -17,11 +17,13 @@ const ReviewCard = ({ review }) => (
     </div>
 
     <div className="w-full bg-bgBlue p-6">
-      <h3 className="text-text2 text-[32px] font-h3 mb-3">“{review.title}”</h3>
+      <div className="text-text2 text-button sm:text-[32px] text-[32px] mb-3">
+        “{review.title}”
+      </div>
       <p className="text-base text-text mb-[40px] whitespace-pre-line ">
         {review.text}
       </p>
-      <p className="text-title font-semibold mb-2 text-h3 font-regular">
+      <p className="text-title font-semibold mb-2 text-button sm:text-h3 font-regular">
         {review.name}
       </p>
       <p className="text-base">{review.location}</p>
