@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import clsx from "clsx";
 import BestSellersBuyIcon from "../icons/BestSellersBuyIcon";
@@ -26,6 +26,7 @@ const ButtonOrLink = ({
 }) => {
   const [hovered, setHovered] = useState(false);
   const isLink = typeof href === "string";
+  const [isTouch, setIsTouch] = useState(false);
 
   const commonStyles = clsx(
     "relative overflow-hidden flex items-center justify-center text-button rounded-full transition-all duration-300 active:bg-secondary transition-colors duration-200",
@@ -39,25 +40,26 @@ const ButtonOrLink = ({
       onClick={onClick}
       type={type}
     >
-      {flowers.map(({ id, toX, toY, fromX, fromY }) => (
-        <motion.div
-          key={id}
-          className="absolute left-0 top-0"
-          initial={{ x: fromX, y: fromY, opacity: 0 }}
-          animate={
-            hovered
-              ? { x: toX, y: toY, opacity: 1 }
-              : { x: fromX, y: fromY, opacity: 1 }
-          }
-          transition={{ duration: 0.6, ease: "easeOut" }}
-        >
-          <BestSellersBuyIcon
-            size={80}
-            bgColor="fill-secondary"
-            textColor="fill-transparent"
-          />
-        </motion.div>
-      ))}
+      {!isTouch &&
+        flowers.map(({ id, toX, toY, fromX, fromY }) => (
+          <motion.div
+            key={id}
+            className="absolute left-0 top-0"
+            initial={{ x: fromX, y: fromY, opacity: 0 }}
+            animate={
+              hovered
+                ? { x: toX, y: toY, opacity: 1 }
+                : { x: fromX, y: fromY, opacity: 1 }
+            }
+            transition={{ duration: 0.6, ease: "easeOut" }}
+          >
+            <BestSellersBuyIcon
+              size={80}
+              bgColor="fill-secondary"
+              textColor="fill-transparent"
+            />
+          </motion.div>
+        ))}
 
       <div className="relative flex flex-row justify-center items-center z-10">
         {children}
@@ -65,11 +67,16 @@ const ButtonOrLink = ({
     </motion.div>
   );
 
+  useEffect(() => {
+    setIsTouch("ontouchstart" in window || navigator.maxTouchPoints > 0);
+  }, []);
+
   return (
     <div
       className="inline-block relative"
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
+      onMouseEnter={() => !isTouch && setHovered(true)}
+      onMouseLeave={() => !isTouch && setHovered(false)}
+      onClick={() => isTouch && setHovered((prev) => !prev)} // Optional: animate once on tap
     >
       {isLink ? (
         <Link href={href} passHref>
