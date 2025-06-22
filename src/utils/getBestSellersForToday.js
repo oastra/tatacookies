@@ -8,7 +8,7 @@ const parseDate = (str) => {
 
 const todayKey = () => {
   const now = new Date();
-  return (now.getMonth() + 1) * 100 + now.getDate(); // e.g., June 19 → 619
+  return (now.getMonth() + 1) * 100 + now.getDate(); // e.g., June 22 → 622
 };
 
 export default function getBestSellersForToday() {
@@ -18,18 +18,21 @@ export default function getBestSellersForToday() {
     const start = parseDate(item.start);
     const end = parseDate(item.end);
     if (start <= end) return today >= start && today <= end;
-    return today >= start || today <= end; // wrap-around support (e.g. Dec–Jan)
+    return today >= start || today <= end;
   });
 
-  const random = bestSellersList.filter(
-    (item) => !inSeason.some((seasonal) => seasonal.image === item.image)
+  // 👇 Only use the "Random (fallbacks)" group for random picks
+  const fallbackRandoms = bestSellersList.filter(
+    (item) => item.start === "05-05" && item.end === "05-25"
   );
 
-  // Shuffle utility
-  const shuffle = (arr) => [...arr].sort(() => 0.5 - Math.random());
+  const shuffle = (arr) => [...arr].sort(() => Math.random() - 0.5);
 
-  const seasonal = shuffle(inSeason).slice(0, 3);
-  const filler = shuffle(random).slice(0, inSeason.length > 0 ? 1 : 4);
-
-  return [...seasonal, ...filler];
+  if (inSeason.length >= 3) {
+    const seasonal = shuffle(inSeason).slice(0, 3);
+    const oneRandom = shuffle(fallbackRandoms).slice(0, 1);
+    return [...seasonal, ...oneRandom];
+  } else {
+    return shuffle(fallbackRandoms).slice(0, 4);
+  }
 }

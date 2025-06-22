@@ -14,6 +14,7 @@ const FaqImage = () => {
           alt="Cute clay cat holding flowers representing FAQ support"
           width={284}
           height={416}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className="w-full h-full object-contain"
           priority
         />

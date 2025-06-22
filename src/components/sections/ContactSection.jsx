@@ -1,7 +1,7 @@
 import SectionWrapper from "@/components/common/SectionWrapper";
 import SectionTitle from "@/components/common/SectionTitle";
 import ContactInfo from "../contact/ContactInfo";
-import ContactForm from "../contact/ContactForm";
+import ContactForm from "../forms/ContactForm";
 import ContactImage from "../contact/ContactImage";
 
 const ContactSection = () => {

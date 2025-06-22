@@ -1,4 +1,6 @@
 "use client";
+
+import Link from "next/link";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import clsx from "clsx";
@@ -13,8 +15,7 @@ const flowers = [
 ];
 
 const ButtonOrLink = ({
-  isLink = false,
-  href = "#",
+  href,
   target,
   rel,
   children,
@@ -24,13 +25,45 @@ const ButtonOrLink = ({
   buttonWidth = 293,
 }) => {
   const [hovered, setHovered] = useState(false);
+  const isLink = typeof href === "string";
 
   const commonStyles = clsx(
     "relative overflow-hidden flex items-center justify-center text-button rounded-full transition-all duration-300 active:bg-secondary transition-colors duration-200",
     className
   );
 
-  const Wrapper = isLink ? motion.a : motion.button;
+  const Inner = (
+    <motion.div
+      className={commonStyles}
+      style={{ width: `${buttonWidth}px`, height: "64px" }}
+      onClick={onClick}
+      type={type}
+    >
+      {flowers.map(({ id, toX, toY, fromX, fromY }) => (
+        <motion.div
+          key={id}
+          className="absolute left-0 top-0"
+          initial={{ x: fromX, y: fromY, opacity: 0 }}
+          animate={
+            hovered
+              ? { x: toX, y: toY, opacity: 1 }
+              : { x: fromX, y: fromY, opacity: 1 }
+          }
+          transition={{ duration: 0.6, ease: "easeOut" }}
+        >
+          <BestSellersBuyIcon
+            size={80}
+            bgColor="fill-secondary"
+            textColor="fill-transparent"
+          />
+        </motion.div>
+      ))}
+
+      <div className="relative flex flex-row justify-center items-center z-10">
+        {children}
+      </div>
+    </motion.div>
+  );
 
   return (
     <div
@@ -38,39 +71,13 @@ const ButtonOrLink = ({
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      <Wrapper
-        className={commonStyles}
-        style={{ width: `${buttonWidth}px`, height: "64px" }}
-        href={href}
-        target={target}
-        rel={rel}
-        onClick={onClick}
-        type={type}
-      >
-        {flowers.map(({ id, toX, toY, fromX, fromY }) => (
-          <motion.div
-            key={id}
-            className="absolute left-0 top-0"
-            initial={{ x: fromX, y: fromY, opacity: 0 }}
-            animate={
-              hovered
-                ? { x: toX, y: toY, opacity: 1 }
-                : { x: fromX, y: fromY, opacity: 1 }
-            }
-            transition={{ duration: 0.6, ease: "easeOut" }}
-          >
-            <BestSellersBuyIcon
-              size={80}
-              bgColor="fill-secondary"
-              textColor="fill-transparent"
-            />
-          </motion.div>
-        ))}
-
-        <div className="relative flex flex-row justify-center items-center z-10">
-          {children}
-        </div>
-      </Wrapper>
+      {isLink ? (
+        <Link href={href} passHref>
+          {Inner}
+        </Link>
+      ) : (
+        Inner
+      )}
     </div>
   );
 };

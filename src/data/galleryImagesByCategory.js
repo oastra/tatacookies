@@ -3,7 +3,6 @@ const imagesByCategory = {
     "/images/cookies/baby-boy-set.webp",
     "/images/cookies/baby-shower.webp",
     "/images/cookies/easter-set.webp",
-    "/images/cookies/boy-easter.webp",
     "/images/cookies/easter-yellow.webp",
     "/images/cookies/halloween-blue-pink.webp",
     "/images/cookies/halloween-blue.webp",

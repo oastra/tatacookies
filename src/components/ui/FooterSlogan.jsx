@@ -32,7 +32,7 @@ const FooterSlogan = () => {
     <svg
       viewBox={`0 0 ${svgWidth} 143`}
       width={svgWidth}
-      height="auto"
+      height="100%"
       xmlns="http://www.w3.org/2000/svg"
       className="block overflow-visible"
     >

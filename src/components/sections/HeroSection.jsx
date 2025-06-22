@@ -37,7 +37,9 @@ const HeroSection = () => {
                 alt="Donut cookies"
                 width={600}
                 height={216}
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 className="w-full  object-cover"
+                style={{ width: "100%", height: "auto" }}
               />
             </motion.div>
           </div>
@@ -56,6 +58,7 @@ const HeroSection = () => {
               width={608}
               height={529}
               className="w-full object-cover"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
           </motion.div>
         </FlexContainer>

@@ -7,7 +7,7 @@ import AboutSection from "@/components/sections/AboutSection";
 import CustomCookieSection from "@/components/sections/CustomCookieSection";
 import FaqSection from "@/components/sections/FaqSection";
 import ReviewsSection from "@/components/sections/ReviewsSection";
-import InstagramSection from "@/components/sections/InstagramSection";
+import InstagramSection from "@/temp/InstagramSection";
 import BlogSection from "@/components/sections/BolgSection";
 import ContactSection from "@/components/sections/ContactSection";
 import Footer from "@/components/common/Footer";
@@ -24,7 +24,7 @@ export default function Home() {
         <FaqSection />
         <CustomCookieSection />
         <ReviewsSection />
-        <InstagramSection />
+
         <BlogSection />
         <ContactSection />
 

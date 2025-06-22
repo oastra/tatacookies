@@ -1,0 +1,249 @@
+"use client";
+
+import { useState } from "react";
+import ButtonOrLink from "../ui/ButtonOrLink";
+import PlainButtonLink from "../ui/PlainButtonLink";
+import Checkbox from "../common/Checkbox";
+import ImageUpload from "../common/ImageUpload";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
+const CustomCookieForm = () => {
+  const [accepted, setAccepted] = useState({ terms: false, pricing: false });
+  const [eventDate, setEventDate] = useState(null);
+
+  return (
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        if (accepted.terms && accepted.pricing) {
+          console.log("Form submitted");
+        }
+      }}
+      className="w-full bg-bgBlue  mx-auto flex flex-col gap-[40px]"
+    >
+      {/* Heading */}
+      <div className="text-center">
+        <h1 className="text-title text-h3 mb-2">Custom Cookie Order Form</h1>
+        <p className="text-button font-normal max-w-2xl mx-auto mb-2">
+          Every special moment deserves a sweet little touch. We hand-decorate
+          gingerbread cookies with royal icing, creating designs that feel just
+          right for your celebration.
+        </p>
+        <p className="text-button font-normal max-w-2xl mx-auto mb-2">
+          Fill out this short form and tell us about your occasion - we’ll
+          create a look that brings your vision to life down to the finest
+          detail.
+        </p>
+      </div>
+
+      {/* 2-column grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="flex flex-col gap-[6px]">
+          <label htmlFor="name" className="text-base font-bold">
+            Your Name*
+          </label>
+          <input
+            id="name"
+            name="name"
+            type="text"
+            placeholder="Anna"
+            required
+            className="form-input"
+          />
+        </div>
+
+        <div className="flex flex-col gap-[6px]">
+          <label htmlFor="theme" className="text-base font-bold">
+            Event Theme*
+          </label>
+          <input
+            id="theme"
+            name="theme"
+            type="text"
+            placeholder="Birthday, Wedding, etc."
+            required
+            className="form-input"
+          />
+        </div>
+
+        <div className="flex flex-col gap-[6px]">
+          <label htmlFor="email" className="text-base font-bold">
+            Email*
+          </label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            placeholder="happy@gmail.com"
+            required
+            className="form-input"
+          />
+        </div>
+
+        <div className="flex flex-col gap-[6px]">
+          <label htmlFor="event-date" className="text-base font-bold">
+            Event Date*
+          </label>
+          <DatePicker
+            selected={eventDate}
+            onChange={(date) => setEventDate(date)}
+            placeholderText="dd.mm.yyyy"
+            required
+            className="form-input w-full"
+            dateFormat="dd.MM.yyyy"
+            id="event-date"
+          />
+        </div>
+
+        <div className="flex flex-col gap-[6px]">
+          <label htmlFor="phone" className="text-base font-bold">
+            Phone Number*
+          </label>
+          <input
+            id="phone"
+            name="phone"
+            type="tel"
+            placeholder="+345 230 23 10"
+            required
+            className="form-input"
+          />
+        </div>
+
+        <fieldset className="flex flex-col gap-[6px]">
+          <legend className="text-base font-bold">Select one:</legend>
+          <div className="flex flex-col gap-2 ml-1">
+            <label className="flex gap-2">
+              <input type="radio" name="details" required /> I’ll share a bit...
+            </label>
+            <label className="flex gap-2">
+              <input type="radio" name="details" /> I know exactly what I
+              want...
+            </label>
+          </div>
+        </fieldset>
+
+        <fieldset className="flex flex-col gap-[6px]">
+          <legend className="text-base font-bold">Delivery / Pick Up*</legend>
+          <div className="flex flex-col gap-2 ml-1">
+            <label className="flex gap-2">
+              <input type="radio" name="delivery" required /> Delivery
+            </label>
+            <label className="flex gap-2">
+              <input type="radio" name="delivery" /> Australia Post
+            </label>
+            <label className="flex gap-2">
+              <input type="radio" name="delivery" /> Pick-Up
+            </label>
+          </div>
+        </fieldset>
+
+        <div className="flex flex-col gap-[6px]">
+          <label htmlFor="address" className="text-base font-bold">
+            Delivery Address
+          </label>
+          <input
+            id="address"
+            name="address"
+            type="text"
+            className="form-input"
+          />
+        </div>
+
+        <div className="flex flex-col gap-[6px]">
+          <label htmlFor="quantity" className="text-base font-bold">
+            Quantity (Minimum 12)*
+          </label>
+          <input
+            id="quantity"
+            name="quantity"
+            type="number"
+            min={12}
+            required
+            className="form-input"
+          />
+        </div>
+
+        <fieldset className="flex flex-col gap-[6px] md:col-span-2">
+          <legend className="text-base font-bold">
+            What is your budget per cookie?
+          </legend>
+          <div className="flex flex-col gap-2 ml-1">
+            <label className="flex gap-2">
+              <input type="radio" name="budget" required /> $5 – $5.50
+            </label>
+            <label className="flex gap-2">
+              <input type="radio" name="budget" /> $6 – $7
+            </label>
+            <label className="flex gap-2">
+              <input type="radio" name="budget" /> $7 – $10
+            </label>
+          </div>
+        </fieldset>
+
+        <div className="flex flex-col gap-[6px] md:col-span-2">
+          <label htmlFor="notes" className="text-base font-bold">
+            Any additional notes:
+          </label>
+          <textarea
+            id="notes"
+            name="notes"
+            rows={2}
+            placeholder="Optional"
+            className="form-input"
+          />
+        </div>
+
+        <div className="md:col-span-2">
+          <label className="text-base font-bold mb-[6px] block">
+            Upload Inspiration Image (optional):
+          </label>
+          <ImageUpload />
+        </div>
+
+        <fieldset className="flex flex-col gap-2 md:col-span-2">
+          <legend className="text-base font-bold mb-[6px]">
+            Acknowledgements (please check both):
+          </legend>
+          <Checkbox
+            id="ack1"
+            name="ack1"
+            checked={accepted.terms}
+            onChange={(e) =>
+              setAccepted((prev) => ({ ...prev, terms: e.target.checked }))
+            }
+            label="I understand that submitting this form does not guarantee my order. My order will only be confirmed once all details are agreed upon and full payment is made."
+          />
+          <Checkbox
+            id="ack2"
+            name="ack2"
+            checked={accepted.pricing}
+            onChange={(e) =>
+              setAccepted((prev) => ({ ...prev, pricing: e.target.checked }))
+            }
+            label="I also acknowledge that final pricing may vary depending on cookie size, quantity, and design complexity."
+          />
+        </fieldset>
+      </div>
+
+      <div className="flex justify-between items-center mt-8">
+        <PlainButtonLink
+          href="/shop"
+          className="text-primary text-base underline hover:text-title"
+        >
+          ← Go Back
+        </PlainButtonLink>
+
+        <ButtonOrLink
+          type="submit"
+          className="bg-primary text-text px-8 py-4 rounded-full"
+          disabled={!accepted.terms || !accepted.pricing}
+        >
+          Submit →
+        </ButtonOrLink>
+      </div>
+    </form>
+  );
+};
+
+export default CustomCookieForm;
