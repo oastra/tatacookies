@@ -7,15 +7,36 @@ import Checkbox from "../common/Checkbox";
 import ImageUpload from "../common/ImageUpload";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import AddressAutocomplete from "./AddressAutocomplete";
 
 const CustomCookieForm = () => {
-  const [accepted, setAccepted] = useState({ terms: false, pricing: false });
   const [eventDate, setEventDate] = useState(null);
+  // State to manage selected address and its details
+  // This will hold the full address, suburb, postcode, state, and latLng
+  // for the address selected from the autocomplete component
+  // It will be passed to the parent component when an address is selected
+  const [selectedAddress, setSelectedAddress] = useState("");
+  const [addressDetails, setAddressDetails] = useState({
+    fullAddress: "",
+    suburb: "",
+    postcode: "",
+    state: "",
+    latLng: null,
+  });
+
+  const [accepted, setAccepted] = useState({ terms: false, pricing: false });
 
   return (
     <form
       onSubmit={(e) => {
         e.preventDefault();
+        if (!selectedAddress) {
+          alert("Please select a valid address");
+          return;
+        }
+
+        // Submit logic
+        console.log("Address submitted:", selectedAddress);
         if (accepted.terms && accepted.pricing) {
           console.log("Form submitted");
         }
@@ -114,11 +135,12 @@ const CustomCookieForm = () => {
           <legend className="text-base font-bold">Select one:</legend>
           <div className="flex flex-col gap-2 ml-1">
             <label className="flex gap-2">
-              <input type="radio" name="details" required /> I’ll share a bit...
+              <input type="radio" name="details" required /> I’ll share a bit
+              about my event and you can create something beautiful from there.
             </label>
             <label className="flex gap-2">
-              <input type="radio" name="details" /> I know exactly what I
-              want...
+              <input type="radio" name="details" /> I know exactly what I want
+              and have images or notes ready to share.
             </label>
           </div>
         </fieldset>
@@ -140,14 +162,9 @@ const CustomCookieForm = () => {
 
         <div className="flex flex-col gap-[6px]">
           <label htmlFor="address" className="text-base font-bold">
-            Delivery Address
+            Address*
           </label>
-          <input
-            id="address"
-            name="address"
-            type="text"
-            className="form-input"
-          />
+          <AddressAutocomplete onSelectAddress={setAddressDetails} />
         </div>
 
         <div className="flex flex-col gap-[6px]">
@@ -228,7 +245,7 @@ const CustomCookieForm = () => {
 
       <div className="flex justify-between items-center mt-8">
         <PlainButtonLink
-          href="/shop"
+          href="/"
           className="text-primary text-base underline hover:text-title"
         >
           ← Go Back

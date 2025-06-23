@@ -1,7 +1,5 @@
 const imagesByCategory = {
   "Holiday Cookies": [
-    "/images/cookies/baby-boy-set.webp",
-    "/images/cookies/baby-shower.webp",
     "/images/cookies/easter-set.webp",
     "/images/cookies/easter-yellow.webp",
     "/images/cookies/halloween-blue-pink.webp",
@@ -24,9 +22,11 @@ const imagesByCategory = {
     "/images/cookies/youtube-instagram-facebook-girl.webp",
     "/images/cookies/green-fish.webp",
     "/images/cookies/heart-proposing.webp",
-    "/images/cookies/hb-75.webp",
+    "/images/cookies/baby-boy-set.webp",
+    "/images/cookies/baby-shower.webp",
     "/images/cookies/penguin.webp",
     "/images/cookies/horse.webp",
+    "/images/cookies/hb-75.webp",
   ],
   "Kids' Favorites": [
     "/images/cookies/soccer-formula1-set.webp",
