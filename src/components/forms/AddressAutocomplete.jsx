@@ -1,75 +1,54 @@
 "use client";
 
-import React, { useState } from "react";
-import PlacesAutocomplete, {
-  geocodeByAddress,
-  getLatLng,
-} from "react-places-autocomplete";
+import { useEffect, useRef, useState } from "react";
 
 const AddressAutocomplete = ({ onSelectAddress }) => {
-  const [address, setAddress] = useState("");
+  const inputRef = useRef(null);
+  const [placeObj, setPlaceObj] = useState(null);
 
-  const handleSelect = async (value) => {
-    setAddress(value);
+  useEffect(() => {
+    const initAutocomplete = async () => {
+      const { Autocomplete } = await google.maps.importLibrary("places");
 
-    try {
-      const results = await geocodeByAddress(value);
-      const latLng = await getLatLng(results[0]);
-
-      const addressComponents = results[0].address_components;
-
-      const getComponent = (type) =>
-        addressComponents.find((comp) => comp.types.includes(type))?.long_name;
-
-      const suburb = getComponent("locality") || getComponent("sublocality");
-      const postcode = getComponent("postal_code");
-      const state = getComponent("administrative_area_level_1");
-
-      onSelectAddress({
-        fullAddress: value,
-        suburb,
-        postcode,
-        state,
-        latLng,
+      const autocomplete = new Autocomplete(inputRef.current, {
+        fields: ["addressComponents", "formattedAddress", "geometry"],
       });
-    } catch (error) {
-      console.error("Error fetching address details:", error);
+
+      autocomplete.addListener("place_changed", () => {
+        const place = autocomplete.getPlace();
+        setPlaceObj(place);
+
+        const getComponent = (type) =>
+          place.addressComponents?.find((c) => c.types.includes(type))
+            ?.longText || "";
+
+        const addressData = {
+          fullAddress: place.formattedAddress?.text || "",
+          suburb: getComponent("locality") || getComponent("sublocality") || "",
+          postcode: getComponent("postal_code"),
+          state: getComponent("administrative_area_level_1"),
+          latLng: {
+            lat: place.geometry?.location?.lat(),
+            lng: place.geometry?.location?.lng(),
+          },
+        };
+
+        onSelectAddress?.(addressData);
+      });
+    };
+
+    if (window.google?.maps?.importLibrary) {
+      initAutocomplete();
     }
-  };
+  }, [onSelectAddress]);
 
   return (
-    <PlacesAutocomplete
-      value={address}
-      onChange={setAddress}
-      onSelect={handleSelect}
-      searchOptions={{ componentRestrictions: { country: ["au"] } }}
-    >
-      {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-        <div className="relative">
-          <input
-            {...getInputProps({
-              placeholder: "Start typing address",
-              className: "w-full p-2 rounded border border-gray-300",
-            })}
-          />
-          <div className="absolute w-full bg-white border rounded shadow z-10">
-            {loading && (
-              <div className="p-2 text-sm text-gray-500">Loading...</div>
-            )}
-            {suggestions.map((suggestion) => (
-              <div
-                key={suggestion.placeId}
-                {...getSuggestionItemProps(suggestion, {
-                  className: "p-2 hover:bg-gray-100 cursor-pointer",
-                })}
-              >
-                {suggestion.description}
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-    </PlacesAutocomplete>
+    <input
+      ref={inputRef}
+      type="text"
+      placeholder="Start typing your address..."
+      className="form-input"
+    />
   );
 };
 

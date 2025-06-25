@@ -1,13 +1,30 @@
 "use client";
-
+import React from "react";
 import { useState } from "react";
+
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { format } from "date-fns";
+
+import CustomDatePicker from "../common/CustomDatePicker";
+
 import ButtonOrLink from "../ui/ButtonOrLink";
 import PlainButtonLink from "../ui/PlainButtonLink";
 import Checkbox from "../common/Checkbox";
+import ArrowRightIcon from "../icons/ArrowRightIcon";
 import ImageUpload from "../common/ImageUpload";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 import AddressAutocomplete from "./AddressAutocomplete";
+
+const CustomInput = React.forwardRef(({ value, onClick }, ref) => (
+  <button
+    type="button"
+    onClick={onClick}
+    ref={ref}
+    className="w-full text-left px-4 py-2 border border-gray-300 rounded-md text-title"
+  >
+    {value || "dd.mm.yyyy"}
+  </button>
+));
 
 const CustomCookieForm = () => {
   const [eventDate, setEventDate] = useState(null);
@@ -16,6 +33,8 @@ const CustomCookieForm = () => {
   // for the address selected from the autocomplete component
   // It will be passed to the parent component when an address is selected
   const [selectedAddress, setSelectedAddress] = useState("");
+  const [unit, setUnit] = useState("");
+
   const [addressDetails, setAddressDetails] = useState({
     fullAddress: "",
     suburb: "",
@@ -34,7 +53,11 @@ const CustomCookieForm = () => {
           alert("Please select a valid address");
           return;
         }
+        const fullDeliveryAddress = unit
+          ? `${unit}, ${addressDetails.fullAddress}`
+          : addressDetails.fullAddress;
 
+        console.log("Full delivery address:", fullDeliveryAddress);
         // Submit logic
         console.log("Address submitted:", selectedAddress);
         if (accepted.terms && accepted.pricing) {
@@ -106,14 +129,9 @@ const CustomCookieForm = () => {
           <label htmlFor="event-date" className="text-base font-bold">
             Event Date*
           </label>
-          <DatePicker
-            selected={eventDate}
+          <CustomDatePicker
+            selectedDate={eventDate}
             onChange={(date) => setEventDate(date)}
-            placeholderText="dd.mm.yyyy"
-            required
-            className="form-input w-full"
-            dateFormat="dd.MM.yyyy"
-            id="event-date"
           />
         </div>
 
@@ -149,9 +167,6 @@ const CustomCookieForm = () => {
           <legend className="text-base font-bold">Delivery / Pick Up*</legend>
           <div className="flex flex-col gap-2 ml-1">
             <label className="flex gap-2">
-              <input type="radio" name="delivery" required /> Delivery
-            </label>
-            <label className="flex gap-2">
               <input type="radio" name="delivery" /> Australia Post
             </label>
             <label className="flex gap-2">
@@ -159,12 +174,26 @@ const CustomCookieForm = () => {
             </label>
           </div>
         </fieldset>
-
         <div className="flex flex-col gap-[6px]">
           <label htmlFor="address" className="text-base font-bold">
             Address*
           </label>
-          <AddressAutocomplete onSelectAddress={setAddressDetails} />
+          <AddressAutocomplete
+            className="form-input"
+            onSelectAddress={setAddressDetails}
+          />
+          <label htmlFor="unit" className="text-base font-bold">
+            Unit / Apartment / Suite (optional)
+          </label>
+          <input
+            id="unit"
+            name="unit"
+            type="text"
+            placeholder="e.g. Unit 103"
+            className="form-input"
+            value={unit}
+            onChange={(e) => setUnit(e.target.value)}
+          />
         </div>
 
         <div className="flex flex-col gap-[6px]">
