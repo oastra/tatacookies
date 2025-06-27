@@ -39,12 +39,9 @@ const BestSellersSection = () => {
       {isMobile ? (
         <Swiper
           modules={[Navigation, Pagination]}
-          slidesPerView={1.2}
+          slidesPerView={1.1}
           spaceBetween={16}
           className="pb-8 mt-6"
-          breakpoints={{
-            640: { slidesPerView: 2 },
-          }}
         >
           {products.map((product) => (
             <SwiperSlide key={product.id} className="p-[2px]">

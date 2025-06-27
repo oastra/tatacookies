@@ -21,14 +21,14 @@ const CookieSwiper = ({ images, category }) => {
     >
       <Swiper
         modules={[Navigation, Pagination]}
-        slidesPerView={1.2}
+        slidesPerView={1.1}
         spaceBetween={16}
         pagination={{
           clickable: true,
           el: ".custom-swiper-pagination", // Target a separate div
         }}
         breakpoints={{
-          640: { slidesPerView: 1.5 },
+          640: { slidesPerView: 1.1 },
           768: { slidesPerView: 1.5 },
         }}
         className="pb-8"
