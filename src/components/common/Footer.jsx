@@ -1,5 +1,5 @@
 import Logo from "../navigation/Logo";
-import NavLinks from "../navigation/NavLinks";
+import NavLinksFooter from "../navigation/NavLinksFooter";
 import Link from "next/link";
 import Container from "./Container";
 import FooterSlogan from "../ui/FooterSlogan";
@@ -9,22 +9,34 @@ const Footer = () => {
     <footer>
       <div className="bg-bgFooter text-white pt-10 pb-6 overflow-visible">
         <Container>
-          <div className="grid grid-cols-4 lg:grid-cols-12 grid-rows-[auto_auto] lg:gap-y-[36px] lg:gap-x-4 items-start">
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-12 grid-rows-[auto_auto] lg:gap-y-[36px] lg:gap-x-4 items-start">
             {/* 1️⃣ Row 1 */}
             {/* Logo: starts at col 1, spans 2 columns and 2 rows */}
-            <div className="flex sm:col-span-0 lg:col-span-2  lg:row-span-1 flex-col lg:items-start gap-4">
+            <div className="flex lg:col-span-2  lg:row-span-1 flex-col lg:items-start gap-4">
               <Logo className=" w-[80px] h-[80px]" />
             </div>
 
             {/* NavLinks: col 3–9 (col-span-7) */}
-            <div className="col-start-2 flex flex-col items-end justify-end lg:col-span-7  lg:flex-row ">
-              <NavLinks />
+            <div className="row-span-2 md:col-span-2 flex md:justify-center items-center justify-end lg:col-start-3  lg:col-span-7  lg:flex-row ">
+              <NavLinksFooter />
             </div>
 
             {/* Instagram icon + phone: col 10–12 (col-span-3) */}
-            <div className="flex flex-col-reverse md:col-span-0 lg:flex-col  lg:col-span-3 flex-col items-end gap-4 text-right">
-              <InstagramIcon />
-              <p className="text-white">Phone: +61 412 345 678</p>
+            <div className="flex flex-col-reverse justify-start items-start row-start-2 md:row-start-1  md:col-start-4 md:col-span-0 lg:col-start-10 lg:flex-col  lg:col-span-3 md:items-end gap-4 text-right">
+              <Link
+                href="https://www.instagram.com/tatacookies.au/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-primary transition"
+              >
+                <InstagramIcon />
+              </Link>
+              <Link
+                href="tel:+61412345678"
+                className="text-white hover:text-primary transition"
+              >
+                Phone: +61 412 345 678
+              </Link>
             </div>
 
             {/* 2️⃣ Row 2 */}

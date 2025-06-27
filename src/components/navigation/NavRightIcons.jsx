@@ -6,7 +6,9 @@ import PhoneIcon from "../icons/PhoneIcon";
 const iconLinks = [
   {
     id: "instagram",
-    icon: <InstagramIcon className="text-title" />,
+    icon: (
+      <InstagramIcon className="text-title hover:text-primary transition" />
+    ),
     href: "https://www.instagram.com/tatacookies.au/",
     external: true,
   },
@@ -14,7 +16,7 @@ const iconLinks = [
     id: "phone",
     icon: (
       <span className="flex items-center gap-1">
-        <PhoneIcon className="text-title" />
+        <PhoneIcon className="text-title " />
         +61 412 345 678
       </span>
     ),
@@ -32,7 +34,9 @@ const NavRightIcons = ({ excludeId, onlyId, isMobile = false }) => {
   const allIcons = [
     {
       id: "instagram",
-      icon: <InstagramIcon className="text-title" />,
+      icon: (
+        <InstagramIcon className="text-title hover:text-primary transition" />
+      ),
       href: "https://www.instagram.com/tatacookies.au/",
       external: true,
     },
@@ -48,7 +52,9 @@ const NavRightIcons = ({ excludeId, onlyId, isMobile = false }) => {
     },
     {
       id: "basket",
-      icon: <BasketFillIcon className="text-title" />,
+      icon: (
+        <BasketFillIcon className="text-title hover:text-primary transition" />
+      ),
       href: "#cart",
       external: true,
     },

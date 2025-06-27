@@ -16,12 +16,12 @@
     "lodash.debounce": "^4.0.8",
     "next": "15.3.2",
     "react": "^19.0.0",
-    "react-datepicker": "^8.4.0",
     "react-dom": "^19.0.0",
     "react-google-autocomplete": "^2.7.5",
     "react-places-autocomplete": "^7.3.0",
     "styled-components": "^6.1.18",
-    "swiper": "^11.2.8"
+    "swiper": "^11.2.8",
+    "tailwind-datepicker-react": "^1.4.3"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

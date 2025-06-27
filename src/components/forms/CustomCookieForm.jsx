@@ -1,40 +1,22 @@
 "use client";
-import React from "react";
-import { useState } from "react";
 
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import { format } from "date-fns";
+import React, { useState } from "react";
+import dynamic from "next/dynamic";
 
-import CustomDatePicker from "../common/CustomDatePicker";
+const CustomDatePicker = dynamic(() => import("../common/CustomDatePicker"), {
+  ssr: false,
+});
 
 import ButtonOrLink from "../ui/ButtonOrLink";
 import PlainButtonLink from "../ui/PlainButtonLink";
 import Checkbox from "../common/Checkbox";
-import ArrowRightIcon from "../icons/ArrowRightIcon";
 import ImageUpload from "../common/ImageUpload";
 import AddressAutocomplete from "./AddressAutocomplete";
 
-const CustomInput = React.forwardRef(({ value, onClick }, ref) => (
-  <button
-    type="button"
-    onClick={onClick}
-    ref={ref}
-    className="w-full text-left px-4 py-2 border border-gray-300 rounded-md text-title"
-  >
-    {value || "dd.mm.yyyy"}
-  </button>
-));
-
 const CustomCookieForm = () => {
-  const [eventDate, setEventDate] = useState(null);
-  // State to manage selected address and its details
-  // This will hold the full address, suburb, postcode, state, and latLng
-  // for the address selected from the autocomplete component
-  // It will be passed to the parent component when an address is selected
+  const [selectedDate, setSelectedDate] = useState(null);
   const [selectedAddress, setSelectedAddress] = useState("");
   const [unit, setUnit] = useState("");
-
   const [addressDetails, setAddressDetails] = useState({
     fullAddress: "",
     suburb: "",
@@ -42,31 +24,37 @@ const CustomCookieForm = () => {
     state: "",
     latLng: null,
   });
-
   const [accepted, setAccepted] = useState({ terms: false, pricing: false });
 
   return (
     <form
       onSubmit={(e) => {
         e.preventDefault();
+
+        if (!selectedDate) {
+          alert("Please select a date");
+          return;
+        }
+
         if (!selectedAddress) {
           alert("Please select a valid address");
           return;
         }
+
         const fullDeliveryAddress = unit
           ? `${unit}, ${addressDetails.fullAddress}`
           : addressDetails.fullAddress;
 
+        console.log("Selected Date:", selectedDate);
         console.log("Full delivery address:", fullDeliveryAddress);
-        // Submit logic
-        console.log("Address submitted:", selectedAddress);
+
         if (accepted.terms && accepted.pricing) {
           console.log("Form submitted");
+          // TODO: send form data to backend
         }
       }}
-      className="w-full bg-bgBlue  mx-auto flex flex-col gap-[40px]"
+      className="w-full bg-bgBlue mx-auto flex flex-col gap-[40px]"
     >
-      {/* Heading */}
       <div className="text-center">
         <h1 className="text-title text-h3 mb-2">Custom Cookie Order Form</h1>
         <p className="text-button font-normal max-w-2xl mx-auto mb-2">
@@ -81,7 +69,6 @@ const CustomCookieForm = () => {
         </p>
       </div>
 
-      {/* 2-column grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="flex flex-col gap-[6px]">
           <label htmlFor="name" className="text-base font-bold">
@@ -130,8 +117,8 @@ const CustomCookieForm = () => {
             Event Date*
           </label>
           <CustomDatePicker
-            selectedDate={eventDate}
-            onChange={(date) => setEventDate(date)}
+            selectedDate={selectedDate}
+            onChange={setSelectedDate}
           />
         </div>
 
@@ -174,13 +161,17 @@ const CustomCookieForm = () => {
             </label>
           </div>
         </fieldset>
+
         <div className="flex flex-col gap-[6px]">
           <label htmlFor="address" className="text-base font-bold">
             Address*
           </label>
           <AddressAutocomplete
             className="form-input"
-            onSelectAddress={setAddressDetails}
+            onSelectAddress={(address) => {
+              setAddressDetails(address);
+              setSelectedAddress(address.fullAddress);
+            }}
           />
           <label htmlFor="unit" className="text-base font-bold">
             Unit / Apartment / Suite (optional)

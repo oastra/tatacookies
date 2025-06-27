@@ -1,75 +1,66 @@
 "use client";
-import React, { useState, useRef } from "react";
-import DatePicker from "react-datepicker";
-import { format, addDays } from "date-fns";
-import "react-datepicker/dist/react-datepicker.css";
 
+import React, { useState } from "react";
+import Datepicker from "tailwind-datepicker-react";
 import CalendarIcon from "../icons/CalendarIcon";
-import NextMonthIcon from "../icons/NextMonthIcon";
+
+const options = {
+  autoHide: true,
+  clearBtn: false,
+  todayBtn: false,
+  maxDate: new Date("2030-12-31"),
+  minDate: new Date(),
+  inputDateFormatProp: {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  },
+  inputPlaceholderProp: "dd.mm.yyyy",
+  datepickerClassNames: "top-[400px] right-[390px] ",
+  weekDays: ["S", "M", "T", "W", "T", "F", "S"],
+  theme: {
+    background: "bg-white",
+    input: "form-input pr-10 w-full",
+    selected: "bg-title text-white font-semibold",
+    hoverDate: "hover:!bg-primary hover:!text-white",
+    disabledText: "text-gray-400 opacity-50 cursor-not-allowed",
+  },
+};
 
 const CustomDatePicker = ({ selectedDate, onChange }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const datePickerRef = useRef();
+  const [show, setShow] = useState(false);
 
-  const handleInputClick = () => setIsOpen((prev) => !prev);
+  const handleChange = (date) => {
+    onChange(date);
+  };
 
-  const CustomInput = React.forwardRef(({ value, onClick }, ref) => (
-    <button
-      type="button"
-      onClick={() => {
-        onClick(); // still needed for react-datepicker internal focus handling
-        handleInputClick();
-      }}
-      ref={ref}
-      className="w-full flex justify-between items-center px-4 py-2 border border-gray-300 rounded-md text-title bg-white"
-    >
-      <span>{value || "dd.mm.yyyy"}</span>
-      <CalendarIcon className="ml-2" />
-    </button>
-  ));
-  CustomInput.displayName = "CustomInput";
+  const handleClose = (state) => setShow(state);
 
   return (
-    <DatePicker
-      ref={datePickerRef}
-      selected={selectedDate}
-      onChange={(date) => {
-        onChange(date);
-        setIsOpen(false); // close calendar after selecting
-      }}
-      onClickOutside={() => setIsOpen(false)} // close when clicking outside
-      open={isOpen}
-      customInput={<CustomInput />}
-      placeholderText="dd.mm.yyyy"
-      dateFormat="dd.MM.yyyy"
-      minDate={addDays(new Date(), 1)}
-      calendarClassName="custom-calendar"
-      dayClassName={() => "custom-day"}
-      id="event-date"
-      renderCustomHeader={({ date, increaseMonth, decreaseMonth }) => (
-        <div className="flex justify-between items-center px-3 py-3">
-          <button
-            type="button"
-            onClick={decreaseMonth}
-            aria-label="Previous Month"
-            className="mr-auto"
-          >
-            <NextMonthIcon className="-scale-x-100" />
-          </button>
-          <span className="text-title mx-auto text-button">
-            {format(date, "MMMM yyyy")}
-          </span>
-          <button
-            type="button"
-            onClick={increaseMonth}
-            aria-label="Next Month"
-            className="ml-auto"
-          >
-            <NextMonthIcon />
-          </button>
-        </div>
-      )}
-    />
+    <Datepicker
+      options={options}
+      show={show}
+      setShow={handleClose}
+      onChange={handleChange}
+      value={selectedDate}
+    >
+      <button
+        type="button"
+        onClick={() => setShow(!show)}
+        className="w-full flex justify-between items-center px-4 py-2 border border-text30 rounded-md  text-title bg-white font-body text-button cursor-pointer"
+      >
+        <span>
+          {selectedDate
+            ? `${selectedDate.getDate().toString().padStart(2, "0")}.${(
+                selectedDate.getMonth() + 1
+              )
+                .toString()
+                .padStart(2, "0")}.${selectedDate.getFullYear()}`
+            : "dd.mm.yyyy"}
+        </span>
+        <CalendarIcon className="ml-2 w-5 h-5 text-title" />
+      </button>
+    </Datepicker>
   );
 };
 

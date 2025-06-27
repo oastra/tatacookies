@@ -149,34 +149,6 @@ textarea.form-input {
   resize: vertical;
   min-height: 96px;
 }
-
-:global(.react-datepicker) {
-  @apply border border-gray-200 rounded-xl shadow-lg bg-white p-2;
-  font-family: inherit;
-}
-
-:global(.react-datepicker__header) {
-  @apply bg-white border-none;
-}
-
-:global(.react-datepicker__current-month) {
-  @apply text-title font-semibold text-button;
-}
-
-:global(.react-datepicker__day-name),
-:global(.react-datepicker__day) {
-  @apply w-10 h-10 flex items-center justify-center rounded-md text-small text-title;
-}
-
-:global(.react-datepicker__day:hover) {
-  @apply bg-gray-100;
-}
-
-:global(.react-datepicker__day--selected),
-:global(.react-datepicker__day--keyboard-selected) {
-  @apply bg-[#00A5A5] text-white rounded-md;
-}
-
-:global(.react-datepicker__day--today) {
-  @apply font-bold text-title;
+button.text-sm.rounded-lg.bg-white {
+  @apply text-title !important;
 }
