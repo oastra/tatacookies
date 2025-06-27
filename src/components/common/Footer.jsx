@@ -41,7 +41,7 @@ const Footer = () => {
 
             {/* 2️⃣ Row 2 */}
             {/* Footer slogan: starts at col 2, spans 5 columns */}
-            <div className="col-start-1 col-span-2 md:col-span-4√ lg:col-start-2 lg:col-span-6 mx-auto translate-y-[-30px]">
+            <div className="col-start-1 col-span-2 md:col-span-4 lg:col-start-2 lg:col-span-6 mx-auto translate-y-[-30px]">
               <FooterSlogan />
             </div>
 
