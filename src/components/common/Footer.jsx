@@ -4,6 +4,7 @@ import Link from "next/link";
 import Container from "./Container";
 import FooterSlogan from "../ui/FooterSlogan";
 import InstagramIcon from "../icons/InstagramIcon";
+import ArrowUpIcon from "../icons/ArrowUpIcon";
 const Footer = () => {
   return (
     <footer>
@@ -35,7 +36,7 @@ const Footer = () => {
                 href="tel:+61412345678"
                 className="text-white hover:text-primary transition"
               >
-                Phone: +61 412 345 678
+                Phone: 0412 345 678
               </Link>
             </div>
 
@@ -61,14 +62,22 @@ const Footer = () => {
       <div className="bg-bgFooter2">
         <Container>
           <div className="py-4 flex flex-col sm:flex-row justify-between items-center text-base text-white gap-2">
-            <span>Created by Olha Chernysh, 2025</span>
-            <span>All rights reserved.</span>
+            <Link
+              href="https://olhachernysh.dev"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-base hover:text-primary"
+            >
+              Created by Olha Chernysh
+            </Link>
+
             <Link
               href="/privacy-policy"
-              className="text-base hover:text-primary"
+              className=" text-base hover:text-primary"
             >
               Privacy Policy
             </Link>
+            <span>All rights reserved, {new Date().getFullYear()}</span>
           </div>
         </Container>
       </div>

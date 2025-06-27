@@ -21,7 +21,7 @@ const CookieSwiper = ({ images, category }) => {
     >
       <Swiper
         modules={[Navigation, Pagination]}
-        slidesPerView={1.1}
+        slidesPerView={1.2}
         spaceBetween={16}
         pagination={{
           clickable: true,

@@ -11,8 +11,9 @@ import ButtonOrLink from "../ui/ButtonOrLink";
 import VectorIcon from "../icons/VectorIcon";
 
 const NavBar = () => {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const toggleMenu = () => setMenuOpen(!menuOpen);
+  const [menuOpen, setMenuOpen] = useState(false); // ✅ You missed this line
+  const toggleMenu = () => setMenuOpen((prev) => !prev);
+  const closeMenu = () => setMenuOpen(false);
 
   return (
     <>
@@ -24,6 +25,7 @@ const NavBar = () => {
         <NavLinks />
         <RightIcons />
       </nav>
+
       {/* Mobile Icons */}
       <div className="lg:hidden flex-1 flex justify-end items-center gap-4">
         <a href="#cart" target="_blank" rel="noopener noreferrer">
@@ -60,12 +62,13 @@ const NavBar = () => {
 
           {/* 🔸 Menu content */}
           <div className="flex flex-col items-center gap-6">
-            <NavLinks isMobile />
+            <NavLinks isMobile onLinkClick={closeMenu} />
             <RightIcons onlyId="phone" />
             <RightIcons onlyId="instagram" />
             <ButtonOrLink
               isLink
               href="#contact"
+              onClick={closeMenu}
               className="bg-primary text-text hover:bg-primary w-full max-w-[320px] justify-center"
             >
               Contact Us <VectorIcon className="ml-2" />

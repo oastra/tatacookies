@@ -39,7 +39,7 @@ const BestSellersSection = () => {
       {isMobile ? (
         <Swiper
           modules={[Navigation, Pagination]}
-          slidesPerView={1.1}
+          slidesPerView={1.2}
           spaceBetween={16}
           className="pb-8 mt-6"
         >
