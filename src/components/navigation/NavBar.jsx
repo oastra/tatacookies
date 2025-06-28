@@ -11,7 +11,7 @@ import ButtonOrLink from "../ui/ButtonOrLink";
 import VectorIcon from "../icons/VectorIcon";
 
 const NavBar = () => {
-  const [menuOpen, setMenuOpen] = useState(false); // ✅ You missed this line
+  const [menuOpen, setMenuOpen] = useState(false); 
   const toggleMenu = () => setMenuOpen((prev) => !prev);
   const closeMenu = () => setMenuOpen(false);
 

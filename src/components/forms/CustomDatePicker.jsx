@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Datepicker from "tailwind-datepicker-react";
 import CalendarIcon from "../icons/CalendarIcon";
+import CloseIcon from "../icons/CloseIcon";
 
 const options = {
   autoHide: true,
@@ -16,13 +17,12 @@ const options = {
     year: "numeric",
   },
   inputPlaceholderProp: "dd.mm.yyyy",
-  datepickerClassNames: "top-[400px] right-[390px] ",
+  datepickerClassNames: "top-[40px] right-[80px]",
   weekDays: ["S", "M", "T", "W", "T", "F", "S"],
   theme: {
     background: "bg-white",
-    input: "form-input pr-10 w-full",
+    input: " pr-10 w-full",
     selected: "bg-title text-white font-semibold",
-    hoverDate: "hover:!bg-primary hover:!text-white",
     disabledText: "text-gray-400 opacity-50 cursor-not-allowed",
   },
 };
@@ -47,7 +47,7 @@ const CustomDatePicker = ({ selectedDate, onChange }) => {
       <button
         type="button"
         onClick={() => setShow(!show)}
-        className="w-full flex justify-between items-center px-4 py-2 border border-text30 rounded-md  text-title bg-white font-body text-button cursor-pointer"
+        className="w-full flex justify-between items-center  relative form-input"
       >
         <span>
           {selectedDate
@@ -58,7 +58,11 @@ const CustomDatePicker = ({ selectedDate, onChange }) => {
                 .padStart(2, "0")}.${selectedDate.getFullYear()}`
             : "dd.mm.yyyy"}
         </span>
-        <CalendarIcon className="ml-2 w-5 h-5 text-title" />
+        {show ? (
+          <CloseIcon className="ml-2 w-4 h-4 text-text" />
+        ) : (
+          <CalendarIcon className="ml-2 w-4 h-4 text-text" />
+        )}
       </button>
     </Datepicker>
   );

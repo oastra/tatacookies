@@ -17,67 +17,51 @@ const Label = styled.label`
   cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
 `;
 
-const draw = keyframes`
+const pulse = keyframes`
   0% {
+    transform: scale(0.6);
     opacity: 0;
-    transform: scale(0.6) rotate(0deg);
   }
   70% {
+    transform: scale(1.2);
     opacity: 1;
-    transform: scale(1.1) rotate(45deg);
   }
   100% {
-    transform: scale(1) rotate(45deg);
-  }
-`;
-
-// Checkmark animation (your original)
-const rotate = keyframes`
-  from {
-    opacity: 0;
-    transform: rotate(0deg) scale(0.8);
-  }
-  to {
-    opacity: 1;
-    transform: rotate(45deg) scale(1);
+    transform: scale(1);
   }
 `;
 
 const Indicator = styled.div`
-  width: 16px;
-  height: 16px;
-  border-radius: 4px; /* Use 8px for perfect circle */
+  width: 12px;
+  height: 12px;
+  border-radius: 9999px; /* Circle */
   border: 2px solid #1985a1;
   display: flex;
   align-items: center;
-  flex-shrink: 0;
   justify-content: center;
+  flex-shrink: 0;
   transition: background-color 0.2s ease, border-color 0.2s ease;
 
   ${Input}:checked + & {
-    background-color: #1985a1;
-    border-color: #1985a1;
+    border-color: #8fe3d9;
   }
 
   &::after {
     content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 9999px;
+    background-color: #1985a1;
     display: none;
-    left: 0.05em;
-    width: 45%;
-    height: 80%;
-    border: solid #eff7f6;
-    border-width: 0 2px 2px 0;
-    transform: rotate(45deg);
-    position: relative;
   }
 
   ${Input}:checked + &::after {
     display: block;
-    animation: ${rotate} 0.3s ease-out forwards;
+    animation: ${pulse} 0.3s ease-out forwards;
   }
 `;
 
-export default function Checkbox({
+export default function RadioButton({
   value,
   checked,
   onChange,
@@ -90,7 +74,7 @@ export default function Checkbox({
     <Label htmlFor={id} disabled={disabled}>
       <Input
         id={id}
-        type="checkbox"
+        type="radio"
         name={name}
         value={value}
         disabled={disabled}

@@ -12,7 +12,7 @@ const ImageUpload = () => {
   };
 
   return (
-    <div className="border-2 border-dashed border-gray-300 rounded-[16px] px-4 py-6 text-center bg-white shadow-cookie">
+    <div className="border-2 border-dashed border-gray-200 rounded-[8px] px-4 py-4 text-center bg-white ">
       {fileName ? (
         <p className="text-text mb-2">{fileName}</p>
       ) : (
