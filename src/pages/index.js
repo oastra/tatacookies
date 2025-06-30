@@ -6,7 +6,7 @@ import BestSellersSection from "@/components/sections/BestSellersSection";
 import AboutSection from "@/components/sections/AboutSection";
 import CustomCookieSection from "@/components/sections/CustomCookieSection";
 import FaqSection from "@/components/sections/FaqSection";
-import ReviewsSection from "@/components/sections/ReviewsSection";
+import TestimonialsSection from "@/components/sections/TestimonialsSection";
 import InstagramSection from "@/temp/InstagramSection";
 import BlogSection from "@/components/sections/BolgSection";
 import ContactSection from "@/components/sections/ContactSection";
@@ -23,7 +23,7 @@ export default function Home() {
         <AboutSection />
         <FaqSection />
         <CustomCookieSection />
-        <ReviewsSection />
+        <TestimonialsSection />
 
         <BlogSection />
         <ContactSection />

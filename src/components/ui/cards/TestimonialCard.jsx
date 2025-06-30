@@ -1,7 +1,7 @@
 import Image from "next/image";
 import FlexContainer from "@/components/common/FlexContainer";
 
-const ReviewCard = ({ review }) => (
+const TestimonialCard = ({ review }) => (
   <div className="min-h-[600px] lg:max-h-[360px] lg:min-h-[360px] w-full bg-bgBlue rounded-[20px] overflow-hidden">
     <FlexContainer className=" text-center lg:text-left  flex-col lg:flex-row ">
       <div className="w-full lg:max-w-[608px] relative ">
@@ -33,4 +33,4 @@ const ReviewCard = ({ review }) => (
   </div>
 );
 
-export default ReviewCard;
+export default TestimonialCard;

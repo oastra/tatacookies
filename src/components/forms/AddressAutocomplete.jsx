@@ -1,43 +1,48 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 const AddressAutocomplete = ({ onSelectAddress }) => {
   const inputRef = useRef(null);
-  const [placeObj, setPlaceObj] = useState(null);
 
   useEffect(() => {
     const initAutocomplete = async () => {
-      const { Autocomplete } = await google.maps.importLibrary("places");
+      const { Autocomplete } = await window.google.maps.importLibrary("places");
 
       const autocomplete = new Autocomplete(inputRef.current, {
-        fields: ["addressComponents", "formattedAddress", "geometry"],
+        fields: ["address_components", "formatted_address", "geometry"],
       });
 
       autocomplete.addListener("place_changed", () => {
         const place = autocomplete.getPlace();
-        setPlaceObj(place);
+        console.log("🔥 Raw Google Place Object:", place);
 
         const getComponent = (type) =>
-          place.addressComponents?.find((c) => c.types.includes(type))
-            ?.longText || "";
+          place.address_components?.find((c) => c.types.includes(type))
+            ?.long_name || "";
 
         const addressData = {
-          fullAddress: place.formattedAddress?.text || "",
+          fullAddress: place.formatted_address || "",
           suburb: getComponent("locality") || getComponent("sublocality") || "",
-          postcode: getComponent("postal_code"),
-          state: getComponent("administrative_area_level_1"),
-          latLng: {
-            lat: place.geometry?.location?.lat(),
-            lng: place.geometry?.location?.lng(),
-          },
+          postcode: getComponent("postal_code") || "",
+          state: getComponent("administrative_area_level_1") || "",
+          latLng: place.geometry?.location
+            ? {
+                lat: place.geometry.location.lat(),
+                lng: place.geometry.location.lng(),
+              }
+            : null,
         };
 
-        onSelectAddress?.(addressData);
+        console.log("✅ Parsed Address Data:", addressData);
+
+        if (addressData.fullAddress) {
+          onSelectAddress(addressData);
+        }
       });
     };
 
-    if (window.google?.maps?.importLibrary) {
+    if (window.google?.maps?.importLibrary && inputRef.current) {
       initAutocomplete();
     }
   }, [onSelectAddress]);
@@ -46,6 +51,7 @@ const AddressAutocomplete = ({ onSelectAddress }) => {
     <input
       ref={inputRef}
       type="text"
+      autoComplete="off"
       placeholder="Start typing your address..."
       className="form-input"
     />

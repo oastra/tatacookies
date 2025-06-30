@@ -17,7 +17,7 @@ const options = {
     year: "numeric",
   },
   inputPlaceholderProp: "dd.mm.yyyy",
-  datepickerClassNames: "top-[40px] right-[80px]",
+  datepickerClassNames: "top-[60px]",
   weekDays: ["S", "M", "T", "W", "T", "F", "S"],
   theme: {
     background: "bg-white",

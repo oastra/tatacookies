@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import dynamic from "next/dynamic";
+import { useRef } from "react";
 
 const CustomDatePicker = dynamic(() => import("./CustomDatePicker"), {
   ssr: false,
@@ -30,9 +31,11 @@ const CustomCookieForm = () => {
   const [deliveryOption, setDeliveryOption] = useState("");
   const [budgetOption, setBudgetOption] = useState("");
 
+  const imageRef = useRef();
+
   return (
     <form
-      onSubmit={(e) => {
+      onSubmit={async (e) => {
         e.preventDefault();
 
         if (!selectedDate) {
@@ -45,16 +48,44 @@ const CustomCookieForm = () => {
           return;
         }
 
+        if (!accepted.terms || !accepted.pricing) {
+          alert("Please accept the acknowledgements");
+          return;
+        }
+
         const fullDeliveryAddress = unit
           ? `${unit}, ${addressDetails.fullAddress}`
           : addressDetails.fullAddress;
 
-        console.log("Selected Date:", selectedDate);
-        console.log("Full delivery address:", fullDeliveryAddress);
+        const formData = new FormData();
 
-        if (accepted.terms && accepted.pricing) {
-          console.log("Form submitted");
-          // TODO: send form data to backend
+        formData.append("name", e.target.name.value);
+        formData.append("email", e.target.email.value);
+        formData.append("phone", e.target.phone.value);
+        formData.append("theme", e.target.theme.value);
+        formData.append("eventDate", selectedDate);
+        formData.append("deliveryOption", deliveryOption);
+        formData.append("quantity", e.target.quantity.value);
+        formData.append("budgetOption", budgetOption);
+        formData.append("address", fullDeliveryAddress);
+        formData.append("notes", e.target.notes.value);
+        formData.append("detailsOption", detailsOption);
+
+        // Add file from ref
+        if (imageRef.current?.files?.[0]) {
+          formData.append("image", imageRef.current.files[0]);
+        }
+
+        // Send with correct headers (do NOT set Content-Type manually!)
+        const res = await fetch("/api/send-order", {
+          method: "POST",
+          body: formData, // NOT JSON.stringify()
+        });
+
+        if (res.ok) {
+          alert("Thank you! Your order has been sent.");
+        } else {
+          alert("Something went wrong. Please try again later.");
         }
       }}
       className="w-full bg-bgBlue mx-auto flex flex-col gap-[40px]"
@@ -272,7 +303,7 @@ const CustomCookieForm = () => {
           <label className="text-base font-bold mb-[6px] block">
             Upload Inspiration Image (optional):
           </label>
-          <ImageUpload />
+          <ImageUpload ref={imageRef} />
         </div>
 
         <fieldset className="flex flex-col gap-2 md:col-span-2 ">

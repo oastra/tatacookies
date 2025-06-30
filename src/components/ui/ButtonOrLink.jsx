@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
@@ -38,7 +36,6 @@ const ButtonOrLink = ({
       className={commonStyles}
       style={{ width: `${buttonWidth}px`, height: "64px" }}
       onClick={onClick}
-      type={type}
     >
       {!isTouch &&
         flowers.map(({ id, toX, toY, fromX, fromY }) => (
@@ -71,21 +68,32 @@ const ButtonOrLink = ({
     setIsTouch("ontouchstart" in window || navigator.maxTouchPoints > 0);
   }, []);
 
-  return (
-    <div
-      className="inline-block relative"
-      onMouseEnter={() => !isTouch && setHovered(true)}
-      onMouseLeave={() => !isTouch && setHovered(false)}
-      onClick={() => isTouch && setHovered((prev) => !prev)} // Optional: animate once on tap
-    >
-      {isLink ? (
+  if (isLink) {
+    return (
+      <div
+        className="inline-block relative"
+        onMouseEnter={() => !isTouch && setHovered(true)}
+        onMouseLeave={() => !isTouch && setHovered(false)}
+        onClick={() => isTouch && setHovered((prev) => !prev)}
+      >
         <Link href={href} passHref>
           {Inner}
         </Link>
-      ) : (
-        Inner
-      )}
-    </div>
+      </div>
+    );
+  }
+
+  // ✅ Form submit version (real button)
+  return (
+    <button
+      type={type}
+      onClick={onClick}
+      className="inline-block relative"
+      onMouseEnter={() => !isTouch && setHovered(true)}
+      onMouseLeave={() => !isTouch && setHovered(false)}
+    >
+      {Inner}
+    </button>
   );
 };
 

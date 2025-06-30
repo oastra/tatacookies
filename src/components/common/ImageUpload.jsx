@@ -1,8 +1,8 @@
+// components/common/ImageUpload.jsx
 "use client";
+import { useState, forwardRef } from "react";
 
-import { useState } from "react";
-
-const ImageUpload = () => {
+const ImageUpload = forwardRef((props, ref) => {
   const [fileName, setFileName] = useState("");
 
   const handleFileChange = (e) => {
@@ -12,7 +12,7 @@ const ImageUpload = () => {
   };
 
   return (
-    <div className="border-2 border-dashed border-gray-200 rounded-[8px] px-4 py-4 text-center bg-white ">
+    <div className="border-2 border-dashed border-gray-200 rounded-[8px] px-4 py-4 text-center bg-white">
       {fileName ? (
         <p className="text-text mb-2">{fileName}</p>
       ) : (
@@ -25,10 +25,14 @@ const ImageUpload = () => {
           accept="image/*"
           onChange={handleFileChange}
           hidden
+          name="image"
+          ref={ref} // ✅ Forwarded ref goes here
         />
       </label>
     </div>
   );
-};
+});
+
+ImageUpload.displayName = "ImageUpload"; // ✅ Required for forwardRef
 
 export default ImageUpload;

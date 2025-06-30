@@ -10,12 +10,12 @@ import "swiper/css/effect-fade";
 
 import SectionWrapper from "@/components/common/SectionWrapper";
 import SectionTitle from "@/components/common/SectionTitle";
-import reviews from "@/data/reviewsData";
-import ReviewCard from "../ui/cards/ReviewCard";
+import reviews from "@/data/testimonialsData";
+import ReviewCard from "../ui/cards/TestimonialCard";
 import NextButton from "../icons/NextButton";
 import PrevButton from "../icons/PrevButton";
 
-const ReviewsSection = () => {
+const TestimonialsSection = () => {
   const [swiperInstance, setSwiperInstance] = useState(null);
   const [isBeginning, setIsBeginning] = useState(true);
   const [isEnd, setIsEnd] = useState(false);
@@ -83,4 +83,4 @@ const ReviewsSection = () => {
   );
 };
 
-export default ReviewsSection;
+export default TestimonialsSection;
