@@ -4,7 +4,7 @@ const testimonialsData = [
     location: "Sydney",
     title: "Stunning and Delicious",
     text: `The best gingerbread maker. The design is simply stunning. Beautiful and very tasty!\n\nWhen I treated my friends to these gingerbread cookies, they said they wanted to keep them for themselves because they are too beautiful to eat.`,
-    image: "/images/review-anastasiia-shagan.webp",
+    image: "/images/testimonials/review-anastasiia-shagan.webp",
   },
   {
     name: "Serena Becchi",
