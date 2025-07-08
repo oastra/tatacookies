@@ -28,7 +28,7 @@ export default function Home() {
         <BlogSection />
         <ContactSection />
 
-        {/* TODO: Add ThingsWeBake, BestSellers, InstagramFeed, Reviews, FAQ, ContactSection */}
+        {/* TODO:  InstagramFeed */}
       </main>
       <Footer />
     </>

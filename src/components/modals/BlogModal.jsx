@@ -69,7 +69,7 @@ const BlogModal = ({ blogPosts, currentIndex, onClose }) => {
           <button
             onClick={goPrev}
             disabled={index === 0}
-            className={`text-primary font-medium ${
+            className={`text-title font-button ${
               index === 0 ? "opacity-50 cursor-not-allowed" : "hover:underline"
             }`}
           >
@@ -78,7 +78,7 @@ const BlogModal = ({ blogPosts, currentIndex, onClose }) => {
           <button
             onClick={goNext}
             disabled={index === blogPosts.length - 1}
-            className={`text-primary font-medium ${
+            className={`text-title font-button ${
               index === blogPosts.length - 1
                 ? "opacity-50 cursor-not-allowed"
                 : "hover:underline"

@@ -42,12 +42,20 @@
 body {
   color-scheme: light;
 }
+:root {
+  --fallback-font: sans-serif;
+  --fallback-line-height: 1.2;
+}
+
+body {
+  font-family: "Satoshi", var(--fallback-font);
+  line-height: var(--fallback-line-height);
+}
 
 /* RESET + BASE */
 html,
 body,
 section {
-  height: 100%;
   width: 100%;
   padding: 0;
   margin: 0;
@@ -63,6 +71,19 @@ section {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+html,
+body {
+  overflow-x: hidden;
+}
+
+section {
+  min-height: 100vh;
 }
 
 ul,

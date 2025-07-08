@@ -50,13 +50,43 @@ export default function Document() {
         />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
+        {/* Preload Fonts */}
+        <link
+          rel="preload"
+          href="/fonts/Satoshi/Satoshi-Regular.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href="/fonts/Satoshi/Satoshi-Medium.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href="/fonts/Quicksand/Quicksand-Regular.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href="/fonts/Quicksand/Quicksand-SemiBold.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+
         {/* Google Maps API */}
         <Script
           src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&libraries=places`}
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         />
       </Head>
-      <body className="antialiased">
+      <body className="antialiased" style={{ overflowX: "hidden" }}>
         <Main />
         <NextScript />
       </body>
