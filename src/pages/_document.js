@@ -4,10 +4,10 @@ import Script from "next/script";
 export default function Document() {
   return (
     <Html lang="en">
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
       <Head>
-        {/* SEO Meta Tags */}
+        {/* Meta Tags */}
         <meta charSet="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta
           name="description"
           content="Tatacookies – Custom cookies made in Sydney for special occasions and everyday cravings."
@@ -17,7 +17,9 @@ export default function Document() {
           content="Tatacookies, custom cookies, decorated cookies, Sydney cookies, gift cookies, cookie delivery Australia"
         />
         <meta name="author" content="Tatacookies" />
-        {/* Open Graph Meta Tags */}
+        <meta name="theme-color" content="#ffffff" />
+
+        {/* Open Graph */}
         <meta
           property="og:title"
           content="Tatacookies – Custom Cookies in Sydney"
@@ -28,14 +30,13 @@ export default function Document() {
         />
         <meta
           property="og:image"
-          content="/images/cookies/alice-wonderland.wepb"
+          content="/images/cookies/alice-wonderland.webp"
         />
-        {/* Canonical URL */}
-        {/* <meta property="og:url" content="https://tatacookies.com" />
-        <meta property="og:type" content="website" /> */}
+        <meta property="og:url" content="https://tatacookies.com" />
+        <meta property="og:type" content="website" />
 
-        {/* Favicon */}
-        <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
+        {/* Favicons */}
+        <link rel="icon" href="/favicon.ico" />
         <link
           rel="icon"
           type="image/png"
@@ -52,7 +53,7 @@ export default function Document() {
         {/* Google Maps API */}
         <Script
           src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&libraries=places`}
-          strategy="beforeInteractive"
+          strategy="afterInteractive"
         />
       </Head>
       <body className="antialiased">

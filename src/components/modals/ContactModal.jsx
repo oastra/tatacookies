@@ -1,68 +1,68 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { useScroll, useMotionValueEvent } from "framer-motion";
-import ButtonOrLink from "../ui/ButtonOrLink";
+import { useEffect } from "react";
 import CloseRoundIcon from "../icons/CloseRoundIcon";
+import ButtonOrLink from "../ui/ButtonOrLink";
 
 const ContactModal = ({ onClose }) => {
-  const { scrollY } = useScroll();
-  const [scrollDirection, setScrollDirection] = useState("down");
-
-  useMotionValueEvent(scrollY, "change", (current) => {
-    const prev = scrollY.getPrevious();
-    const diff = current - prev;
-    setScrollDirection(diff > 0 ? "down" : "up");
-  });
-
+  // Prevent body scroll when modal is open
   useEffect(() => {
-    if (typeof window !== "undefined" && window.innerWidth < 768) {
-      if (scrollDirection === "down") {
-        onClose(); // Optional auto-close
-      }
-    }
-  }, [scrollDirection]);
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, []);
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center px-4 py-8">
-      <div className="bg-white w-full max-w-[580px] rounded-[20px] p-8 relative overflow-y-auto max-h-[90vh]">
+    <div
+      className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center px-4 py-8"
+      onClick={onClose} // Close modal on backdrop click
+    >
+      <div
+        className="bg-bgBlue w-full max-w-[580px] rounded-[20px] p-6 sm:p-8 relative overflow-y-auto max-h-[90vh] sm:max-h-[90vh]"
+        onClick={(e) => e.stopPropagation()} // Prevent close when clicking inside modal
+      >
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-6 right-6 text-2xl text-text hover:text-title font-bold"
+          className="absolute top-4 right-4 text-2xl text-text hover:text-title"
+          aria-label="Close Modal"
         >
           <CloseRoundIcon />
         </button>
 
         {/* Title */}
-        <h2 className="text-title text-[28px] md:text-[32px] font-semibold text-center mb-4">
+        <h2 className="text-title text-[24px] sm:text-[28px] font-semibold text-center mb-3">
           Still have questions?
         </h2>
-        <p className="text-sm text-text60 text-center mb-6">
+        <p className="text-small text-text60 text-center mb-5">
           Fill out the form below and we’ll get back to you shortly!
         </p>
 
         {/* Form */}
-        <form className="grid grid-cols-1 gap-4 text-sm text-text">
+        <form className="grid grid-cols-1 gap-3 text-small text-text">
           <input
             type="text"
             name="name"
             placeholder="Your Name"
-            className="w-full border border-gray-300 rounded-[10px] px-4 py-3 placeholder:text-text60 focus:outline-none focus:ring-2 focus:ring-primary transition"
+            className="form-input"
           />
           <input
             type="email"
             name="email"
             placeholder="Your Email"
-            className="w-full border border-gray-300 rounded-[10px] px-4 py-3 placeholder:text-text60 focus:outline-none focus:ring-2 focus:ring-primary transition"
+            className="form-input"
           />
           <textarea
             name="message"
             placeholder="Your Message"
             rows={4}
-            className="w-full border border-gray-300 rounded-[10px] px-4 py-3 placeholder:text-text60 focus:outline-none focus:ring-2 focus:ring-primary resize-none transition"
+            className="form-input"
           ></textarea>
-          <ButtonOrLink type="submit" className="bg-primary text-white mt-2">
+          <ButtonOrLink
+            type="submit"
+            className="bg-primary text-white mt-3 mx-auto w-full"
+          >
             Send Message
           </ButtonOrLink>
         </form>

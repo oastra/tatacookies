@@ -12,7 +12,12 @@ const BlogSection = () => {
       </SectionTitle>
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 place-items-center">
         {blogPosts.map((post, i) => (
-          <BlogCard key={i} {...post} />
+          <BlogCard
+            key={i}
+            {...post} // date, title, post, image
+            allPosts={blogPosts} // Pass full array
+            index={i} // Pass current index
+          />
         ))}
       </div>
     </SectionWrapper>
