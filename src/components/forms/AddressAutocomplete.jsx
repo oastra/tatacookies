@@ -7,6 +7,8 @@ const AddressAutocomplete = ({ onSelectAddress }) => {
 
   useEffect(() => {
     const initAutocomplete = async () => {
+      if (!window.google || !window.google.maps) return;
+
       const { Autocomplete } = await window.google.maps.importLibrary("places");
 
       const autocomplete = new Autocomplete(inputRef.current, {
@@ -34,27 +36,27 @@ const AddressAutocomplete = ({ onSelectAddress }) => {
             : null,
         };
 
-        console.log("✅ Parsed Address Data:", addressData);
-
         if (addressData.fullAddress) {
           onSelectAddress(addressData);
         }
       });
     };
 
-    if (window.google?.maps?.importLibrary && inputRef.current) {
+    if (window.google && window.google.maps && inputRef.current) {
       initAutocomplete();
     }
   }, [onSelectAddress]);
 
   return (
-    <input
-      ref={inputRef}
-      type="text"
-      autoComplete="off"
-      placeholder="Start typing your address..."
-      className="form-input"
-    />
+    <div className="relative">
+      <input
+        ref={inputRef}
+        type="text"
+        autoComplete="off"
+        placeholder="Start typing your address..."
+        className="form-input"
+      />
+    </div>
   );
 };
 

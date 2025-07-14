@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import dynamic from "next/dynamic";
 import { useRef } from "react";
+import { useRouter } from "next/router";
 
 const CustomDatePicker = dynamic(() => import("./CustomDatePicker"), {
   ssr: false,
@@ -16,6 +17,8 @@ import ImageUpload from "../common/ImageUpload";
 import AddressAutocomplete from "./AddressAutocomplete";
 
 const CustomCookieForm = () => {
+  const router = useRouter();
+  // State variables for form inputs
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedAddress, setSelectedAddress] = useState("");
   const [unit, setUnit] = useState("");
@@ -83,7 +86,7 @@ const CustomCookieForm = () => {
         });
 
         if (res.ok) {
-          alert("Thank you! Your order has been sent.");
+          router.push("/success");
         } else {
           alert("Something went wrong. Please try again later.");
         }

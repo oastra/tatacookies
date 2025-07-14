@@ -21,17 +21,18 @@ const ButtonOrLink = ({
   className = "",
   type = "button",
   buttonWidth = 293,
+  animated = true, // 🌟 New prop: defaults to true
 }) => {
   const [hovered, setHovered] = useState(false);
   const isLink = typeof href === "string";
   const [isTouch, setIsTouch] = useState(false);
 
   const commonStyles = clsx(
-    "relative overflow-hidden flex items-center justify-center text-button rounded-full transition-all duration-300 active:bg-secondary transition-colors duration-200",
+    "relative overflow-hidden flex items-center justify-center text-button rounded-full transition-all duration-300 active:bg-secondary",
     className
   );
 
-  const Inner = (
+  const Inner = animated ? (
     <motion.div
       className={commonStyles}
       style={{ width: `${buttonWidth}px`, height: "64px" }}
@@ -57,43 +58,39 @@ const ButtonOrLink = ({
             />
           </motion.div>
         ))}
-
       <div className="relative flex flex-row justify-center items-center z-10">
         {children}
       </div>
     </motion.div>
+  ) : (
+    <div
+      className={commonStyles}
+      style={{ width: `${buttonWidth}px`, height: "64px" }}
+      onClick={onClick}
+    >
+      <div className="relative z-10">{children}</div>
+    </div>
   );
 
   useEffect(() => {
     setIsTouch("ontouchstart" in window || navigator.maxTouchPoints > 0);
   }, []);
 
-  if (isLink) {
-    return (
-      <div
-        className="inline-block relative"
-        onMouseEnter={() => !isTouch && setHovered(true)}
-        onMouseLeave={() => !isTouch && setHovered(false)}
-        onClick={() => isTouch && setHovered((prev) => !prev)}
-      >
-        <Link href={href} passHref>
-          {Inner}
-        </Link>
-      </div>
-    );
-  }
+  const Wrapper = isLink ? Link : "button";
+  const wrapperProps = isLink
+    ? { href, passHref: true, target, rel }
+    : { type, onClick };
 
-  // ✅ Form submit version (real button)
   return (
-    <button
-      type={type}
-      onClick={onClick}
+    <Wrapper
+      {...wrapperProps}
       className="inline-block relative"
-      onMouseEnter={() => !isTouch && setHovered(true)}
-      onMouseLeave={() => !isTouch && setHovered(false)}
+      onMouseEnter={() => animated && !isTouch && setHovered(true)}
+      onMouseLeave={() => animated && !isTouch && setHovered(false)}
+      onClick={() => isTouch && animated && setHovered((prev) => !prev)}
     >
       {Inner}
-    </button>
+    </Wrapper>
   );
 };
 
