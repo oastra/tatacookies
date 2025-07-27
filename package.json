@@ -23,6 +23,7 @@
     "react-dom": "^19.0.0",
     "react-google-autocomplete": "^2.7.5",
     "react-places-autocomplete": "^7.3.0",
+    "stripe": "^18.3.0",
     "styled-components": "^6.1.18",
     "swiper": "^11.2.8",
     "tailwind-datepicker-react": "^1.4.3"
