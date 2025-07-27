@@ -1,5 +1,4 @@
 import Container from "./Container";
-import { forwardRef } from "react";
 
 const SectionWrapper = ({ id, children, className = "", bg = "" }) => {
   return (

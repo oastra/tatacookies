@@ -28,7 +28,7 @@ const ButtonOrLink = ({
   const [isTouch, setIsTouch] = useState(false);
 
   const commonStyles = clsx(
-    "relative overflow-hidden flex items-center justify-center text-button rounded-full transition-all duration-300 active:bg-secondary",
+    "relative overflow-hidden inline-flex items-center justify-center gap-2 text-button rounded-full transition-all duration-300 active:bg-secondary",
     className
   );
 

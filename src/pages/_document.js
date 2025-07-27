@@ -7,7 +7,7 @@ export default function Document() {
       <Head>
         {/* Meta Tags */}
         <meta charSet="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
         <meta
           name="description"
           content="Tatacookies – Custom cookies made in Sydney for special occasions and everyday cravings."

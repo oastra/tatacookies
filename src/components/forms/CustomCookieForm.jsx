@@ -61,7 +61,7 @@ const CustomCookieForm = () => {
           : addressDetails.fullAddress;
 
         const formData = new FormData();
-
+        data.append("formType", "order");
         formData.append("name", e.target.name.value);
         formData.append("email", e.target.email.value);
         formData.append("phone", e.target.phone.value);
