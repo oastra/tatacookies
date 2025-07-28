@@ -26,7 +26,7 @@ export default function ShopOrderConfirmation({ name, orderNumber }) {
           marginBottom: "24px",
         }}
       >
-        Thanks for shopping with <strong>Tatacookies</strong>! 🍪 Your order{" "}
+        Thanks for shopping with <strong>Tatacookies</strong>! Your order
         <strong>#{orderNumber}</strong> has been received and is being
         processed.
       </Text>

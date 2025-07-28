@@ -27,7 +27,7 @@ export default function ContactConfirmation({ name }) {
           marginBottom: "24px",
         }}
       >
-        Thank you for reaching out to <strong>Tatacookies</strong>! We’ve
+        Thank you for reaching out to <strong>Tatacookies</strong>! We&apos;ve
         received your message and will get back to you as soon as possible.
       </Text>
     </BaseLayout>

@@ -1,8 +1,6 @@
 import { Heading, Text, Button } from "@react-email/components";
 import BaseLayout from "./baseLayout";
 import { colors, fonts, button } from "./styles";
-import ArrowUpIcon from "@/components/icons/ArrowUpIcon";
-import ArrowRightIcon from "@/components/icons/ArrowRightIcon";
 
 const tableLabel = {
   fontFamily: fonts.body,
@@ -111,18 +109,18 @@ export default function CustomOrderConfirmation({
           marginBottom: "24px",
         }}
       >
-        We'll be in touch shortly to confirm the details and finalize your
+        We&apos;ll be in touch shortly to confirm the details and finalize your
         request.
         <br />
         <br />
-        Once everything is clarified, we’ll send you an invoice — and production
-        will begin after the payment is received.
+        Once everything is clarified, we&apos;ll send you an invoice — and
+        production will begin after the payment is received.
         <br />
         <br />
         Just a quick note: if you reach out fewer than <strong>
           14 days
         </strong>{" "}
-        before your event, we can't guarantee your cookies will be ready in
+        before your event, we can&apos;t guarantee your cookies will be ready in
         time. Please keep this in mind when planning.
       </Text>
 
