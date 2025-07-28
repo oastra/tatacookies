@@ -38,7 +38,7 @@ const GallerySection = () => {
       />
 
       <div className="mt-[40px] flex justify-center">
-        <ButtonOrLink isLink href="/gallery" className="bg-primary">
+        <ButtonOrLink isLink href="/shop" className="bg-primary">
           View All <VectorIcon className="ml-4" />
         </ButtonOrLink>
       </div>
