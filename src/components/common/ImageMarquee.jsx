@@ -15,7 +15,7 @@ const ImageMarquee = () => {
         transition={{
           repeat: Infinity,
           ease: "linear",
-          duration: 120,
+          duration: 140,
         }}
       >
         {allImages.concat(allImages).map((src, i) => (

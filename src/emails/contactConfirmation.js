@@ -13,6 +13,7 @@ export default function ContactConfirmation({ name }) {
           fontWeight: 600,
           lineHeight: "120%",
           marginBottom: "16px",
+          textAlign: "center",
         }}
       >
         Hi {name},

@@ -42,9 +42,13 @@ export default function BaseLayout({ children }) {
             Follow us on Instagram:
             <a
               href="https://instagram.com/tatacookies.au"
-              style={{ color: colors.heading, textDecoration: "none" }}
+              style={{
+                color: colors.heading,
+                textDecoration: "none",
+                padding: "0 4px",
+              }}
             >
-              @tatacookies
+              @tatacookies.au
             </a>
             <br />
             &copy; {new Date().getFullYear()} Tatacookies. All rights reserved.

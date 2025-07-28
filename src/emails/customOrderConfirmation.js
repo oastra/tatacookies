@@ -1,7 +1,26 @@
 import { Heading, Text, Button } from "@react-email/components";
 import BaseLayout from "./baseLayout";
 import { colors, fonts, button } from "./styles";
+import ArrowUpIcon from "@/components/icons/ArrowUpIcon";
+import ArrowRightIcon from "@/components/icons/ArrowRightIcon";
 
+const tableLabel = {
+  fontFamily: fonts.body,
+  fontSize: "14px",
+  fontWeight: "bold",
+  padding: "12px",
+  borderBottom: `1px solid ${colors.border}`,
+  width: "40%",
+  backgroundColor: "#fff5f8",
+};
+
+const tableValue = {
+  fontFamily: fonts.body,
+  fontSize: "14px",
+  padding: "12px",
+  borderBottom: `1px solid ${colors.border}`,
+  backgroundColor: "#fff",
+};
 export default function CustomOrderConfirmation({
   name,
   eventDate,
@@ -19,10 +38,70 @@ export default function CustomOrderConfirmation({
           fontWeight: 600,
           lineHeight: "120%",
           marginBottom: "16px",
+          textAlign: "center",
         }}
       >
         Hi {name},
       </Heading>
+
+      <Text
+        style={{
+          color: colors.text,
+          fontFamily: fonts.body,
+          fontSize: "16px",
+          lineHeight: "130%",
+          marginBottom: "24px",
+          textAlign: "center",
+        }}
+      >
+        Thank you for your custom cookie order with <strong>Tatacookies</strong>
+        !
+      </Text>
+
+      {/* Order summary table */}
+      <Text
+        style={{
+          color: colors.text,
+          fontFamily: fonts.body,
+          fontSize: "26px",
+          lineHeight: "130%",
+          marginBottom: "24px",
+          fontWeight: 500,
+          textAlign: "center",
+        }}
+      >
+        Order summary:
+      </Text>
+      <table
+        style={{
+          width: "100%",
+          borderCollapse: "collapse",
+          backgroundColor: colors.bgPink,
+          borderRadius: "8px",
+          marginBottom: "24px",
+          overflow: "hidden",
+        }}
+      >
+        <tbody>
+          <tr>
+            <td style={tableLabel}>Event Date:</td>
+            <td style={tableValue}>{eventDate}</td>
+          </tr>
+          <tr>
+            <td style={tableLabel}>Theme:</td>
+            <td style={tableValue}>{theme}</td>
+          </tr>
+          <tr>
+            <td style={tableLabel}>Quantity:</td>
+            <td style={tableValue}>{quantity}</td>
+          </tr>
+          <tr>
+            <td style={tableLabel}>Delivery Method:</td>
+            <td style={tableValue}>{deliveryMethod}</td>
+          </tr>
+        </tbody>
+      </table>
+
       <Text
         style={{
           color: colors.text,
@@ -32,32 +111,40 @@ export default function CustomOrderConfirmation({
           marginBottom: "24px",
         }}
       >
-        Thank you for your custom cookie order with <strong>Tatacookies</strong>
-        !
+        We'll be in touch shortly to confirm the details and finalize your
+        request.
+        <br />
+        <br />
+        Once everything is clarified, we’ll send you an invoice — and production
+        will begin after the payment is received.
+        <br />
+        <br />
+        Just a quick note: if you reach out fewer than <strong>
+          14 days
+        </strong>{" "}
+        before your event, we can't guarantee your cookies will be ready in
+        time. Please keep this in mind when planning.
       </Text>
-      <div
+
+      <Button
+        href="https://tatacookies.com"
         style={{
-          backgroundColor: colors.bgPink,
-          padding: "16px",
-          borderRadius: "8px",
-          marginBottom: "24px",
+          backgroundColor: colors.primary,
+          color: "#46494C",
+          fontFamily: fonts.body,
+          fontSize: "18px",
+          fontWeight: 500,
+          padding: "16px 32px",
+          borderRadius: "9999px", // full rounded
+          textDecoration: "none",
+          display: "inline-block",
+          width: "fit-content",
+          textAlign: "center",
+          margin: "0 auto", // center horizontally
+          display: "block", // ensure it's centered in email clients
         }}
       >
-        <Text>
-          <strong>Event Date:</strong> {eventDate}
-        </Text>
-        <Text>
-          <strong>Theme:</strong> {theme}
-        </Text>
-        <Text>
-          <strong>Quantity:</strong> {quantity}
-        </Text>
-        <Text>
-          <strong>Delivery Method:</strong> {deliveryMethod}
-        </Text>
-      </div>
-      <Button href="https://tatacookies.com" style={button}>
-        Visit Tatacookies
+        Visit Tatacookies →
       </Button>
     </BaseLayout>
   );

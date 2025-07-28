@@ -6,7 +6,7 @@ export default function OrderSuccessPage() {
       title="Thank you for your order!"
       message="We’ve received your cookie order. Our team will contact you soon to confirm all details and delivery."
       buttonText="Back"
-      buttonHref="/shop"
+      buttonHref="/"
       iconColor="fill-secondary"
     />
   );

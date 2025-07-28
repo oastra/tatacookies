@@ -16,12 +16,30 @@ export const fonts = {
 
 export const button = {
   backgroundColor: colors.primary,
-  color: "#FFFFFF",
+  color: "#46494C",
   padding: "12px 24px",
-  borderRadius: "8px",
+  borderRadius: "20px",
   fontFamily: fonts.body,
   fontSize: "18px",
   fontWeight: 500,
   textDecoration: "none",
   display: "inline-block",
+};
+// Table cell styles
+const tableLabel = {
+  fontFamily: fonts.body,
+  fontSize: "14px",
+  fontWeight: "bold",
+  padding: "12px",
+  borderBottom: `1px solid ${colors.border}`,
+  width: "40%",
+  backgroundColor: "#fff5f8",
+};
+
+const tableValue = {
+  fontFamily: fonts.body,
+  fontSize: "14px",
+  padding: "12px",
+  borderBottom: `1px solid ${colors.border}`,
+  backgroundColor: "#fff5f8",
 };

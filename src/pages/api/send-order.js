@@ -1,9 +1,11 @@
 import formidable from "formidable";
 import nodemailer from "nodemailer";
+import { render } from "@react-email/render";
+import CustomOrderConfirmation from "@/emails/customOrderConfirmation"; // adjust if needed
 
 export const config = {
   api: {
-    bodyParser: false, // Required for formidable
+    bodyParser: false,
   },
 };
 
@@ -12,22 +14,20 @@ export default async function handler(req, res) {
 
   const form = formidable({
     keepExtensions: true,
-    maxFileSize: 2 * 1024 * 1024, // 2MB file size limit
+    maxFileSize: 2 * 1024 * 1024, // 2MB
   });
 
-  form.parse(req, (err, fields, files) => {
+  form.parse(req, async (err, fields, files) => {
     if (err) {
       console.error("Form parse error:", err);
       return res.status(500).json({ error: "Error parsing form data" });
     }
 
-    // ✅ Send success response immediately
-    res.status(200).json({ success: true });
+    res.status(200).json({ success: true }); // ✅ Respond fast
 
-    // ✅ Prepare attachment if present
+    // === Build attachments ===
     const attachments = [];
     const imageFile = files.image?.[0];
-
     if (imageFile && imageFile.filepath) {
       attachments.push({
         filename: imageFile.originalFilename,
@@ -36,8 +36,19 @@ export default async function handler(req, res) {
       });
     }
 
-    // ✅ Prepare email
-    const mailOptions = {
+    // === Create transporter ===
+    const transporter = nodemailer.createTransport({
+      host: "mail.privateemail.com",
+      port: 465,
+      secure: true,
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      },
+    });
+
+    // === Admin email ===
+    const adminMailOptions = {
       from: `"Tatacookies" <${process.env.EMAIL_USER}>`,
       to: process.env.EMAIL_TO,
       subject: `New Cookie Order from ${fields.name}`,
@@ -59,20 +70,30 @@ Notes: ${fields.notes || "None"}
       attachments,
     };
 
-    // ✅ Create transporter
-    const transporter = nodemailer.createTransport({
-      host: "mail.privateemail.com",
-      port: 465,
-      secure: true, // use SSL
-      auth: {
-        user: process.env.EMAIL_USER, // e.g., info@tatacookies.com
-        pass: process.env.EMAIL_PASS, // your mailbox password
-      },
+    transporter.sendMail(adminMailOptions).catch((error) => {
+      console.error("Admin email send error:", error);
     });
 
-    // ✅ Send email in background
-    transporter.sendMail(mailOptions).catch((error) => {
-      console.error("Email send error (non-blocking):", error);
+    // === Customer email (rendered HTML) ===
+    const confirmationHtml = render(
+      <CustomOrderConfirmation
+        name={fields.name}
+        eventDate={fields.eventDate}
+        theme={fields.theme}
+        quantity={fields.quantity}
+        deliveryMethod={fields.deliveryOption}
+      />
+    );
+
+    const customerMailOptions = {
+      from: `"Tatacookies" <${process.env.EMAIL_USER}>`,
+      to: fields.email,
+      subject: "Tatacookies – We've received your order!",
+      html: confirmationHtml,
+    };
+
+    transporter.sendMail(customerMailOptions).catch((error) => {
+      console.error("Customer email send error:", error);
     });
   });
 }
