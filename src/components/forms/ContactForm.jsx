@@ -39,7 +39,7 @@ const ContactForm = () => {
     data.append("message", formData.message);
 
     try {
-      const res = await fetch("api/contact", {
+      const res = await fetch("api/send-form", {
         method: "POST",
         body: data,
       });

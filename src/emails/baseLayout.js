@@ -25,9 +25,9 @@ export default function BaseLayout({ children }) {
         >
           <div style={{ textAlign: "center", marginBottom: "20px" }}>
             <img
-              src="https://tatacookiesdev.vercel.app/images/LogoTataCookies.png"
+              src="https://tatacookiesdev.vercel.app/LogoTataCookies.png"
               alt="Tatacookies Logo"
-              width="150"
+              width="60"
             />
           </div>
           {children}

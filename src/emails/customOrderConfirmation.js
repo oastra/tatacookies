@@ -104,7 +104,7 @@ export default function CustomOrderConfirmation({
         style={{
           color: colors.text,
           fontFamily: fonts.body,
-          fontSize: "16px",
+          fontSize: "14px",
           lineHeight: "130%",
           marginBottom: "24px",
         }}

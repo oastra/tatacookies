@@ -19,24 +19,18 @@ const ContactModal = ({ onClose }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const form = e.target;
-    const data = {
-      name: form.name.value,
-      email: form.email.value,
-      message: form.message.value,
-    };
+    const form = e.target; // ✅ Define this first
+    const formData = new FormData(form);
+    formData.append("formType", "contact");
 
     try {
-      const res = await fetch("/api/contact", {
+      const res = await fetch("/api/send-form", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
+        body: formData, // ✅ Don't set headers
       });
 
       if (res.ok) {
-        router.push("/success");
+        router.push("contact/success");
       } else {
         alert("Something went wrong. Please try again later.");
       }

@@ -61,7 +61,7 @@ const CustomCookieForm = () => {
           : addressDetails.fullAddress;
 
         const formData = new FormData();
-        data.append("formType", "order");
+        formData.append("formType", "order");
         formData.append("name", e.target.name.value);
         formData.append("email", e.target.email.value);
         formData.append("phone", e.target.phone.value);
@@ -80,7 +80,7 @@ const CustomCookieForm = () => {
         }
 
         // Send with correct headers (do NOT set Content-Type manually!)
-        const res = await fetch("/api/send-order", {
+        const res = await fetch("/api/send-form", {
           method: "POST",
           body: formData, // NOT JSON.stringify()
         });
