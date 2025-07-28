@@ -49,7 +49,7 @@ export default async function handler(req, res) {
 
     // === Admin email ===
     const adminMailOptions = {
-      from: `"Tatacookies" <${process.env.EMAIL_USER}>`,
+      from: `"Tatacookies" <${process.env.ORDER_EMAIL_USER}}>`,
       to: process.env.EMAIL_TO,
       subject: `New Cookie Order from ${fields.name}`,
       text: `
@@ -86,7 +86,7 @@ Notes: ${fields.notes || "None"}
     );
 
     const customerMailOptions = {
-      from: `"Tatacookies" <${process.env.EMAIL_USER}>`,
+      from: `"Tatacookies" <${process.env.ORDER_EMAIL_USER}}>`,
       to: fields.email,
       subject: "Tatacookies – We've received your order!",
       html: confirmationHtml,

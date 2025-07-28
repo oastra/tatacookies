@@ -39,8 +39,8 @@ export default async function handler(req, res) {
 
     const transporter = nodemailer.createTransport({
       host: "mail.privateemail.com",
-      port: 465,
-      secure: true,
+      port: 587,
+      secure: false,
       auth: { user: authUser, pass: authPass },
     });
 
