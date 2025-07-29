@@ -33,7 +33,7 @@ export default function SuccessLayout({
           className="bg-primary mx-auto text-text w-full sm:w-fit flex items-center justify-center gap-2 mt-10"
         >
           {buttonText}
-          <VectorIcon />
+          <VectorIcon className="inline-block align-middle pl-2" />
         </ButtonOrLink>
       </div>
     </div>
