@@ -3,10 +3,16 @@ import { renderToString } from "react-dom/server";
 import EmailTemplate from "@/components/EmailTemplate";
 import ContactConfirmation from "@/emails/contactConfirmation";
 import CustomOrderConfirmation from "@/emails/customOrderConfirmation";
-import { parseForm, config as formidableConfig } from "@/lib/parseForm";
+
 import fs from "fs";
 
-export const config = formidableConfig;
+import { parseForm } from "@/lib/parseForm";
+
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
