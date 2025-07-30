@@ -1,6 +1,6 @@
 import { Heading, Text, Button } from "@react-email/components";
 import BaseLayout from "./baseLayout";
-import { colors, fonts, button } from "./styles";
+import { colors, fonts } from "./styles";
 
 const tableLabel = {
   fontFamily: fonts.body,
@@ -19,13 +19,22 @@ const tableValue = {
   borderBottom: `1px solid ${colors.border}`,
   backgroundColor: "#fff",
 };
+
 export default function CustomOrderConfirmation({
   name,
   eventDate,
   theme,
   quantity,
   deliveryMethod,
+  address,
 }) {
+  const formattedDate = new Date(eventDate).toLocaleDateString("en-AU", {
+    weekday: "short",
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  });
+
   return (
     <BaseLayout>
       <Heading
@@ -56,7 +65,6 @@ export default function CustomOrderConfirmation({
         !
       </Text>
 
-      {/* Order summary table */}
       <Text
         style={{
           color: colors.text,
@@ -70,6 +78,7 @@ export default function CustomOrderConfirmation({
       >
         Order summary:
       </Text>
+
       <table
         style={{
           width: "100%",
@@ -83,7 +92,7 @@ export default function CustomOrderConfirmation({
         <tbody>
           <tr>
             <td style={tableLabel}>Event Date:</td>
-            <td style={tableValue}>{eventDate}</td>
+            <td style={tableValue}>{formattedDate}</td>
           </tr>
           <tr>
             <td style={tableLabel}>Theme:</td>
@@ -96,6 +105,10 @@ export default function CustomOrderConfirmation({
           <tr>
             <td style={tableLabel}>Delivery Method:</td>
             <td style={tableValue}>{deliveryMethod}</td>
+          </tr>
+          <tr>
+            <td style={tableLabel}>Address:</td>
+            <td style={tableValue}>{address}</td>
           </tr>
         </tbody>
       </table>
@@ -133,13 +146,13 @@ export default function CustomOrderConfirmation({
           fontSize: "18px",
           fontWeight: 500,
           padding: "16px 32px",
-          borderRadius: "9999px", // full rounded
+          borderRadius: "9999px",
           textDecoration: "none",
           display: "inline-block",
           width: "fit-content",
           textAlign: "center",
-          margin: "0 auto", // center horizontally
-          display: "block", // ensure it's centered in email clients
+          margin: "0 auto",
+          display: "block",
         }}
       >
         Visit Tatacookies →

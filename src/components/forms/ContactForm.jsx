@@ -31,25 +31,25 @@ const ContactForm = () => {
 
     setStatus("loading");
 
-    const data = new FormData();
-    data.append("formType", "contact");
-    data.append("name", formData.name);
-    data.append("phone", formData.phone);
-    data.append("email", formData.email);
-    data.append("message", formData.message);
-
     try {
-      const res = await fetch("api/send-form", {
+      const res = await fetch("/api/send-form", {
         method: "POST",
-        body: data,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          formType: "contact",
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+          phone: formData.phone,
+        }),
       });
 
       if (res.ok) {
         setStatus("success");
         setFormData({ name: "", phone: "", email: "", message: "" });
         setAccepted(false);
-
-        // 👇 Redirect to success page
         router.push("/contact/success");
       } else {
         setStatus("error");

@@ -45,6 +45,10 @@ const CustomCookieForm = () => {
           alert("Please select a date");
           return;
         }
+        if (!deliveryOption) {
+          alert("Please select a delivery option");
+          return;
+        }
 
         if (!selectedAddress) {
           alert("Please select a valid address");
@@ -66,13 +70,13 @@ const CustomCookieForm = () => {
         formData.append("email", e.target.email.value);
         formData.append("phone", e.target.phone.value);
         formData.append("theme", e.target.theme.value);
-        formData.append("eventDate", selectedDate);
-        formData.append("deliveryOption", deliveryOption);
+        formData.append("eventDate", selectedDate); // ✅ use state
+        formData.append("deliveryOption", deliveryOption); // ✅ use state
         formData.append("quantity", e.target.quantity.value);
-        formData.append("budgetOption", budgetOption);
+        formData.append("budgetOption", budgetOption); // ✅ use state
         formData.append("address", fullDeliveryAddress);
         formData.append("notes", e.target.notes.value);
-        formData.append("detailsOption", detailsOption);
+        formData.append("detailsOption", detailsOption); // ✅ use state
 
         // Add file from ref
         if (imageRef.current?.files?.[0]) {

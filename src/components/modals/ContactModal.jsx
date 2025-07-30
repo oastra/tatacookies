@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import CloseRoundIcon from "../icons/CloseRoundIcon";
 import ButtonOrLink from "../ui/ButtonOrLink";
@@ -8,7 +8,12 @@ import ButtonOrLink from "../ui/ButtonOrLink";
 const ContactModal = ({ onClose }) => {
   const router = useRouter();
 
-  // Prevent body scroll when modal is open
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+
   useEffect(() => {
     document.body.style.overflow = "hidden";
     return () => {
@@ -16,21 +21,30 @@ const ContactModal = ({ onClose }) => {
     };
   }, []);
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const form = e.target; // ✅ Define this first
-    const formData = new FormData(form);
-    formData.append("formType", "contact");
 
     try {
       const res = await fetch("/api/send-form", {
         method: "POST",
-        body: formData, // ✅ Don't set headers
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          formType: "contact",
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+        }),
       });
 
       if (res.ok) {
-        router.push("contact/success");
+        router.push("/contact/success");
       } else {
         alert("Something went wrong. Please try again later.");
       }
@@ -72,6 +86,8 @@ const ContactModal = ({ onClose }) => {
             type="text"
             name="name"
             placeholder="Your Name"
+            value={formData.name}
+            onChange={handleChange}
             className="form-input"
             required
           />
@@ -79,6 +95,8 @@ const ContactModal = ({ onClose }) => {
             type="email"
             name="email"
             placeholder="Your Email"
+            value={formData.email}
+            onChange={handleChange}
             className="form-input"
             required
           />
@@ -86,6 +104,8 @@ const ContactModal = ({ onClose }) => {
             name="message"
             placeholder="Your Message"
             rows={4}
+            value={formData.message}
+            onChange={handleChange}
             className="form-input"
             required
           ></textarea>

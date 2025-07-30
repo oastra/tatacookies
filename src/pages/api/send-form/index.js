@@ -1,119 +1,120 @@
-import formidable from "formidable";
-import nodemailer from "nodemailer";
-import { render } from "@react-email/render";
-import { createElement } from "react";
+import { Resend } from "resend";
+import { renderToString } from "react-dom/server";
+import EmailTemplate from "@/components/EmailTemplate";
 import ContactConfirmation from "@/emails/contactConfirmation";
 import CustomOrderConfirmation from "@/emails/customOrderConfirmation";
+import { parseForm, config as formidableConfig } from "@/lib/parseForm";
+import fs from "fs";
 
-export const config = {
-  api: { bodyParser: false },
-};
+export const config = formidableConfig;
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export default async function handler(req, res) {
-  if (req.method !== "POST") return res.status(405).send("Method Not Allowed");
+  if (req.method !== "POST") return res.status(405).end();
 
-  const form = formidable({
-    keepExtensions: true,
-    maxFileSize: 2 * 1024 * 1024,
-  });
+  try {
+    const { fields, files } = await parseForm(req);
 
-  form.parse(req, async (err, fields, files) => {
-    if (err) {
-      console.error("❌ Form parse error:", err);
-      return res.status(500).json({ error: "Error parsing form data" });
-    }
+    const normalize = (val) => (Array.isArray(val) ? val[0] : val);
 
-    res.status(200).json({ success: true }); // Respond quickly
+    const name = normalize(fields.name);
+    const email = normalize(fields.email);
+    const message = normalize(fields.message);
+    const formType = normalize(fields.formType);
+    const phone = normalize(fields.phone);
+    const theme = normalize(fields.theme);
+    const eventDate = normalize(fields.eventDate);
+    const deliveryOption = normalize(fields.deliveryOption);
+    const quantity = normalize(fields.quantity);
+    const budgetOption = normalize(fields.budgetOption);
+    const address = normalize(fields.address);
+    const notes = normalize(fields.notes);
+    const detailsOption = normalize(fields.detailsOption);
 
-    const formType = fields.formType?.toString() || "other";
-    const isContact = formType === "contact";
-    const isOrder = formType === "order";
+    const from =
+      formType === "order"
+        ? process.env.ORDER_EMAIL_FROM
+        : process.env.INFO_EMAIL_FROM;
 
-    const authUser = isContact
-      ? process.env.INFO_EMAIL_USER
-      : process.env.ORDER_EMAIL_USER;
-    const authPass = isContact
-      ? process.env.INFO_EMAIL_PASS
-      : process.env.ORDER_EMAIL_PASS;
-    const teamRecipient = authUser;
+    const to =
+      formType === "order"
+        ? process.env.ORDER_EMAIL_TO
+        : process.env.INFO_EMAIL_TO;
 
-    const transporter = nodemailer.createTransport({
-      host: "mail.privateemail.com",
-      port: 587,
-      secure: false,
-      auth: { user: authUser, pass: authPass },
+    const imageFileRaw = files?.image;
+    const imageFile = Array.isArray(imageFileRaw)
+      ? imageFileRaw[0]
+      : imageFileRaw;
+
+    const attachments =
+      imageFile && imageFile.filepath
+        ? [
+            {
+              filename: imageFile.originalFilename || "attachment.jpg",
+              content: fs.readFileSync(imageFile.filepath).toString("base64"),
+              encoding: "base64",
+            },
+          ]
+        : [];
+
+    // ✅ 1. Send Admin Email with Attachment using HTML
+    const htmlContent = renderToString(
+      <EmailTemplate
+        firstName={name}
+        email={email}
+        message={message || notes}
+        phone={phone}
+        theme={theme}
+        date={eventDate}
+        delivery={deliveryOption}
+        quantity={quantity}
+        budget={budgetOption}
+        address={address}
+        details={detailsOption}
+      />
+    );
+
+    const { error: adminError } = await resend.emails.send({
+      from: `Tatacookies <${from}>`,
+      to,
+      subject: `New ${formType === "order" ? "Order" : "Contact"} Message from ${name}`,
+      html: htmlContent, // ✅ Use html instead of react
+      attachments,
     });
 
-    try {
-      // === TEAM email ===
-      const teamMailText = isOrder
-        ? `
-New Cookie Order:
-Name: ${fields.name}
-Email: ${fields.email}
-Phone: ${fields.phone}
-Theme: ${fields.theme}
-Event Date: ${fields.eventDate}
-Delivery Method: ${fields.deliveryOption}
-Quantity: ${fields.quantity}
-Budget per Cookie: ${fields.budgetOption}
-Address: ${fields.address}
-Design Details: ${fields.detailsOption}
-Notes: ${fields.notes || "None"}
-        `
-        : `
-New Contact Message:
-Name: ${fields.name}
-Email: ${fields.email}
-Phone: ${fields.phone}
-Message: ${fields.message || "-"}
-        `;
-
-      await transporter.sendMail({
-        from: `"Tatacookies ${formType}" <${authUser}>`,
-        to: teamRecipient,
-        subject: `📩 New ${formType} submission from ${fields.name}`,
-        text: teamMailText,
-        replyTo: fields.email,
-        attachments: files.image?.[0]
-          ? [
-              {
-                filename: files.image[0].originalFilename,
-                path: files.image[0].filepath,
-              },
-            ]
-          : [],
-      });
-
-      console.log("✅ Team email sent");
-
-      // === CUSTOMER email ===
-      const confirmationHtml = isOrder
-        ? await render(
-            <CustomOrderConfirmation
-              name={fields.name}
-              eventDate={fields.eventDate}
-              theme={fields.theme}
-              quantity={fields.quantity}
-              deliveryMethod={fields.deliveryOption}
-            />
-          )
-        : await render(
-            createElement(ContactConfirmation, { name: fields.name })
-          );
-
-      await transporter.sendMail({
-        from: `"Tatacookies" <${authUser}>`,
-        to: fields.email,
-        subject: isOrder
-          ? "Tatacookies – We've received your cookie order!"
-          : "Tatacookies – We've received your message!",
-        html: confirmationHtml,
-      });
-
-      console.log(`✅ Confirmation sent to ${fields.email}`);
-    } catch (err) {
-      console.error("❌ Sending email failed:", err);
+    if (adminError) {
+      console.error("❌ Resend error:", adminError);
+      return res.status(400).json({ error: adminError });
     }
-  });
+
+    // ✅ 2. Confirmation email to user (no attachment, can use JSX)
+    await resend.emails.send({
+      from: `Tatacookies <${from}>`,
+      to: email,
+      subject:
+        formType === "order"
+          ? "We’ve received your custom cookie order!"
+          : "We’ve received your message!",
+      react:
+        formType === "order" ? (
+          <CustomOrderConfirmation
+            name={name}
+            eventDate={eventDate}
+            theme={theme}
+            quantity={quantity}
+            deliveryMethod={deliveryOption}
+            address={address}
+            budget={budgetOption}
+          />
+        ) : (
+          <ContactConfirmation name={name} />
+        ),
+    });
+
+    return res.status(200).json({ success: true });
+  } catch (err) {
+    console.error("❌ Email sending failed:", err);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
 }
