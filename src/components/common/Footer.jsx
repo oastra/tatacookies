@@ -75,7 +75,7 @@ const Footer = () => {
               href="/privacy-policy"
               className=" text-base hover:text-primary"
             >
-              Privacy Policy
+              Privacy Policy | Terms of Service
             </Link>
             <span>All rights reserved, {new Date().getFullYear()}</span>
           </div>

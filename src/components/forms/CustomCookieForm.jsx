@@ -324,8 +324,22 @@ const CustomCookieForm = () => {
             onChange={(e) =>
               setAccepted((prev) => ({ ...prev, terms: e.target.checked }))
             }
-            label="I understand that submitting this form does not guarantee my order. My order will only be confirmed once all details are agreed upon and full payment is made."
-          />
+            label={
+              <>
+                I agree to the
+                <a
+                  href="/privacy-policy"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Privacy Policy
+                </a>{" "}
+                and Terms of Service of Tatacookies. I understand that my
+                personal information will be used to process my order and
+                communicate with me regarding my custom cookie order.
+              </>
+            }
+          ></Checkbox>
           <Checkbox
             id="ack2"
             name="ack2"
@@ -333,7 +347,7 @@ const CustomCookieForm = () => {
             onChange={(e) =>
               setAccepted((prev) => ({ ...prev, pricing: e.target.checked }))
             }
-            label="I also acknowledge that final pricing may vary depending on cookie size, quantity, and design complexity."
+            label="I understand that submitting this form does not guarantee my order. My order will only be confirmed once all details are agreed upon and full payment is made. I also acknowledge that final pricing may vary depending on cookie size, quantity, and design complexity."
           />
         </fieldset>
       </div>
