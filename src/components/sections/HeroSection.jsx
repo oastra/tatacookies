@@ -13,11 +13,11 @@ const HeroSection = () => {
       <SectionWrapper className=" px-[22px] md:px-[32px] lg:px-[0px] ">
         <FlexContainer className="flex-col lg:flex-row gap-[24px]  lg:max-h-[529px]">
           {/* Left Content */}
-          <div className=" flex flex-col  gap-[56px] text-center lg:text-left  flex-1 lg:flex-1">
-            <h1 className="text-title font-medium text-[36px] md:text-[48px] lg:text-[56px]">
+          <div className=" flex flex-col  gap-[56px] text-center lg:text-left  flex-1 ">
+            <h1 className="text-title font-medium text-[36px] lg:text-[48px] xl:text-[56px]">
               Smile-worthy cookies!
             </h1>
-            <p className="text-h4 md:text-h3 md:font-medium">
+            <p className="text-h4 lg:text-h4 md:font-medium">
               Handcrafted gingerbread for every occasion!
               <br /> Personalized, delicious, and almost too cute to eat!
             </p>
@@ -38,7 +38,7 @@ const HeroSection = () => {
                 width={600}
                 height={216}
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                className="w-full  object-cover"
+                className="w-full  object-cover h-[216px]"
                 style={{ width: "100%", height: "auto" }}
               />
             </motion.div>
@@ -57,7 +57,7 @@ const HeroSection = () => {
               alt="Easter cookies"
               width={608}
               height={529}
-              className="w-full object-cover"
+              className="w-full object-cover h-full"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
           </motion.div>
