@@ -72,7 +72,7 @@ const Footer = () => {
             </Link>
 
             <Link
-              href="/privacy-policy"
+              href="/privacy-policy-terms-of-service"
               className=" text-base hover:text-primary"
             >
               Privacy Policy | Terms of Service

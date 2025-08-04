@@ -4,7 +4,7 @@ import React from "react";
 import Layout from "@/components/layout/Layout";
 import SectionWrapper from "@/components/common/SectionWrapper";
 
-const PrivacyPolicy = () => {
+const PrivacyPolicyTermsOfService = () => {
   return (
     <Layout>
       <SectionWrapper>
@@ -113,9 +113,9 @@ const PrivacyPolicy = () => {
             Terms of Service
           </h1>
           <p className="mb-6">
-            These Terms of Use govern your access to and use of the Tatacookies
-            website. By using our site or placing an order, you agree to be
-            bound by these terms.
+            These Terms of Service govern your access to and use of the
+            Tatacookies website. By using our site or placing an order, you
+            agree to be bound by these terms.
           </p>
 
           <h2 className="text-h2 text-text60 mt-8 mb-4">
@@ -179,4 +179,4 @@ const PrivacyPolicy = () => {
   );
 };
 
-export default PrivacyPolicy;
+export default PrivacyPolicyTermsOfService;

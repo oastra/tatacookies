@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import dynamic from "next/dynamic";
 import { useRef } from "react";
 import { useRouter } from "next/router";
-
+import Link from "next/link";
 const CustomDatePicker = dynamic(() => import("./CustomDatePicker"), {
   ssr: false,
 });
@@ -325,19 +325,19 @@ const CustomCookieForm = () => {
               setAccepted((prev) => ({ ...prev, terms: e.target.checked }))
             }
             label={
-              <>
-                I agree to the
-                <a
-                  href="/privacy-policy"
-                  target="_blank"
-                  rel="noopener noreferrer"
+              <span>
+                {" "}
+                I agree with the{" "}
+                <Link
+                  href="/privacy-policy-terms-of-service"
+                  className="text-base text-title no-underline hover:underline"
                 >
-                  Privacy Policy
-                </a>{" "}
-                and Terms of Service of Tatacookies. I understand that my
-                personal information will be used to process my order and
-                communicate with me regarding my custom cookie order.
-              </>
+                  Privacy Policy and Terms of Service
+                </Link>
+                &nbsp;of Tatacookies. I understand that my personal information
+                will be used to process my order and communicate with me
+                regarding my custom cookie order.
+              </span>
             }
           ></Checkbox>
           <Checkbox
