@@ -34,6 +34,11 @@ export default function Document() {
         />
         <meta property="og:url" content="https://tatacookies.com" />
         <meta property="og:type" content="website" />
+        {/* Goofle search verification */}
+        <meta
+          name="google-site-verification"
+          content="DqXqzCUIFD5OeOCzYPacs9voCZy7lcOKbEAnxIEnT9U"
+        />
 
         {/* Favicons */}
         <link rel="icon" href="/favicon.ico" />
