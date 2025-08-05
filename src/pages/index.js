@@ -1,4 +1,5 @@
 // pages/index.jsx
+import Head from "next/head";
 import Header from "@/components/common/Header.jsx";
 import HeroSection from "../components/sections/HeroSection";
 import GallerySection from "@/components/sections/GallerySection";
@@ -15,6 +16,12 @@ import Footer from "@/components/common/Footer";
 export default function Home() {
   return (
     <>
+      <Head>
+        <title>...</title>
+        <meta name="description" content="..." />
+        <link rel="canonical" href="https://tatacookies.com/" />
+      </Head>
+
       <Header />
       <main>
         <HeroSection />
