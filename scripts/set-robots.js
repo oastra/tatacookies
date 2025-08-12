@@ -1,10 +1,13 @@
 const fs = require("fs");
 const path = require("path");
 
-const env = process.env.NEXT_PUBLIC_SITE_ENV || "prod";
+const raw = process.env.VERCEL_ENV || "production"; // production | preview | development
+const map = { production: "prod", preview: "preview", development: "dev" };
+const env = map[raw];
 
 const src = path.join(__dirname, `../public/robots.${env}.txt`);
 const dest = path.join(__dirname, "../public/robots.txt");
 
+if (!fs.existsSync(src)) throw new Error(`Missing ${src}`);
 fs.copyFileSync(src, dest);
-console.log(`✅ Copied ${src} to ${dest}`);
+console.log(`✅ robots.txt set for ${env} (${raw})`);
