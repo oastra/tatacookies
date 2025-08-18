@@ -17,6 +17,8 @@ export default function MyApp({ Component, pageProps }) {
   // normalize path (no query/hash)
   const path = (asPath || "/").split("#")[0].split("?")[0] || "/";
   const canonical = `${BASE_URL}${path === "/" ? "/" : path}`;
+  const IS_PROD =
+    process.env.NEXT_PUBLIC_SITE_URL === "https://tatacookies.com";
 
   return (
     <>
@@ -24,6 +26,10 @@ export default function MyApp({ Component, pageProps }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         {/* single, environment-aware canonical */}
         <link rel="canonical" href={canonical} />
+
+        {!IS_PROD && (
+          <meta name="robots" content="noindex, nofollow, noarchive" />
+        )}
       </Head>
 
       {/* Google Analytics (keep as-is) */}

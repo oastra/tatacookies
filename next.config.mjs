@@ -4,7 +4,6 @@ const nextConfig = {
   compiler: { styledComponents: true },
 
   async redirects() {
-    // Enforce one host: www → apex
     return [
       {
         source: "/:path*",
@@ -16,12 +15,23 @@ const nextConfig = {
   },
 
   async headers() {
-    const noindex = [{ key: "X-Robots-Tag", value: "noindex, nofollow" }];
+    const noindex = [
+      { key: "X-Robots-Tag", value: "noindex, nofollow, noarchive" },
+    ];
+
     return [
+      // your existing path-specific noindex rules
       { source: "/email-preview", headers: noindex },
       { source: "/email-custom-order-preview", headers: noindex },
       { source: "/success", headers: noindex },
       { source: "/contact/success", headers: noindex },
+
+      // 🔹 NEW: apply noindex to every route when host = dev domain
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "tatacookiesdev.vercel.app" }],
+        headers: noindex,
+      },
     ];
   },
 };
