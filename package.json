@@ -4,7 +4,6 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "prebuild": "node scripts/set-robots.js",
     "build": "next build",
     "postbuild": "next-sitemap && node scripts/set-robots.js",
     "start": "next start",
