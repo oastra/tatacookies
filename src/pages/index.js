@@ -32,8 +32,9 @@ export default function Home() {
         <FaqSection />
         <CustomCookieSection />
         <TestimonialsSection />
-        <BlogSection />
         <InstagramSection />
+        <BlogSection />
+
         <ContactSection />
       </main>
     </>
