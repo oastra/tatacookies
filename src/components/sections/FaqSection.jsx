@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import SectionWrapper from "@/components/common/SectionWrapper";
+import ClientSectionWrapper from "@/components/common/ClientSectionWrapper";
 import SectionTitle from "@/components/common/SectionTitle";
 import FlexContainer from "@/components/common/FlexContainer";
 import FaqList from "../ui/FaqList";
@@ -12,7 +12,7 @@ const FaqSection = () => {
   const sectionRef = useRef(null);
 
   return (
-    <SectionWrapper id="faq" bg="bg-bgBlue">
+    <ClientSectionWrapper id="faq" bg="bg-bgBlue">
       <SectionTitle className="text-center text-title">
         Common Questions
       </SectionTitle>
@@ -30,7 +30,7 @@ const FaqSection = () => {
           </div>
         </div>
       </FlexContainer>
-    </SectionWrapper>
+    </ClientSectionWrapper>
   );
 };
 

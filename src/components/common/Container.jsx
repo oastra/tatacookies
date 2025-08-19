@@ -1,11 +1,6 @@
-const Container = ({ children, className = "" }) => {
-  return (
-    <div
-      className={`w-full max-w-[1440px] px-[12px] md:px-[18px] md:px-[32px] lg:px-[100px] mx-auto  ${className}`}
-    >
-      {children}
-    </div>
-  );
-};
+// src/components/common/Container.jsx
+import { containerClasses } from "@/components/common/containerClasses";
 
-export default Container;
+export default function Container({ children, className = "" }) {
+  return <div className={`${containerClasses} ${className}`}>{children}</div>;
+}

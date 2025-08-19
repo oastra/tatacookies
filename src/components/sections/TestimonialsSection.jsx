@@ -8,7 +8,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/effect-fade";
 
-import SectionWrapper from "@/components/common/SectionWrapper";
+import ClientSectionWrapper from "../common/ClientSectionWrapper";
 import SectionTitle from "@/components/common/SectionTitle";
 import reviews from "@/data/testimonialsData";
 import ReviewCard from "../ui/cards/TestimonialCard";
@@ -21,7 +21,7 @@ const TestimonialsSection = () => {
   const [isEnd, setIsEnd] = useState(false);
 
   return (
-    <SectionWrapper id="review" bg="bg-bgPink">
+    <ClientSectionWrapper id="review" bg="bg-bgPink">
       <SectionTitle className="text-center text-title">
         Customer Reviews
       </SectionTitle>
@@ -79,7 +79,7 @@ const TestimonialsSection = () => {
           <NextButton />
         </button>
       </div>
-    </SectionWrapper>
+    </ClientSectionWrapper>
   );
 };
 

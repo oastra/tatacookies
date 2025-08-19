@@ -1,7 +1,9 @@
-// src/components/common/SectionWrapper.jsx
+// src/components/common/ClientSectionWrapper.jsx
+"use client";
+
 import Container from "@/components/common/Container";
 
-export default function SectionWrapper({
+export default function ClientSectionWrapper({
   id,
   children,
   className = "",

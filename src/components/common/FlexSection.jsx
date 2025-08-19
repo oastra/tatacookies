@@ -1,9 +1,11 @@
+// src/components/common/FlexSection.jsx
 "use client";
 
 import Image from "next/image";
 import SectionTitle from "./SectionTitle";
+import Container from "@/components/common/Container";
 
-const FlexSection = ({
+export default function FlexSection({
   id,
   title,
   paragraphs = [],
@@ -16,18 +18,19 @@ const FlexSection = ({
   bgColor = "bg-white",
   cta = null,
   imgClassName = "",
-  mobileOrder = "default", // "default" | "imageLast" | "imageAfterTitle"
-}) => {
+  mobileOrder = "default",
+  priority = false,
+}) {
   const renderMedia = () =>
     isVideo ? (
       <div className="rounded-[20px] overflow-hidden w-full lg:h-full">
         <video
           controls
           poster={poster}
+          preload="metadata"
           className="w-full h-auto lg:h-full object-cover rounded-[20px]"
         >
           <source src={videoSrc} type="video/mp4" />
-          Your browser does not support the video tag.
         </video>
       </div>
     ) : (
@@ -37,8 +40,11 @@ const FlexSection = ({
           alt={imageAlt}
           fill
           className={imgClassName}
-          sizes="(min-width: 1024px) 50vw, 100vw"
-          priority
+          sizes="(min-width:1024px) 50vw, 100vw"
+          loading={priority ? "eager" : "lazy"}
+          fetchPriority={priority ? "high" : "auto"}
+          decoding="async"
+          priority={priority}
         />
       </div>
     );
@@ -51,36 +57,28 @@ const FlexSection = ({
       id={id}
       className={`${bgColor} w-full py-[70px] md:py-[100px] xl:py-[120px]`}
     >
-      <div className="max-w-[1440px] mx-auto px-[22px] md:px-[32px] xl:px-[100px] flex flex-col lg:flex-row gap-6 items-stretch">
-        {/* Desktop image (only if not mobile-specific) */}
+      <Container className="flex flex-col lg:flex-row gap-6 items-stretch">
         <div
-          className={`w-full min-h-[1px] lg:flex-1 ${
-            reverse ? "lg:order-2" : "lg:order-1"
-          } hidden lg:block`}
+          className={`w-full min-h-[1px] lg:flex-1 ${reverse ? "lg:order-2" : "lg:order-1"} hidden lg:block`}
         >
           {renderMedia()}
         </div>
 
-        {/* Text content + mobile image if applicable */}
         <div
-          className={`w-full min-h-[1px] lg:flex-1 text-left ${
-            reverse ? "lg:order-1" : "lg:order-2"
-          } order-2`}
+          className={`w-full min-h-[1px] lg:flex-1 text-left ${reverse ? "lg:order-1" : "lg:order-2"} order-2`}
         >
           <SectionTitle className="text-center lg:text-left">
             {title}
           </SectionTitle>
 
-          {/* Mobile image (conditionally placed) */}
           {(isImageAfterTitle || mobileOrder === "default") && (
             <div className="block lg:hidden my-6">{renderMedia()}</div>
           )}
 
-          {/* Paragraphs */}
           {paragraphs.map((para, idx) => (
             <div key={idx} className="mb-4 last:mb-0">
               {typeof para === "string" ? (
-                <p className="text-base text-h4 ">{para}</p>
+                <p className="text-base text-h4">{para}</p>
               ) : (
                 para
               )}
@@ -89,19 +87,15 @@ const FlexSection = ({
 
           {cta && <div className="mt-6">{cta}</div>}
         </div>
-        {/* Image again if "imageLast" (mobile only) */}
+
         {isImageLast && (
           <div
-            className={`w-full lg:w-1/2 ${
-              reverse ? "lg:order-2" : "lg:order-1"
-            } order-3 block lg:hidden`}
+            className={`w-full ${reverse ? "lg:order-2" : "lg:order-1"} order-3 block lg:hidden`}
           >
             {renderMedia()}
           </div>
         )}
-      </div>
+      </Container>
     </section>
   );
-};
-
-export default FlexSection;
+}

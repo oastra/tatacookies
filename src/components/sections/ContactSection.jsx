@@ -1,4 +1,4 @@
-import SectionWrapper from "@/components/common/SectionWrapper";
+import ClientSectionWrapper from "@/components/common/ClientSectionWrapper";
 import SectionTitle from "@/components/common/SectionTitle";
 import ContactInfo from "../contact/ContactInfo";
 import ContactForm from "../forms/ContactForm";
@@ -6,7 +6,7 @@ import ContactImage from "../contact/ContactImage";
 
 const ContactSection = () => {
   return (
-    <SectionWrapper id="contact">
+    <ClientSectionWrapper id="contact">
       <SectionTitle className="text-title2 text-center mb-10">
         Let’s stay in touch!
       </SectionTitle>
@@ -20,7 +20,7 @@ const ContactSection = () => {
           <ContactForm />
         </div>
       </div>
-    </SectionWrapper>
+    </ClientSectionWrapper>
   );
 };
 

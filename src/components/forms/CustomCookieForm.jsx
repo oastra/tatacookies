@@ -20,6 +20,7 @@ const CustomCookieForm = () => {
   const router = useRouter();
   // State variables for form inputs
   const [selectedDate, setSelectedDate] = useState(null);
+  const [addressInput, setAddressInput] = useState("");
   const [selectedAddress, setSelectedAddress] = useState("");
   const [unit, setUnit] = useState("");
   const [addressDetails, setAddressDetails] = useState({
@@ -60,6 +61,10 @@ const CustomCookieForm = () => {
           return;
         }
 
+        if (!addressDetails.latLng) {
+          alert("Please select a valid address from the suggestions.");
+          return;
+        }
         const fullDeliveryAddress = unit
           ? `${unit}, ${addressDetails.fullAddress}`
           : addressDetails.fullAddress;
@@ -242,13 +247,20 @@ const CustomCookieForm = () => {
           <label htmlFor="address" className="text-base font-bold">
             Address*
           </label>
-          <AddressAutocomplete
-            className="form-input"
-            onSelectAddress={(address) => {
-              setAddressDetails(address);
-              setSelectedAddress(address.fullAddress);
-            }}
-          />
+          <div className="relative [transform:none]">
+            <AddressAutocomplete
+              id="address"
+              className="form-input"
+              value={addressInput}
+              onChangeValue={setAddressInput} // keep input text in sync
+              onSelectAddress={(address) => {
+                // fires only on real selection
+                setAddressDetails(address);
+                setSelectedAddress(address.fullAddress);
+                setAddressInput(address.fullAddress); // reflect chosen value
+              }}
+            />
+          </div>
           <label htmlFor="unit" className="text-base font-bold">
             Unit / Apartment / Suite (optional)
           </label>

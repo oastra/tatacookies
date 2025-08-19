@@ -1,6 +1,6 @@
 import Logo from "../navigation/Logo";
 import NavBar from "../navigation/NavBar";
-import Container from "./Container";
+import Container from "@/components/common/Container";
 
 const Header = () => {
   return (

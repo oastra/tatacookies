@@ -177,3 +177,33 @@ textarea.form-input {
 button.text-sm.rounded-lg.bg-white {
   @apply text-title !important;
 }
+/* Force the dropdown to sit right under the input inside our wrapper */
+.pac-container[data-local="1"] {
+  position: absolute !important;
+  top: calc(100% + 4px) !important;
+  left: 0 !important;
+  width: 100% !important;
+  transform: none !important; /* cancel Google's translate3d */
+}
+
+.pac-container {
+  z-index: 9999 !important;
+}
+
+@keyframes hero-slide-in {
+  from {
+    transform: translateX(-120px);
+    opacity: 0.001;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .motion-safe\: [animation\:hero-slide-in_0\.8s_ease-out_forwards] {
+    animation: none !important;
+  }
+}

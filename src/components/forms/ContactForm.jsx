@@ -101,6 +101,7 @@ const ContactForm = () => {
         <label className="text-base font-medium p-[5px]">Your Message</label>
         <textarea
           name="message"
+          placeholder="Write your message here"
           value={formData.message}
           onChange={handleChange}
           rows={2}

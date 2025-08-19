@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 
-import SectionWrapper from "../common/SectionWrapper";
+import ClientSectionWrapper from "../common/ClientSectionWrapper";
 import SectionTitle from "../common/SectionTitle";
 import ProductCard from "../ui/cards/ProductCard";
 import getBestSellersForToday from "@/utils/getBestSellersForToday";
@@ -31,7 +31,7 @@ const BestSellersSection = () => {
   }, []);
 
   return (
-    <SectionWrapper id="best-sellers" bg="bg-bgPink">
+    <ClientSectionWrapper id="best-sellers" bg="bg-bgPink">
       <SectionTitle className="text-center text-title">
         Best Sellers
       </SectionTitle>
@@ -56,7 +56,7 @@ const BestSellersSection = () => {
           ))}
         </div>
       )}
-    </SectionWrapper>
+    </ClientSectionWrapper>
   );
 };
 

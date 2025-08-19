@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import SectionWrapper from "@/components/common/SectionWrapper";
+import ClientSectionWrapper from "../common/ClientSectionWrapper";
 import SectionTitle from "@/components/common/SectionTitle";
 import ButtonOrLink from "@/components/ui/ButtonOrLink";
 import VectorIcon from "@/components/icons/VectorIcon";
@@ -24,7 +24,7 @@ const InstagramSection = () => {
   const allImages = Object.values(imagesByCategory).flat();
 
   return (
-    <SectionWrapper id="instagram">
+    <ClientSectionWrapper id="instagram">
       <SectionTitle className="text-center text-title mb-[32px] lg:mb-[40px]">
         We’re on Instagram
       </SectionTitle>
@@ -55,7 +55,7 @@ const InstagramSection = () => {
           Follow Us <VectorIcon className="ml-2 " />
         </ButtonOrLink>
       </div>
-    </SectionWrapper>
+    </ClientSectionWrapper>
   );
 };
 

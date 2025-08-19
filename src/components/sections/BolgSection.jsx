@@ -1,12 +1,12 @@
 "use client";
-import SectionWrapper from "@/components/common/SectionWrapper";
+import ClientSectionWrapper from "../common/ClientSectionWrapper";
 import SectionTitle from "@/components/common/SectionTitle";
 import BlogCard from "../ui/cards/BlogCard";
 import blogPosts from "@/data/blogPosts";
 
 const BlogSection = () => {
   return (
-    <SectionWrapper id="blog" bg="bg-bgPink">
+    <ClientSectionWrapper id="blog" bg="bg-bgPink">
       <SectionTitle className="text-center text-title mb-[32px] lg:mb-[40px]">
         Latest news & article
       </SectionTitle>
@@ -20,7 +20,7 @@ const BlogSection = () => {
           />
         ))}
       </div>
-    </SectionWrapper>
+    </ClientSectionWrapper>
   );
 };
 

@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import SectionTitle from "../common/SectionTitle";
 import ButtonOrLink from "../ui/ButtonOrLink";
 import VectorIcon from "../icons/VectorIcon";
-import SectionWrapper from "../common/SectionWrapper";
+import ClientSectionWrapper from "../common/ClientSectionWrapper";
 import fullImagesByCategory from "@/data/galleryImagesByCategory";
 import getRandomImagesByCategory from "@/utils/getRandomImagesByCategory";
 
@@ -21,7 +21,7 @@ const imagesByCategory = getRandomImagesByCategory(fullImagesByCategory, 5);
 
 const GallerySection = () => {
   return (
-    <SectionWrapper>
+    <ClientSectionWrapper id="gallery">
       <SectionTitle className="text-center">Things we bake</SectionTitle>
       <p className="text-base text-h4 md:text-h3 text-center mx-auto mt-2 mb-[40px]">
         Every cookie tells a story! From birthdays to weddings — each set is
@@ -42,7 +42,7 @@ const GallerySection = () => {
           View All <VectorIcon className="ml-4" />
         </ButtonOrLink>
       </div>
-    </SectionWrapper>
+    </ClientSectionWrapper>
   );
 };
 

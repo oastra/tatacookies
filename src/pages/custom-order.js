@@ -1,11 +1,29 @@
+import Script from "next/script";
+import Container from "@/components/common/Container";
 import CustomCookieForm from "@/components/forms/CustomCookieForm";
 
 export default function CustomOrderPage() {
+  // expose only the public key
+  const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
+
   return (
-    <div className="min-h-screen py-12 px-4 sm:px-8">
-      <div className="w-[375px] pt-6 px-6 pb-[40px] md:w-[576px] lg:w-[1160px] mx-auto bg-bgBlue md:px-[32px] md:py-[28px] lg:px-[100px] lg:py-[64px] sm:p-10 rounded-[20px] ">
-        <CustomCookieForm />
-      </div>
-    </div>
+    <>
+      {apiKey && (
+        <Script
+          id="gmaps-places"
+          strategy="afterInteractive"
+          src={`https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places&v=weekly`}
+          onLoad={() => window.dispatchEvent(new Event("gmaps:loaded"))}
+        />
+      )}
+
+      <main className="min-h-screen py-12">
+        <Container>
+          <div className="w-full max-w-[1160px] mx-auto rounded-[20px] bg-bgBlue p-6 md:p-8 lg:p-16">
+            <CustomCookieForm />
+          </div>
+        </Container>
+      </main>
+    </>
   );
 }

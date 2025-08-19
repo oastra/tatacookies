@@ -1,3 +1,4 @@
+// src/pages/_document.js
 import { Html, Head, Main, NextScript } from "next/document";
 import Script from "next/script";
 
@@ -5,9 +6,8 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
-        {/* Meta Tags */}
+        {/* Meta */}
         <meta charSet="UTF-8" />
-
         <meta
           name="description"
           content="Tatacookies – Custom cookies made in Sydney for special occasions and everyday cravings."
@@ -28,13 +28,21 @@ export default function Document() {
           property="og:description"
           content="Order custom decorated cookies for weddings, birthdays, corporate gifts and more."
         />
+        {/* Use ABSOLUTE URL for social previews */}
         <meta
           property="og:image"
-          content="/images/cookies/alice-wonderland.webp"
+          content="https://tatacookies.com/images/cookies/alice-wonderland.webp"
         />
         <meta property="og:url" content="https://tatacookies.com" />
         <meta property="og:type" content="website" />
-        {/* Goofle search verification */}
+        {/* Optional Twitter card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          name="twitter:image"
+          content="https://tatacookies.com/images/cookies/alice-wonderland.webp"
+        />
+
+        {/* Google Search Verification */}
         <meta
           name="google-site-verification"
           content="DqXqzCUIFD5OeOCzYPacs9voCZy7lcOKbEAnxIEnT9U"
@@ -85,11 +93,55 @@ export default function Document() {
           crossOrigin="anonymous"
         />
 
-        {/* Google Maps API */}
-        <Script
-          src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&libraries=places`}
-          strategy="afterInteractive"
-        />
+        {/* Optional: small networking win for GA */}
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="preconnect" href="https://www.google-analytics.com" />
+
+        {/* Consent defaults MUST be here (beforeInteractive) */}
+        <Script id="consent-default" strategy="beforeInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+
+            gtag('consent', 'default', {
+              ad_storage: 'denied',
+              ad_user_data: 'denied',
+              ad_personalization: 'denied',
+              analytics_storage: 'denied',
+              functionality_storage: 'granted',
+              security_storage: 'granted',
+              wait_for_update: 500
+            });
+
+            try {
+              var v = localStorage.getItem('tc_cookie_consent');
+              if (v === 'accepted') {
+                gtag('consent', 'update', { analytics_storage: 'granted' });
+                window.__tc_send_initial_pv__ = true;
+              } else if (v === 'rejected') {
+                gtag('consent', 'update', { analytics_storage: 'denied' });
+              }
+            } catch (e) {}
+
+            window.acceptAnalytics = function() {
+              gtag('consent', 'update', { analytics_storage: 'granted' });
+              try { localStorage.setItem('tc_cookie_consent','accepted'); } catch(e) {}
+              try { gtag('event','page_view',{ page_path: location.pathname }); } catch(e) {}
+            };
+            window.rejectAnalytics = function() {
+              gtag('consent', 'update', { analytics_storage: 'denied' });
+              try { localStorage.setItem('tc_cookie_consent','rejected'); } catch(e) {}
+            };
+          `}
+        </Script>
+
+        {/* <link
+          rel="preload"
+          as="image"
+          href="/images/hero-sq.avif"
+          imagesrcset="/images/hero-sq.avif 1200w"
+          imagesizes="(min-width:1024px) 50vw, 100vw"
+        /> */}
       </Head>
       <body className="antialiased" style={{ overflowX: "hidden" }}>
         <Main />

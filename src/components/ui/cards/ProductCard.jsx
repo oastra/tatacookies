@@ -32,6 +32,7 @@ const ProductCard = ({ image, title, price }) => {
 
           <Link
             href="/shop"
+            aria-label="Go to shop"
             className="group flex items-center justify-center rounded-full transition-colors"
           >
             <BestSellersBuyIcon
