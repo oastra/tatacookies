@@ -10,6 +10,7 @@ import TestimonialsSection from "@/components/sections/TestimonialsSection";
 import BlogSection from "@/components/sections/BolgSection";
 import ContactSection from "@/components/sections/ContactSection";
 import dynamic from "next/dynamic";
+import Footer from "@/components/common/Footer";
 
 // Keep only truly browser-dependent
 const InstagramSection = dynamic(
@@ -37,6 +38,7 @@ export default function Home() {
 
         <ContactSection />
       </main>
+      <Footer />
     </>
   );
 }
