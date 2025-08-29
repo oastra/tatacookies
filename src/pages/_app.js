@@ -43,31 +43,6 @@ export default function MyApp({ Component, pageProps }) {
         <link rel="canonical" href={canonical} />
       </Head>
 
-      {/* GA4 loader */}
-      <Script
-        strategy="lazyOnload"
-        src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
-      />
-      <Script id="gtag-init" strategy="lazyOnload">
-        {`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-
-          // We control page_view via consent + route changes
-          gtag('config', '${GA_ID}', {
-            anonymize_ip: true,
-            allow_google_signals: false,
-            send_page_view: false
-          });
-
-          // If user accepted before load, send initial page_view once
-          if (window.__tc_send_initial_pv__) {
-            gtag('event', 'page_view', { page_path: location.pathname });
-          }
-        `}
-      </Script>
-
       {/* Do NOT load Google Maps globally. It is loaded on /custom-order (or inside AddressAutocomplete). */}
 
       <CookieBanner />

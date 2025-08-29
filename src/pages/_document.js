@@ -1,4 +1,3 @@
-// src/pages/_document.js
 import { Html, Head, Main, NextScript } from "next/document";
 import Script from "next/script";
 
@@ -18,6 +17,7 @@ export default function Document() {
         />
         <meta name="author" content="Tatacookies" />
         <meta name="theme-color" content="#ffffff" />
+        <link rel="canonical" href="https://tatacookies.com/" />
 
         {/* Open Graph */}
         <meta
@@ -28,14 +28,14 @@ export default function Document() {
           property="og:description"
           content="Order custom decorated cookies for weddings, birthdays, corporate gifts and more."
         />
-        {/* Use ABSOLUTE URL for social previews */}
         <meta
           property="og:image"
           content="https://tatacookies.com/images/cookies/alice-wonderland.webp"
         />
         <meta property="og:url" content="https://tatacookies.com" />
         <meta property="og:type" content="website" />
-        {/* Optional Twitter card */}
+
+        {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta
           name="twitter:image"
@@ -93,11 +93,21 @@ export default function Document() {
           crossOrigin="anonymous"
         />
 
-        {/* Optional: small networking win for GA */}
-        <link rel="preconnect" href="https://www.googletagmanager.com" />
-        <link rel="preconnect" href="https://www.google-analytics.com" />
+        {/* Google Tag Manager */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-1KM8XF94WX"
+          strategy="afterInteractive"
+        />
+        <Script id="gtag-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-1KM8XF94WX');
+          `}
+        </Script>
 
-        {/* Consent defaults MUST be here (beforeInteractive) */}
+        {/* Consent defaults */}
         <Script id="consent-default" strategy="beforeInteractive">
           {`
             window.dataLayer = window.dataLayer || [];
@@ -134,14 +144,6 @@ export default function Document() {
             };
           `}
         </Script>
-
-        {/* <link
-          rel="preload"
-          as="image"
-          href="/images/hero-sq.avif"
-          imagesrcset="/images/hero-sq.avif 1200w"
-          imagesizes="(min-width:1024px) 50vw, 100vw"
-        /> */}
       </Head>
       <body className="antialiased" style={{ overflowX: "hidden" }}>
         <Main />
