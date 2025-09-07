@@ -82,7 +82,14 @@ body {
   overflow-x: hidden;
 }
 
+/* REMOVED: This was causing every section to be full viewport height!
 section {
+  min-height: 100vh;
+}
+*/
+
+/* Optional: If you want ONLY the hero section to be full height, add this: */
+section#hero {
   min-height: 100vh;
 }
 
