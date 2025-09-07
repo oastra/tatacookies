@@ -1,4 +1,4 @@
-import { Html, Body, Container, Text } from "@react-email/components";
+import { Html, Body, Container, Text, Img } from "@react-email/components";
 import { colors, fonts } from "./styles";
 
 export default function BaseLayout({ children }) {
@@ -24,10 +24,12 @@ export default function BaseLayout({ children }) {
           }}
         >
           <div style={{ textAlign: "center", marginBottom: "20px" }}>
-            <img
-              src="https://tatacookiesdev.vercel.app/LogoTataCookies.png"
+            <Img
+              src="https://tatacookies.com/LogoTataCookies.png"
               alt="Tatacookies Logo"
               width="60"
+              height="60"
+              style={{ display: "block" }}
             />
           </div>
           {children}
