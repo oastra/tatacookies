@@ -1,3 +1,4 @@
+import Head from "next/head";
 import Script from "next/script";
 import Container from "@/components/common/Container";
 import CustomCookieForm from "@/components/forms/CustomCookieForm";
@@ -8,6 +9,13 @@ export default function CustomOrderPage() {
 
   return (
     <>
+      <Head>
+        <title>Custom Order - Tatacookies | Design Your Perfect Cookies</title>
+        <meta
+          name="description"
+          content="Design and order custom decorated cookies for your special event. Choose themes, quantities, and delivery options."
+        />
+      </Head>
       {apiKey && (
         <Script
           id="gmaps-places"

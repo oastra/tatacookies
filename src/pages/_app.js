@@ -2,7 +2,6 @@
 import { useEffect } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import Script from "next/script";
 import "../styles/globals.css";
 import CookieBanner from "@/components/CookieBanner";
 
@@ -18,22 +17,20 @@ export default function MyApp({ Component, pageProps }) {
   const path = (router.asPath || "/").split("#")[0].split("?")[0] || "/";
   const canonical = `${BASE_URL}${path === "/" ? "/" : path}`;
 
-  const GA_ID = process.env.NEXT_PUBLIC_GA_ID || "G-XXXXXXX";
-
-  // Fire page_view on client-side route changes, but only if consent accepted
+  // Track page changes for SPA navigation (Next.js client-side routing)
   useEffect(() => {
-    const handleRoute = (url) => {
-      try {
-        if (
-          typeof window.gtag === "function" &&
-          localStorage.getItem("tc_cookie_consent") === "accepted"
-        ) {
-          window.gtag("event", "page_view", { page_path: url });
-        }
-      } catch {}
+    const handleRouteChange = (url) => {
+      // Only track if gtag is available (loaded via _document.js)
+      if (typeof window.gtag === "function") {
+        window.gtag("event", "page_view", {
+          page_path: url,
+          page_location: `${window.location.origin}${url}`,
+        });
+      }
     };
-    router.events.on("routeChangeComplete", handleRoute);
-    return () => router.events.off("routeChangeComplete", handleRoute);
+
+    router.events.on("routeChangeComplete", handleRouteChange);
+    return () => router.events.off("routeChangeComplete", handleRouteChange);
   }, [router.events]);
 
   return (
@@ -42,8 +39,6 @@ export default function MyApp({ Component, pageProps }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="canonical" href={canonical} />
       </Head>
-
-      {/* Do NOT load Google Maps globally. It is loaded on /custom-order (or inside AddressAutocomplete). */}
 
       <CookieBanner />
       <Component {...pageProps} />
