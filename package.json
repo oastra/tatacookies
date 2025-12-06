@@ -26,7 +26,6 @@
     "react-places-autocomplete": "^7.3.0",
     "resend": "^4.7.0",
     "stripe": "^18.3.0",
-    "styled-components": "^6.1.18",
     "swiper": "^11.2.8",
     "tailwind-datepicker-react": "^1.4.3"
   },
@@ -38,7 +37,6 @@
     "@types/node": "24.1.0",
     "@types/react": "19.1.8",
     "autoprefixer": "^10.4.19",
-    "babel-plugin-styled-components": "^2.1.4",
     "eslint": "^9",
     "eslint-config-next": "15.2.4",
     "next-sitemap": "^4.2.3",

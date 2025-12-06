@@ -1,65 +1,4 @@
 import React from "react";
-import styled, { keyframes } from "styled-components";
-
-const Input = styled.input`
-  height: 0;
-  width: 0;
-  opacity: 0;
-  z-index: -1;
-`;
-
-const Label = styled.label`
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  font-size: 0.875rem;
-  color: #46494c;
-  cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
-`;
-
-const pulse = keyframes`
-  0% {
-    transform: scale(0.6);
-    opacity: 0;
-  }
-  70% {
-    transform: scale(1.2);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(1);
-  }
-`;
-
-const Indicator = styled.div`
-  width: 12px;
-  height: 12px;
-  border-radius: 9999px; /* Circle */
-  border: 2px solid #1985a1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  transition: background-color 0.2s ease, border-color 0.2s ease;
-
-  ${Input}:checked + & {
-    border-color: #8fe3d9;
-  }
-
-  &::after {
-    content: "";
-    width: 6px;
-    height: 6px;
-    border-radius: 9999px;
-    background-color: #1985a1;
-    display: none;
-  }
-
-  ${Input}:checked + &::after {
-    display: block;
-    animation: ${pulse} 0.3s ease-out forwards;
-  }
-`;
 
 export default function RadioButton({
   value,
@@ -71,8 +10,14 @@ export default function RadioButton({
   disabled,
 }) {
   return (
-    <Label htmlFor={id} disabled={disabled}>
-      <Input
+    <label
+      htmlFor={id}
+      className={`
+        flex items-center gap-3 text-sm text-[#46494c] 
+        ${disabled ? "cursor-not-allowed" : "cursor-pointer"}
+      `}
+    >
+      <input
         id={id}
         type="radio"
         name={name}
@@ -80,9 +25,22 @@ export default function RadioButton({
         disabled={disabled}
         checked={checked}
         onChange={onChange}
+        className="radio-hidden"
       />
-      <Indicator />
+
+      <div
+        className={`
+          w-3 h-3 rounded-full border-2 flex items-center justify-center flex-shrink-0
+          transition-all duration-200 ease-in-out relative
+          ${checked ? "border-[#8fe3d9]" : "border-[#1985a1]"}
+        `}
+      >
+        {checked && (
+          <div className="w-1.5 h-1.5 rounded-full bg-[#1985a1] radio-pulse" />
+        )}
+      </div>
+
       {label}
-    </Label>
+    </label>
   );
 }

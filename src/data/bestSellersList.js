@@ -106,7 +106,7 @@ const bestSellersList = [
     currency: "AUD",
     image: "/images/cookies/christmas-1.webp",
     link: "/shop",
-    start: "12-10",
+    start: "12-01",
     end: "12-31",
   },
   {
@@ -117,7 +117,7 @@ const bestSellersList = [
     currency: "AUD",
     image: "/images/cookies/christmas-cookies-in-hands.webp",
     link: "/shop",
-    start: "12-10",
+    start: "12-01",
     end: "12-31",
   },
   {
@@ -128,7 +128,7 @@ const bestSellersList = [
     currency: "AUD",
     image: "/images/cookies/new-year-tiger-bear-cookie.webp",
     link: "/shop",
-    start: "12-10",
+    start: "12-01",
     end: "12-31",
   },
   {
@@ -139,7 +139,7 @@ const bestSellersList = [
     currency: "AUD",
     image: "/images/cookies/penguin.webp",
     link: "/shop",
-    start: "12-10",
+    start: "12-01",
     end: "12-31",
   },
   {
@@ -150,7 +150,7 @@ const bestSellersList = [
     currency: "AUD",
     image: "/images/cookies/snow-white-bear.webp",
     link: "/shop",
-    start: "12-10",
+    start: "12-01",
     end: "12-31",
   },
   {
@@ -161,7 +161,7 @@ const bestSellersList = [
     currency: "AUD",
     image: "/images/cookies/snowman.webp",
     link: "/shop",
-    start: "12-10",
+    start: "12-01",
     end: "12-31",
   },
   {

@@ -1,7 +1,9 @@
 const blogPosts = [
   {
     id: 1,
-    date: "Tatacookies stall with custom cookies Sydney at Winter Solstice Market",
+    date: "21 June 2025",
+    title:
+      "Tatacookies stall with custom cookies Sydney at Winter Solstice Market",
     post: [
       "On June 21, we had the joy of taking part in the Winter Solstice Festival at Pocket City Farms in Sydney, sharing our handmade custom cookies Sydney families love - and what a magical day it was!",
       "We set up our little Tatacookies stall filled with handmade gingerbread cookies and custom decorated treats, bundled up against the winter chill, and soaked in the festive atmosphere all around us. The farm was glowing with warmth - from live music and delicious local food to laughter and twinkling lights.",

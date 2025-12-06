@@ -1,4 +1,5 @@
-// src/components/sections/HeroSection.jsx  (no "use client")
+// src/components/sections/HeroSection.jsx - No Hydration Issues
+"use client";
 import Image from "next/image";
 import SectionWrapper from "@/components/common/SectionWrapper";
 import ButtonOrLink from "@/components/ui/ButtonOrLink";
@@ -25,34 +26,30 @@ export default function HeroSection() {
             </ButtonOrLink>
           </div>
 
-          {/* Small decorative image — CSS animation only (no JS) */}
-          <div className="rounded-[20px] overflow-hidden w-full h-[216px] hidden md:block">
-            <div className="motion-safe:[animation:hero-slide-in_0.8s_ease-out_forwards]">
-              <Image
-                src="/images/hero-rec.avif"
-                alt="Decorative cookie"
-                width={400}
-                height={216}
-                className="w-full h-full object-cover"
-                loading="lazy"
-                decoding="async"
-              />
-            </div>
+          {/* Decorative image — CSS-only animation, no JavaScript */}
+          <div className="relative rounded-[20px] overflow-hidden w-full h-[216px] hidden md:block opacity-0 animate-[slideInLeft_1s_ease-out_0.6s_both]">
+            <Image
+              src="/images/hero-rec.avif"
+              alt="Decorative cookie"
+              fill
+              style={{ objectFit: "cover" }}
+              sizes="(min-width: 768px) 400px, 0px"
+              loading="lazy"
+              quality={85}
+            />
           </div>
         </div>
 
-        {/* LCP element — static, priority */}
-        <div className="h-[360px] md:h-[440px] lg:h-[529px] lg:flex-1 overflow-hidden rounded-[20px]">
+        {/* LCP image — optimized for performance */}
+        <div className="relative h-[360px] md:h-[440px] lg:h-[529px] lg:flex-1 overflow-hidden rounded-[20px] opacity-0 animate-[slideInRight_1s_ease-out_0.3s_both]">
           <Image
             src="/images/hero-sq.avif"
             alt="Easter cookies"
-            width={608}
-            height={529}
-            className="w-full h-full object-cover"
-            sizes="(min-width:1024px) 50vw, 100vw"
+            fill
+            style={{ objectFit: "cover" }}
+            sizes="(min-width: 1024px) 50vw, 100vw"
             priority
-            loading="eager"
-            fetchPriority="high"
+            quality={90}
           />
         </div>
       </FlexContainer>

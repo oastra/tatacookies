@@ -1,6 +1,4 @@
 // src/components/common/FlexSection.jsx
-"use client";
-
 import Image from "next/image";
 import SectionTitle from "./SectionTitle";
 import Container from "@/components/common/Container";

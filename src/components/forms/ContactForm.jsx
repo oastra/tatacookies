@@ -1,68 +1,36 @@
 "use client";
-
+import { useCallback, useMemo } from "react";
 import ButtonOrLink from "../ui/ButtonOrLink";
 import Checkbox from "../common/Checkbox";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import FormField from "./FormField";
+import { useContactForm } from "../../hooks/useContactForm";
 
 const ContactForm = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    phone: "",
-    email: "",
-    message: "",
-  });
-  const [accepted, setAccepted] = useState(false);
-  const [status, setStatus] = useState(""); // success, error, loading
-  const router = useRouter();
+  const {
+    formData,
+    accepted,
+    status,
+    errors,
+    handleChange,
+    handleBlur,
+    handleCheckboxChange,
+    handleSubmit,
+  } = useContactForm();
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (!accepted) {
-      alert("Please accept the Privacy Policy.");
-      return;
-    }
-
-    setStatus("loading");
-
-    try {
-      const res = await fetch("/api/send-form", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          formType: "contact",
-          name: formData.name,
-          email: formData.email,
-          message: formData.message,
-          phone: formData.phone,
-        }),
-      });
-
-      if (res.ok) {
-        setStatus("success");
-        setFormData({ name: "", phone: "", email: "", message: "" });
-        setAccepted(false);
-        router.push("/contact/success");
-      } else {
-        setStatus("error");
-      }
-    } catch (error) {
-      console.error("Contact form error:", error);
-      setStatus("error");
-    }
-  };
+  const getInputClassName = useCallback(
+    (fieldName) => {
+      const baseClasses = "px-4 py-5 rounded-[16px] bg-white shadow-cookie";
+      return errors[fieldName]
+        ? `${baseClasses} border-2 border-red-500 focus:border-red-500 focus:outline-none`
+        : `${baseClasses} focus:border-primary focus:outline-none`;
+    },
+    [errors]
+  );
 
   return (
     <form
       onSubmit={handleSubmit}
+      noValidate
       className="flex flex-col w-full justify-center items-stretch gap-5 text-text"
     >
       <p className="text-title text-h4 md:text-h3 text-center mb-1">
@@ -70,53 +38,64 @@ const ContactForm = () => {
         <br /> or just want to say hi?
       </p>
 
-      <input
+      <FormField
         type="text"
         name="name"
         value={formData.name}
         onChange={handleChange}
+        onBlur={handleBlur}
         placeholder="Your Name*"
-        required
-        className="px-4 py-5 rounded-[16px] bg-white shadow-cookie"
+        error={errors.name}
+        className={getInputClassName("name")}
       />
-      <input
+
+      <FormField
         type="tel"
         name="phone"
         value={formData.phone}
         onChange={handleChange}
+        onBlur={handleBlur}
         placeholder="Your Phone Number*"
-        required
-        className="px-4 py-5 rounded-[16px] bg-white shadow-cookie"
+        error={errors.phone}
+        className={getInputClassName("phone")}
       />
-      <input
+
+      <FormField
         type="email"
         name="email"
         value={formData.email}
         onChange={handleChange}
+        onBlur={handleBlur}
         placeholder="Your Email*"
-        required
-        className="px-4 py-5 rounded-[16px] bg-white shadow-cookie"
+        error={errors.email}
+        className={getInputClassName("email")}
       />
-      <div className="flex flex-col gap-1">
-        <label className="text-base font-medium p-[5px]">Your Message</label>
-        <textarea
-          name="message"
-          placeholder="Write your message here"
-          value={formData.message}
-          onChange={handleChange}
-          rows={2}
-          required
-          className="px-4 py-5 rounded-[16px] bg-white shadow-cookie"
-        />
-      </div>
 
-      <Checkbox
-        id="accept"
-        name="accept"
-        label="I agree to the Privacy Policy"
-        checked={accepted}
-        onChange={(e) => setAccepted(e.target.checked)}
+      <FormField
+        type="textarea"
+        name="message"
+        value={formData.message}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        placeholder="Write your message here"
+        label="Your Message"
+        rows={3}
+        error={errors.message}
+        className={getInputClassName("message")}
       />
+
+      <div className="flex flex-col gap-1">
+        <Checkbox
+          id="accept"
+          name="accept"
+          label="I agree to the Privacy Policy"
+          checked={accepted}
+          onChange={handleCheckboxChange}
+        />
+        {errors.privacy && (
+          <span className="text-red-500 text-sm px-1">{errors.privacy}</span>
+        )}
+      </div>
 
       <ButtonOrLink
         type="submit"

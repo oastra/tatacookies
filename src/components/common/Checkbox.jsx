@@ -1,81 +1,4 @@
 import React from "react";
-import styled, { keyframes } from "styled-components";
-
-const Input = styled.input`
-  height: 0;
-  width: 0;
-  opacity: 0;
-  z-index: -1;
-`;
-
-const Label = styled.label`
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  font-size: 0.875rem;
-  color: #46494c;
-  cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
-`;
-
-const draw = keyframes`
-  0% {
-    opacity: 0;
-    transform: scale(0.6) rotate(0deg);
-  }
-  70% {
-    opacity: 1;
-    transform: scale(1.1) rotate(45deg);
-  }
-  100% {
-    transform: scale(1) rotate(45deg);
-  }
-`;
-
-// Checkmark animation (your original)
-const rotate = keyframes`
-  from {
-    opacity: 0;
-    transform: rotate(0deg) scale(0.8);
-  }
-  to {
-    opacity: 1;
-    transform: rotate(45deg) scale(1);
-  }
-`;
-
-const Indicator = styled.div`
-  width: 16px;
-  height: 16px;
-  border-radius: 4px; /* Use 8px for perfect circle */
-  border: 2px solid #1985a1;
-  display: flex;
-  align-items: center;
-  flex-shrink: 0;
-  justify-content: center;
-  transition: background-color 0.2s ease, border-color 0.2s ease;
-
-  ${Input}:checked + & {
-    background-color: #1985a1;
-    border-color: #1985a1;
-  }
-
-  &::after {
-    content: "";
-    display: none;
-    left: 0.05em;
-    width: 45%;
-    height: 80%;
-    border: solid #eff7f6;
-    border-width: 0 2px 2px 0;
-    transform: rotate(45deg);
-    position: relative;
-  }
-
-  ${Input}:checked + &::after {
-    display: block;
-    animation: ${rotate} 0.3s ease-out forwards;
-  }
-`;
 
 export default function Checkbox({
   value,
@@ -87,18 +10,39 @@ export default function Checkbox({
   disabled,
 }) {
   return (
-    <Label htmlFor={id} disabled={disabled}>
-      <Input
-        id={id}
-        type="checkbox"
-        name={name}
-        value={value}
-        disabled={disabled}
-        checked={checked}
-        onChange={onChange}
-      />
-      <Indicator />
-      {label}
-    </Label>
+    <>
+      <label
+        htmlFor={id}
+        className={`
+          flex items-center gap-3 text-sm text-[#46494c] 
+          ${disabled ? "cursor-not-allowed" : "cursor-pointer"}
+        `}
+      >
+        <input
+          id={id}
+          type="checkbox"
+          name={name}
+          value={value}
+          disabled={disabled}
+          checked={checked}
+          onChange={onChange}
+          className="checkbox-hidden"
+        />
+
+        <div
+          className={`
+            w-4 h-4 rounded-[4px] border-2 border-[#1985a1] flex items-center justify-center flex-shrink-0
+            transition-all duration-200 ease-in-out relative checkbox-indicator
+            ${checked ? "bg-[#1985a1] border-[#1985a1]" : "bg-transparent"}
+          `}
+        >
+          {checked && (
+            <div className="checkbox-checkmark absolute w-[45%] h-[80%] border-r-2 border-b-2 border-[#eff7f6] transform rotate-45 left-[0.05em]" />
+          )}
+        </div>
+
+        {label}
+      </label>
+    </>
   );
 }
