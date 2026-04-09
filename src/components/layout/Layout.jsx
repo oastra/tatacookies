@@ -1,5 +1,6 @@
-import Header from "../common/Header";
-import Footer from "../common/Footer";
+import Header from "./Header";
+import Footer from "./Footer";
+import CartDrawer from "@/components/shop/CartDrawer";
 
 const Layout = ({ children }) => {
   return (
@@ -7,6 +8,7 @@ const Layout = ({ children }) => {
       <Header />
       <main>{children}</main>
       <Footer />
+      <CartDrawer />
     </>
   );
 };

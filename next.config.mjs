@@ -15,6 +15,13 @@ const nextConfig = {
     // tune sizes for your hero/layout
     deviceSizes: [360, 640, 828, 1080, 1200, 1920],
     imageSizes: [16, 32, 48, 96, 160, 216, 400, 608], // include your hero heights/widths
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "*.supabase.co",
+        pathname: "/storage/v1/object/public/**",
+      },
+    ],
   },
 
   // Cache headers (CDN + browser) for static assets & public images
@@ -39,6 +46,7 @@ const nextConfig = {
       { source: "/email-custom-order-preview", headers: noindex },
       { source: "/success", headers: noindex },
       { source: "/contact/success", headers: noindex },
+      { source: "/admin/:path*", headers: noindex },
 
       // silence Chrome DevTools .well-known 404 noise
       {

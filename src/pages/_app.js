@@ -4,6 +4,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import "../styles/globals.css";
 import CookieBanner from "@/components/CookieBanner";
+import { CartProvider } from "@/context/CartContext";
 
 export default function MyApp({ Component, pageProps }) {
   const router = useRouter();
@@ -40,8 +41,10 @@ export default function MyApp({ Component, pageProps }) {
         <link rel="canonical" href={canonical} />
       </Head>
 
-      <CookieBanner />
-      <Component {...pageProps} />
+      <CartProvider>
+        <CookieBanner />
+        <Component {...pageProps} />
+      </CartProvider>
     </>
   );
 }

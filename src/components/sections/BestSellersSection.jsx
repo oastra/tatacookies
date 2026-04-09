@@ -7,21 +7,15 @@ import { Navigation, Pagination } from "swiper/modules";
 import ClientSectionWrapper from "../common/ClientSectionWrapper";
 import SectionTitle from "../common/SectionTitle";
 import ProductCard from "../ui/cards/ProductCard";
-import getBestSellersForToday from "@/utils/getBestSellersForToday";
 
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-const BestSellersSection = () => {
+const BestSellersSection = ({ products = [] }) => {
   const [isMobile, setIsMobile] = useState(false);
-  const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    // Load products dynamically based on the date
-    setProducts(getBestSellersForToday());
-
-    // detect screen size
     const checkViewport = () => {
       setIsMobile(window.innerWidth < 640);
     };
@@ -29,6 +23,8 @@ const BestSellersSection = () => {
     window.addEventListener("resize", checkViewport);
     return () => window.removeEventListener("resize", checkViewport);
   }, []);
+
+  if (products.length === 0) return null;
 
   return (
     <ClientSectionWrapper id="best-sellers" bg="bg-bgPink">
@@ -45,14 +41,25 @@ const BestSellersSection = () => {
         >
           {products.map((product) => (
             <SwiperSlide key={product.id} className="p-[2px]">
-              <ProductCard {...product} />
+              <ProductCard
+                image={product.image_url}
+                title={product.title}
+                price={product.price}
+                slug={product.slug}
+              />
             </SwiperSlide>
           ))}
         </Swiper>
       ) : (
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 mt-10">
           {products.map((product) => (
-            <ProductCard key={product.id} {...product} />
+            <ProductCard
+              key={product.id}
+              image={product.image_url}
+              title={product.title}
+              price={product.price}
+              slug={product.slug}
+            />
           ))}
         </div>
       )}

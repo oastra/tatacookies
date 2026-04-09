@@ -4,7 +4,7 @@ import Link from "next/link";
 import Container from "@/components/common/Container";
 import FooterSlogan from "../ui/FooterSlogan";
 import InstagramIcon from "../icons/InstagramIcon";
-import ArrowUpIcon from "../icons/ArrowUpIcon";
+import ArrowRightIcon from "../icons/ArrowRightIcon";
 const Footer = () => {
   return (
     <footer>
@@ -66,9 +66,10 @@ const Footer = () => {
               href="https://olhachernysh.dev"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-base hover:text-primary"
+              className="text-base flex gap-1 hover:text-primary"
             >
-              Created by Olha Chernysh
+              Created by OlhaChernysh.dev
+              <ArrowRightIcon />
             </Link>
 
             <Link

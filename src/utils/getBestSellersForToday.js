@@ -1,4 +1,5 @@
 import bestSellersList from "@/data/bestSellersList";
+import slugify from "@/utils/slugify";
 
 // Helper to convert MM-DD to comparable number
 const parseDate = (str) => {
@@ -28,11 +29,14 @@ export default function getBestSellersForToday() {
 
   const shuffle = (arr) => [...arr].sort(() => Math.random() - 0.5);
 
+  const addSlug = (items) =>
+    items.map((item) => ({ ...item, slug: slugify(item.title) }));
+
   if (inSeason.length >= 3) {
     const seasonal = shuffle(inSeason).slice(0, 3);
     const oneRandom = shuffle(fallbackRandoms).slice(0, 1);
-    return [...seasonal, ...oneRandom];
+    return addSlug([...seasonal, ...oneRandom]);
   } else {
-    return shuffle(fallbackRandoms).slice(0, 4);
+    return addSlug(shuffle(fallbackRandoms).slice(0, 4));
   }
 }
