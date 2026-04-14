@@ -9,17 +9,17 @@ const FooterSlogan = () => {
     const updateSize = () => {
       const width = window.innerWidth;
       if (width < 640) {
-        setFontSize(16);
+        setFontSize(13);
         setSvgWidth(324);
-        setCurvePath("M0,40 C70,120 250,120 324,40"); // Mobile - softer curve
+        setCurvePath("M0,40 C70,120 250,120 324,40");
       } else if (width < 1024) {
         setFontSize(24);
         setSvgWidth(557);
-        setCurvePath("M0,40 C100,140 457,140 557,40"); // Tablet - steeper curve
+        setCurvePath("M0,40 C100,140 457,140 557,40");
       } else {
         setFontSize(20);
         setSvgWidth(468);
-        setCurvePath("M0,40 C100,130 368,130 468,40"); // Desktop - original
+        setCurvePath("M0,40 C100,130 368,130 468,40");
       }
     };
 
