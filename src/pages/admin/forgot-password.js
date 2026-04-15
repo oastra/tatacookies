@@ -55,8 +55,8 @@ export default function ForgotPassword() {
           {sent ? (
             <div className="text-center space-y-4">
               <p className="text-sm text-text">
-                Check your email for a password reset link. It may take a minute
-                to arrive.
+                If you are registered, a password reset link has been sent to
+                your email. It may take a minute to arrive.
               </p>
               <Link
                 href="/admin/login"
