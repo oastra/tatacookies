@@ -25,7 +25,12 @@ export default function useAdmin() {
 
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
+    } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === "PASSWORD_RECOVERY") {
+        // Let the reset-password page handle this
+        router.replace("/admin/reset-password");
+        return;
+      }
       if (!session) {
         router.replace("/admin/login");
       } else {

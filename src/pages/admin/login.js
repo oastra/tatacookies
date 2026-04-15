@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import Image from "next/image";
+import Link from "next/link";
 import { supabase } from "@/lib/supabase";
 
 export default function AdminLogin() {
@@ -76,6 +77,16 @@ export default function AdminLogin() {
               />
             </div>
             {error && <p className="text-sm text-red-500">{error}</p>}
+
+            <div className="text-right">
+              <Link
+                href="/admin/forgot-password"
+                className="text-sm text-primary hover:underline"
+              >
+                Forgot password?
+              </Link>
+            </div>
+
             <button
               type="submit"
               disabled={loading}
