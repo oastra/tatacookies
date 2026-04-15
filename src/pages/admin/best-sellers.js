@@ -3,6 +3,7 @@ import Head from "next/head";
 import Image from "next/image";
 import AdminLayout from "@/components/admin/AdminLayout";
 import { supabase } from "@/lib/supabase";
+import australianSeasons from "@/data/australianSeasons";
 
 // Check if a product is currently in season
 function isInSeason(product) {
@@ -19,6 +20,10 @@ function isInSeason(product) {
 
 function getSeasonLabel(product) {
   if (!product.season_start || !product.season_end) return "Year-round";
+  const match = australianSeasons.find(
+    (s) => s.start === product.season_start && s.end === product.season_end,
+  );
+  if (match) return match.label;
   return `${product.season_start} to ${product.season_end}`;
 }
 
@@ -317,27 +322,48 @@ function ProductRow({ product, onUpdate, saving }) {
         </div>
       </div>
 
-      {/* Season Dates */}
-      <div className="flex items-center gap-1.5 shrink-0">
-        <input
-          type="text"
-          defaultValue={product.season_start || ""}
-          onBlur={(e) =>
-            onUpdate(product.id, { season_start: e.target.value || null })
+      {/* Season Dropdown */}
+      <div className="shrink-0">
+        <select
+          value={
+            australianSeasons.find(
+              (s) =>
+                s.start === product.season_start &&
+                s.end === product.season_end,
+            )?.label ||
+            (product.season_start || product.season_end ? "_custom" : "")
           }
-          placeholder="MM-DD"
-          className="w-[65px] px-2 py-1.5 border border-gray-200 rounded-lg text-[11px] text-center focus:outline-none focus:border-[#8FE3D9]"
-        />
-        <span className="text-[10px] text-gray-300">to</span>
-        <input
-          type="text"
-          defaultValue={product.season_end || ""}
-          onBlur={(e) =>
-            onUpdate(product.id, { season_end: e.target.value || null })
-          }
-          placeholder="MM-DD"
-          className="w-[65px] px-2 py-1.5 border border-gray-200 rounded-lg text-[11px] text-center focus:outline-none focus:border-[#8FE3D9]"
-        />
+          onChange={(e) => {
+            const val = e.target.value;
+            if (!val) {
+              onUpdate(product.id, {
+                season_start: null,
+                season_end: null,
+              });
+            } else if (val === "_custom") {
+              // keep current
+            } else {
+              const season = australianSeasons.find(
+                (s) => s.label === val,
+              );
+              if (season) {
+                onUpdate(product.id, {
+                  season_start: season.start,
+                  season_end: season.end,
+                });
+              }
+            }
+          }}
+          className="w-[160px] px-2 py-1.5 border border-gray-200 rounded-lg text-[11px] focus:outline-none focus:border-[#8FE3D9]"
+        >
+          <option value="">Year-round</option>
+          {australianSeasons.map((s) => (
+            <option key={s.label} value={s.label}>
+              {s.label}
+            </option>
+          ))}
+          <option value="_custom">Custom...</option>
+        </select>
       </div>
 
       {/* Action Buttons */}

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { supabase } from "@/lib/supabase";
+import australianSeasons from "@/data/australianSeasons";
 
 const defaultVariant = {
   name: "Single Cookie",
@@ -331,36 +332,88 @@ export default function ProductForm({ product, categories, onSave }) {
         <h3 className="text-lg font-semibold text-gray-800">
           Seasonal Availability (optional)
         </h3>
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Start (MM-DD)
-            </label>
-            <input
-              type="text"
-              value={form.season_start}
-              onChange={(e) =>
-                setForm((p) => ({ ...p, season_start: e.target.value }))
+
+        {/* Season preset dropdown */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Season
+          </label>
+          <select
+            value={
+              australianSeasons.find(
+                (s) =>
+                  s.start === form.season_start && s.end === form.season_end,
+              )?.label ||
+              (form.season_start || form.season_end ? "_custom" : "")
+            }
+            onChange={(e) => {
+              const val = e.target.value;
+              if (!val) {
+                setForm((p) => ({
+                  ...p,
+                  season_start: "",
+                  season_end: "",
+                }));
+              } else if (val === "_custom") {
+                // keep current values, just switch to custom mode
+              } else {
+                const season = australianSeasons.find(
+                  (s) => s.label === val,
+                );
+                if (season) {
+                  setForm((p) => ({
+                    ...p,
+                    season_start: season.start,
+                    season_end: season.end,
+                  }));
+                }
               }
-              placeholder="01-17"
-              className="w-full px-4 py-3 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-teal-400 focus:ring-1 focus:ring-teal-400"
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              End (MM-DD)
-            </label>
-            <input
-              type="text"
-              value={form.season_end}
-              onChange={(e) =>
-                setForm((p) => ({ ...p, season_end: e.target.value }))
-              }
-              placeholder="02-14"
-              className="w-full px-4 py-3 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-teal-400 focus:ring-1 focus:ring-teal-400"
-            />
-          </div>
+            }}
+            className="w-full px-4 py-3 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-teal-400 focus:ring-1 focus:ring-teal-400"
+          >
+            <option value="">Year-round (no season)</option>
+            {australianSeasons.map((s) => (
+              <option key={s.label} value={s.label}>
+                {s.label} ({s.start} to {s.end})
+              </option>
+            ))}
+            <option value="_custom">Custom dates...</option>
+          </select>
         </div>
+
+        {/* Show date inputs when a season is selected or custom */}
+        {(form.season_start || form.season_end) && (
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Start (MM-DD)
+              </label>
+              <input
+                type="text"
+                value={form.season_start}
+                onChange={(e) =>
+                  setForm((p) => ({ ...p, season_start: e.target.value }))
+                }
+                placeholder="01-17"
+                className="w-full px-4 py-3 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-teal-400 focus:ring-1 focus:ring-teal-400"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                End (MM-DD)
+              </label>
+              <input
+                type="text"
+                value={form.season_end}
+                onChange={(e) =>
+                  setForm((p) => ({ ...p, season_end: e.target.value }))
+                }
+                placeholder="02-14"
+                className="w-full px-4 py-3 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-teal-400 focus:ring-1 focus:ring-teal-400"
+              />
+            </div>
+          </div>
+        )}
       </section>
 
       {/* Variants */}
