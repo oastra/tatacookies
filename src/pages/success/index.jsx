@@ -6,6 +6,8 @@ export default function OrderSuccessPage() {
   const { clearCart } = useCart();
 
   useEffect(() => {
+    // Clear localStorage directly to avoid race condition with CartProvider's load effect
+    localStorage.removeItem("tatacookies-cart");
     clearCart();
   }, [clearCart]);
 

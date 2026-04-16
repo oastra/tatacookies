@@ -85,7 +85,7 @@ async function handleCheckoutCompleted(session) {
     .select(
       `
       id, name, price_aud, product_id,
-      products (title)
+      products (title, image_url)
     `
     )
     .in("id", variantIds);
@@ -125,7 +125,7 @@ async function handleCheckoutCompleted(session) {
       subtotal_aud: total,
       total_aud: total,
     })
-    .select("id")
+    .select("id, order_number")
     .single();
 
   if (orderError) {
@@ -150,7 +150,10 @@ async function handleCheckoutCompleted(session) {
       quantity: item.qty,
     };
 
-    orderItems.push(orderItem);
+    orderItems.push({
+      ...orderItem,
+      image_url: variant.products?.image_url || null,
+    });
 
     // Insert order item (snapshot product/variant info)
     await supabase.from("order_items").insert(orderItem);
@@ -171,7 +174,7 @@ async function handleCheckoutCompleted(session) {
 
   // Send confirmation emails
   await sendOrderEmails({
-    orderNumber: order.id.slice(0, 8),
+    orderNumber: String(order.order_number).padStart(4, "0"),
     customerName: session.customer_details?.name || "Customer",
     customerEmail: session.customer_details?.email,
     customerPhone: session.customer_details?.phone,

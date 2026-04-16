@@ -100,8 +100,8 @@ export default function AdminOrders() {
                 <tbody className="divide-y divide-gray-100">
                   {orders.map((order) => (
                     <tr key={order.id} className="hover:bg-gray-50">
-                      <td className="px-6 py-4 text-gray-400 text-xs font-mono">
-                        {order.id.slice(0, 8)}...
+                      <td className="px-6 py-4 text-gray-700 text-sm font-mono font-medium">
+                        #{String(order.order_number).padStart(4, "0")}
                       </td>
                       <td className="px-6 py-4">
                         <p className="text-gray-800 font-medium">

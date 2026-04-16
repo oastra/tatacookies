@@ -1,4 +1,4 @@
-import { Heading, Text, Hr } from "@react-email/components";
+import { Heading, Text, Hr, Img } from "@react-email/components";
 import BaseLayout from "./baseLayout";
 import { colors, fonts } from "./styles";
 
@@ -46,55 +46,38 @@ export default function ShopOrderConfirmation({
             marginBottom: "16px",
           }}
         >
-          <thead>
-            <tr>
-              <th
-                style={{
-                  textAlign: "left",
-                  fontFamily: fonts.body,
-                  fontSize: "13px",
-                  color: colors.text,
-                  padding: "8px 0",
-                  borderBottom: `1px solid ${colors.border}`,
-                }}
-              >
-                Item
-              </th>
-              <th
-                style={{
-                  textAlign: "center",
-                  fontFamily: fonts.body,
-                  fontSize: "13px",
-                  color: colors.text,
-                  padding: "8px 0",
-                  borderBottom: `1px solid ${colors.border}`,
-                }}
-              >
-                Qty
-              </th>
-              <th
-                style={{
-                  textAlign: "right",
-                  fontFamily: fonts.body,
-                  fontSize: "13px",
-                  color: colors.text,
-                  padding: "8px 0",
-                  borderBottom: `1px solid ${colors.border}`,
-                }}
-              >
-                Price
-              </th>
-            </tr>
-          </thead>
           <tbody>
             {items.map((item, i) => (
               <tr key={i}>
+                {item.image_url && (
+                  <td
+                    style={{
+                      padding: "8px 12px 8px 0",
+                      borderBottom: i < items.length - 1 ? `1px solid ${colors.border}` : "none",
+                      verticalAlign: "middle",
+                      width: "60px",
+                    }}
+                  >
+                    <Img
+                      src={item.image_url}
+                      alt={item.product_title}
+                      width="56"
+                      height="56"
+                      style={{
+                        borderRadius: "8px",
+                        objectFit: "cover",
+                      }}
+                    />
+                  </td>
+                )}
                 <td
                   style={{
                     fontFamily: fonts.body,
                     fontSize: "14px",
                     padding: "8px 0",
                     color: colors.text,
+                    borderBottom: i < items.length - 1 ? `1px solid ${colors.border}` : "none",
+                    verticalAlign: "middle",
                   }}
                 >
                   {item.product_title} — {item.variant_name}
@@ -106,6 +89,8 @@ export default function ShopOrderConfirmation({
                     padding: "8px 0",
                     textAlign: "center",
                     color: colors.text,
+                    borderBottom: i < items.length - 1 ? `1px solid ${colors.border}` : "none",
+                    verticalAlign: "middle",
                   }}
                 >
                   {item.quantity}
@@ -117,6 +102,8 @@ export default function ShopOrderConfirmation({
                     padding: "8px 0",
                     textAlign: "right",
                     color: colors.text,
+                    borderBottom: i < items.length - 1 ? `1px solid ${colors.border}` : "none",
+                    verticalAlign: "middle",
                   }}
                 >
                   ${(Number(item.price_aud) * item.quantity).toFixed(2)}

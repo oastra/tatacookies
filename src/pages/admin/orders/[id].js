@@ -76,11 +76,11 @@ export default function OrderDetail() {
   return (
     <>
       <Head>
-        <title>Order {order.id.slice(0, 8)} - Admin TaTaCookies</title>
+        <title>Order {String(order.order_number).padStart(4, "0")} - Admin TaTaCookies</title>
         <meta name="robots" content="noindex, nofollow" />
       </Head>
 
-      <AdminLayout title={`Order #${order.id.slice(0, 8)}`}>
+      <AdminLayout title={`Order #${String(order.order_number).padStart(4, "0")}`}>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Order Info */}
           <div className="lg:col-span-2 space-y-6">
