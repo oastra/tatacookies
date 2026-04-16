@@ -57,6 +57,19 @@ export default function OrderDetail() {
     });
   };
 
+  const updateTrackingNumber = async (tracking_number) => {
+    const token = await getToken();
+    await fetch("/api/admin/orders", {
+      method: "PATCH",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id, tracking_number }),
+    });
+    fetchOrder();
+  };
+
   if (loading) {
     return (
       <AdminLayout title="Order Details">
@@ -173,6 +186,41 @@ export default function OrderDetail() {
                 <option value="cancelled">Cancelled</option>
               </select>
             </div>
+
+            {/* Tracking */}
+            {order.delivery_method === "Australia Post" && (
+              <div className="bg-white rounded-xl border border-gray-200 p-6">
+                <h3 className="text-base font-semibold text-gray-800 mb-3">
+                  Tracking
+                </h3>
+                <input
+                  type="text"
+                  defaultValue={order.tracking_number || ""}
+                  onBlur={(e) => {
+                    if (e.target.value !== (order.tracking_number || "")) {
+                      updateTrackingNumber(e.target.value);
+                    }
+                  }}
+                  placeholder="e.g. ABC123456789"
+                  className="w-full px-4 py-3 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-teal-400 font-mono"
+                />
+                {order.tracking_number && (
+                  <a
+                    href={`https://auspost.com.au/mypost/track/#/details/${order.tracking_number}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-teal-600 hover:underline text-xs mt-2 inline-block"
+                  >
+                    View on Australia Post
+                  </a>
+                )}
+                {order.shipping_notification_sent && (
+                  <p className="text-xs text-green-600 mt-2">
+                    Shipping notification sent
+                  </p>
+                )}
+              </div>
+            )}
 
             {/* Customer */}
             <div className="bg-white rounded-xl border border-gray-200 p-6">
