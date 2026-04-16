@@ -152,7 +152,9 @@ async function handleCheckoutCompleted(session) {
 
     orderItems.push({
       ...orderItem,
-      image_url: variant.products?.image_url || null,
+      image_url: variant.products?.image_url
+        ? `${process.env.NEXT_PUBLIC_SITE_URL || "https://tatacookies.com"}${variant.products.image_url}`
+        : null,
     });
 
     // Insert order item (snapshot product/variant info)
