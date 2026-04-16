@@ -202,7 +202,7 @@ export default function OrderDetail() {
                     }
                   }}
                   placeholder="e.g. ABC123456789"
-                  className="w-full px-4 py-3 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-teal-400 font-mono"
+                  className="w-full px-4 py-3 border border-gray-300 bg-gray-50 rounded-lg text-sm focus:outline-none focus:border-teal-400 focus:bg-white font-mono"
                 />
                 {order.tracking_number && (
                   <a
