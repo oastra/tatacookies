@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
@@ -16,6 +16,11 @@ import { getServiceSupabase } from "@/lib/supabase";
 
 export default function ProductDetailPage({ product, relatedProducts }) {
   const { addToCart, setCartOpen } = useCart();
+
+  // Scroll to top when navigating to a related product
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [product.slug]);
 
   const activeVariants = (product.variants || []).filter((v) => v.is_active);
 
