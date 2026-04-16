@@ -354,7 +354,7 @@ function ProductRow({ product, onUpdate, saving }) {
               }
             }
           }}
-          className="w-[160px] px-2 py-1.5 border border-gray-200 rounded-lg text-[11px] focus:outline-none focus:border-[#8FE3D9]"
+          className="w-[160px] px-2 py-1.5 border border-gray-200 rounded-lg text-[11px] bg-[#F8FAFB] focus:outline-none focus:border-[#8FE3D9] focus:ring-1 focus:ring-[#8FE3D9]"
         >
           <option value="">Year-round</option>
           {australianSeasons.map((s) => (

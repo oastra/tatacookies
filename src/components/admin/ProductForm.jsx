@@ -181,7 +181,7 @@ export default function ProductForm({ product, categories, onSave }) {
             onChange={(e) =>
               setForm((p) => ({ ...p, alt_text: e.target.value }))
             }
-            className="w-full px-4 py-3 border border-gray-200 rounded-lg text-sm  bg-[#F8FAFB]focus:outline-none focus:border-teal-400 focus:ring-1 focus:ring-teal-400"
+            className="w-full px-4 py-3 border border-gray-200 rounded-lg text-sm bg-[#F8FAFB] focus:outline-none focus:border-teal-400 focus:ring-1 focus:ring-teal-400"
           />
         </div>
       </section>
@@ -225,7 +225,7 @@ export default function ProductForm({ product, categories, onSave }) {
               setForm((p) => ({ ...p, image_url: e.target.value }))
             }
             placeholder="/images/cookies/example.webp"
-            className="w-full px-4 py-3 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-teal-400 focus:ring-1 focus:ring-teal-400"
+            className="w-full px-4 py-3 border border-gray-200 rounded-lg text-sm bg-[#F8FAFB] focus:outline-none focus:border-teal-400 focus:ring-1 focus:ring-teal-400"
           />
         </div>
       </section>
@@ -369,7 +369,7 @@ export default function ProductForm({ product, categories, onSave }) {
                 }
               }
             }}
-            className="w-full px-4 py-3 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-teal-400 focus:ring-1 focus:ring-teal-400"
+            className="w-full px-4 py-3 border border-gray-200 rounded-lg text-sm bg-[#F8FAFB] focus:outline-none focus:border-teal-400 focus:ring-1 focus:ring-teal-400 appearance-none"
           >
             <option value="">Year-round (no season)</option>
             {australianSeasons.map((s) => (
@@ -395,7 +395,7 @@ export default function ProductForm({ product, categories, onSave }) {
                   setForm((p) => ({ ...p, season_start: e.target.value }))
                 }
                 placeholder="01-17"
-                className="w-full px-4 py-3 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-teal-400 focus:ring-1 focus:ring-teal-400"
+                className="w-full px-4 py-3 border border-gray-200 rounded-lg text-sm bg-[#F8FAFB] focus:outline-none focus:border-teal-400 focus:ring-1 focus:ring-teal-400"
               />
             </div>
             <div>
@@ -409,7 +409,7 @@ export default function ProductForm({ product, categories, onSave }) {
                   setForm((p) => ({ ...p, season_end: e.target.value }))
                 }
                 placeholder="02-14"
-                className="w-full px-4 py-3 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-teal-400 focus:ring-1 focus:ring-teal-400"
+                className="w-full px-4 py-3 border border-gray-200 rounded-lg text-sm bg-[#F8FAFB] focus:outline-none focus:border-teal-400 focus:ring-1 focus:ring-teal-400"
               />
             </div>
           </div>
@@ -449,7 +449,7 @@ export default function ProductForm({ product, categories, onSave }) {
                   onChange={(e) => updateVariant(index, "name", e.target.value)}
                   placeholder="e.g. Box of 6"
                   required
-                  className="w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-teal-400"
+                  className="w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm bg-[#F8FAFB] focus:outline-none focus:border-teal-400 focus:ring-1 focus:ring-teal-400"
                 />
               </div>
               <div>
@@ -471,7 +471,7 @@ export default function ProductForm({ product, categories, onSave }) {
                     )
                   }
                   required
-                  className="w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-teal-400"
+                  className="w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm bg-[#F8FAFB] focus:outline-none focus:border-teal-400 focus:ring-1 focus:ring-teal-400"
                 />
               </div>
               <div>
@@ -491,7 +491,7 @@ export default function ProductForm({ product, categories, onSave }) {
                       parseInt(e.target.value) || 0,
                     )
                   }
-                  className="w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-teal-400"
+                  className="w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm bg-[#F8FAFB] focus:outline-none focus:border-teal-400 focus:ring-1 focus:ring-teal-400"
                 />
               </div>
               <div>
