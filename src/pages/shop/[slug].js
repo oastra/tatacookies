@@ -185,7 +185,7 @@ export default function ProductDetailPage({ product, relatedProducts }) {
               {/* Add to Cart */}
               <div className="pt-2">
                 {isSoldOut ? (
-                  <div className="w-[293px] h-[64px] flex items-center justify-center bg-gray-200 rounded-full text-text60 font-medium">
+                  <div className="w-full sm:w-[293px] h-[64px] flex items-center justify-center bg-gray-200 rounded-full text-text60 font-medium">
                     Sold Out
                   </div>
                 ) : (

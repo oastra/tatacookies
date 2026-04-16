@@ -3,7 +3,7 @@ import Head from "next/head";
 import Layout from "@/components/layout/Layout";
 import SectionWrapper from "@/components/common/SectionWrapper";
 import SectionTitle from "@/components/common/SectionTitle";
-import Tabs from "@/components/ui/Tabs";
+import ShopCategoryTabs from "@/components/shop/ShopCategoryTabs";
 import ShopProductCard from "@/components/shop/ShopProductCard";
 import { getServiceSupabase } from "@/lib/supabase";
 
@@ -153,7 +153,7 @@ export default function ShopPage({ products, categories }) {
           <SectionTitle className="text-center text-title">Shop</SectionTitle>
 
           {/* Category Tabs */}
-          <Tabs
+          <ShopCategoryTabs
             categories={categoryNames}
             activeTab={activeCategory}
             onTabClick={setActiveCategory}
