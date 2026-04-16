@@ -33,7 +33,7 @@ const ShopProductCard = ({ product }) => {
   return (
     <div className="w-full h-full p-4 bg-white rounded-[20px] border border-gray-200 shadow-cookie flex flex-col gap-4 justify-between transition-transform sm:hover:scale-[1.01]">
       {/* Image */}
-      <Link href={`/shop/${slug}`} className="block">
+      <Link href={`/shop/${slug}`} scroll={true} className="block">
         <div className="relative w-full aspect-square sm:h-[280px]">
           <Image
             src={image_url}
@@ -59,7 +59,7 @@ const ShopProductCard = ({ product }) => {
 
       {/* Content */}
       <div className="flex flex-col gap-4 text-left justify-between flex-1">
-        <Link href={`/shop/${slug}`}>
+        <Link href={`/shop/${slug}`} scroll={true}>
           <p className="text-button text-title font-medium">{title}</p>
         </Link>
 

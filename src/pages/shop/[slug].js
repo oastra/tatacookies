@@ -17,10 +17,10 @@ import { getServiceSupabase } from "@/lib/supabase";
 export default function ProductDetailPage({ product, relatedProducts }) {
   const { addToCart, setCartOpen } = useCart();
 
-  // Scroll to top when navigating to a related product
+  // Scroll to top when product changes (e.g. clicking a related cookie)
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [product.slug]);
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }, [product.id]);
 
   const activeVariants = (product.variants || []).filter((v) => v.is_active);
 
