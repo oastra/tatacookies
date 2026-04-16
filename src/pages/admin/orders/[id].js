@@ -206,7 +206,7 @@ export default function OrderDetail() {
                 />
                 {order.tracking_number && (
                   <a
-                    href={`https://auspost.com.au/mypost/track/#/details/${order.tracking_number}`}
+                    href={`https://auspost.com.au/parcels-mail/track.html#/track?id=${order.tracking_number}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-teal-600 hover:underline text-xs mt-2 inline-block"

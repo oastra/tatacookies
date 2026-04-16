@@ -93,7 +93,7 @@ async function sendShippingEmail(order) {
   const resend = new Resend(process.env.RESEND_API_KEY);
   const from = `Tatacookies <${process.env.ORDER_EMAIL_FROM || "orders@tatacookies.com"}>`;
   const orderNumber = String(order.order_number).padStart(4, "0");
-  const trackingUrl = `https://auspost.com.au/mypost/track/#/details/${order.tracking_number}`;
+  const trackingUrl = `https://auspost.com.au/parcels-mail/track.html#/track?id=${order.tracking_number}`;
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tatacookies.com";
 
   const items = (order.order_items || []).map((item) => ({
