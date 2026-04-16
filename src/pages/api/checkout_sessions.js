@@ -10,7 +10,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { cart } = req.body;
+    const { cart, deliveryMethod } = req.body;
 
     if (!cart || !Array.isArray(cart) || cart.length === 0) {
       return res.status(400).json({ error: "Cart is empty" });
@@ -43,12 +43,15 @@ export default async function handler(req, res) {
       }
     }
 
-    const session = await stripe.checkout.sessions.create({
+    const isDelivery = deliveryMethod === "Australia Post";
+
+    const sessionConfig = {
       line_items: cart.map((item) => ({
         price: item.id, // Stripe Price ID
         quantity: item.qty,
       })),
       mode: "payment",
+      phone_number_collection: { enabled: true },
       success_url: `${req.headers.origin}/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${req.headers.origin}/shop`,
       metadata: {
@@ -58,8 +61,18 @@ export default async function handler(req, res) {
             qty: item.qty,
           }))
         ),
+        delivery_method: deliveryMethod || "Pick-Up",
       },
-    });
+    };
+
+    // Collect shipping address only for delivery orders
+    if (isDelivery) {
+      sessionConfig.shipping_address_collection = {
+        allowed_countries: ["AU"],
+      };
+    }
+
+    const session = await stripe.checkout.sessions.create(sessionConfig);
 
     res.status(200).json({ url: session.url });
   } catch (err) {

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
@@ -8,6 +8,7 @@ import { useCart } from "@/context/CartContext";
 import QuantitySelector from "./QuantitySelector";
 
 const CartDrawer = () => {
+  const [deliveryMethod, setDeliveryMethod] = useState("");
   const {
     cart,
     removeFromCart,
@@ -33,6 +34,11 @@ const CartDrawer = () => {
   }, [isCartOpen]);
 
   const handleCheckout = async () => {
+    if (!deliveryMethod) {
+      alert("Please select Delivery or Pick-Up before checkout.");
+      return;
+    }
+
     try {
       const res = await fetch("/api/checkout_sessions", {
         method: "POST",
@@ -43,6 +49,7 @@ const CartDrawer = () => {
             qty: item.qty,
             variantId: item.variantId,
           })),
+          deliveryMethod,
         }),
       });
       const data = await res.json();
@@ -180,6 +187,37 @@ const CartDrawer = () => {
             {/* Footer */}
             {cart.length > 0 && (
               <div className="border-t border-gray-100 p-6 space-y-4">
+                {/* Delivery method */}
+                <div className="space-y-2">
+                  <p className="text-sm font-medium text-text">
+                    Delivery / Pick-Up
+                  </p>
+                  <div className="flex gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setDeliveryMethod("Australia Post")}
+                      className={`flex-1 py-2.5 rounded-full text-sm font-medium border transition ${
+                        deliveryMethod === "Australia Post"
+                          ? "bg-primary/10 border-primary text-title"
+                          : "bg-white border-gray-200 text-text60 hover:border-gray-300"
+                      }`}
+                    >
+                      Delivery
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setDeliveryMethod("Pick-Up")}
+                      className={`flex-1 py-2.5 rounded-full text-sm font-medium border transition ${
+                        deliveryMethod === "Pick-Up"
+                          ? "bg-primary/10 border-primary text-title"
+                          : "bg-white border-gray-200 text-text60 hover:border-gray-300"
+                      }`}
+                    >
+                      Pick-Up
+                    </button>
+                  </div>
+                </div>
+
                 <div className="flex justify-between items-center">
                   <span className="text-base font-medium text-text">
                     Subtotal
@@ -189,7 +227,9 @@ const CartDrawer = () => {
                   </span>
                 </div>
                 <p className="text-small text-text60">
-                  Shipping calculated at checkout
+                  {deliveryMethod === "Pick-Up"
+                    ? "Pick up from our Sydney location"
+                    : "Shipping calculated at checkout"}
                 </p>
                 <button
                   onClick={handleCheckout}

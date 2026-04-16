@@ -1,6 +1,14 @@
+import { useEffect } from "react";
 import SuccessLayout from "@/components/SuccessLayout";
+import { useCart } from "@/context/CartContext";
 
 export default function OrderSuccessPage() {
+  const { clearCart } = useCart();
+
+  useEffect(() => {
+    clearCart();
+  }, [clearCart]);
+
   return (
     <SuccessLayout
       title="Thank you for your order!"

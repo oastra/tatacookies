@@ -1,5 +1,9 @@
 import Stripe from "stripe";
+import { Resend } from "resend";
+import { renderToString } from "react-dom/server";
 import { getServiceSupabase } from "@/lib/supabase";
+import ShopOrderConfirmation from "@/emails/shopOrderConfirmation";
+import ShopOrderAdminNotification from "@/emails/shopOrderAdminNotification";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
@@ -72,6 +76,8 @@ async function handleCheckoutCompleted(session) {
     return;
   }
 
+  const deliveryMethod = session.metadata?.delivery_method || null;
+
   // Get variant details for order items
   const variantIds = cartItems.map((item) => item.variantId).filter(Boolean);
   const { data: variants } = await supabase
@@ -94,6 +100,16 @@ async function handleCheckoutCompleted(session) {
     return sum + (variant ? Number(variant.price_aud) * item.qty : 0);
   }, 0);
 
+  // Format shipping address
+  const shipping = session.shipping_details || session.customer_details;
+  let deliveryAddress = null;
+  if (shipping?.address) {
+    const a = shipping.address;
+    deliveryAddress = [a.line1, a.line2, a.city, a.state, a.postal_code, a.country]
+      .filter(Boolean)
+      .join(", ");
+  }
+
   // Create order
   const { data: order, error: orderError } = await supabase
     .from("orders")
@@ -102,6 +118,9 @@ async function handleCheckoutCompleted(session) {
       stripe_payment_id: session.payment_intent,
       customer_email: session.customer_details?.email,
       customer_name: session.customer_details?.name,
+      customer_phone: session.customer_details?.phone || null,
+      delivery_method: deliveryMethod,
+      delivery_address: deliveryAddress,
       status: "paid",
       subtotal_aud: total,
       total_aud: total,
@@ -114,20 +133,27 @@ async function handleCheckoutCompleted(session) {
     return;
   }
 
+  // Build order items array for email
+  const orderItems = [];
+
   // Create order items and decrement stock
   for (const item of cartItems) {
     const variant = variantMap[item.variantId];
     if (!variant) continue;
 
-    // Insert order item (snapshot product/variant info)
-    await supabase.from("order_items").insert({
+    const orderItem = {
       order_id: order.id,
       variant_id: item.variantId,
       product_title: variant.products?.title || "Unknown",
       variant_name: variant.name,
       price_aud: variant.price_aud,
       quantity: item.qty,
-    });
+    };
+
+    orderItems.push(orderItem);
+
+    // Insert order item (snapshot product/variant info)
+    await supabase.from("order_items").insert(orderItem);
 
     // Atomic stock decrement (only if enough stock)
     const { error: stockError } = await supabase.rpc("decrement_stock", {
@@ -141,5 +167,87 @@ async function handleCheckoutCompleted(session) {
         stockError
       );
     }
+  }
+
+  // Send confirmation emails
+  await sendOrderEmails({
+    orderNumber: order.id.slice(0, 8),
+    customerName: session.customer_details?.name || "Customer",
+    customerEmail: session.customer_details?.email,
+    customerPhone: session.customer_details?.phone,
+    items: orderItems,
+    total: total.toFixed(2),
+    deliveryMethod,
+    address: deliveryAddress,
+  });
+}
+
+async function sendOrderEmails({
+  orderNumber,
+  customerName,
+  customerEmail,
+  customerPhone,
+  items,
+  total,
+  deliveryMethod,
+  address,
+}) {
+  if (!process.env.RESEND_API_KEY) {
+    console.error("RESEND_API_KEY not set, skipping order emails");
+    return;
+  }
+
+  const resend = new Resend(process.env.RESEND_API_KEY);
+  const from = `Tatacookies <${process.env.ORDER_EMAIL_FROM || "orders@tatacookies.com"}>`;
+  const adminTo = process.env.ORDER_EMAIL_TO || "orders@tatacookies.com";
+
+  // 1. Customer confirmation email
+  if (customerEmail) {
+    try {
+      const customerHtml = renderToString(
+        <ShopOrderConfirmation
+          name={customerName}
+          orderNumber={orderNumber}
+          items={items}
+          total={total}
+          deliveryMethod={deliveryMethod}
+          address={address}
+        />
+      );
+
+      await resend.emails.send({
+        from,
+        to: customerEmail,
+        subject: `Order confirmed — #${orderNumber}`,
+        html: customerHtml,
+      });
+    } catch (err) {
+      console.error("Failed to send customer email:", err);
+    }
+  }
+
+  // 2. Admin notification email
+  try {
+    const adminHtml = renderToString(
+      <ShopOrderAdminNotification
+        orderNumber={orderNumber}
+        customerName={customerName}
+        customerEmail={customerEmail}
+        customerPhone={customerPhone}
+        items={items}
+        total={total}
+        deliveryMethod={deliveryMethod}
+        address={address}
+      />
+    );
+
+    await resend.emails.send({
+      from,
+      to: adminTo,
+      subject: `New order #${orderNumber} — ${customerName}`,
+      html: adminHtml,
+    });
+  } catch (err) {
+    console.error("Failed to send admin email:", err);
   }
 }

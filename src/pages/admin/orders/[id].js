@@ -184,6 +184,39 @@ export default function OrderDetail() {
                   {order.customer_name || "No name provided"}
                 </p>
                 <p className="text-gray-500">{order.customer_email || "—"}</p>
+                {order.customer_phone && (
+                  <p className="text-gray-500">
+                    <a
+                      href={`tel:${order.customer_phone}`}
+                      className="hover:text-teal-600 transition"
+                    >
+                      {order.customer_phone}
+                    </a>
+                  </p>
+                )}
+              </div>
+            </div>
+
+            {/* Delivery */}
+            <div className="bg-white rounded-xl border border-gray-200 p-6">
+              <h3 className="text-base font-semibold text-gray-800 mb-3">
+                Delivery
+              </h3>
+              <div className="space-y-2 text-sm">
+                <p className="text-gray-800">
+                  <span
+                    className={`inline-block px-2 py-0.5 rounded-full text-xs font-medium ${
+                      order.delivery_method === "Pick-Up"
+                        ? "bg-blue-50 text-blue-600"
+                        : "bg-green-50 text-green-600"
+                    }`}
+                  >
+                    {order.delivery_method || "Not specified"}
+                  </span>
+                </p>
+                {order.delivery_address && (
+                  <p className="text-gray-500">{order.delivery_address}</p>
+                )}
               </div>
             </div>
 
