@@ -91,6 +91,7 @@ export default function AdminOrders() {
                     <th className="text-left px-6 py-3 font-medium">Customer</th>
                     <th className="text-left px-6 py-3 font-medium">Items</th>
                     <th className="text-left px-6 py-3 font-medium">Total</th>
+                    <th className="text-left px-6 py-3 font-medium">Delivery</th>
                     <th className="text-left px-6 py-3 font-medium">Status</th>
                     <th className="text-left px-6 py-3 font-medium">Date</th>
                     <th className="text-right px-6 py-3 font-medium">Actions</th>
@@ -103,18 +104,36 @@ export default function AdminOrders() {
                         {order.id.slice(0, 8)}...
                       </td>
                       <td className="px-6 py-4">
-                        <p className="text-gray-800">
+                        <p className="text-gray-800 font-medium">
                           {order.customer_name || "—"}
                         </p>
-                        <p className="text-xs text-gray-400">
+                        <p className="text-xs text-gray-500">
                           {order.customer_email}
                         </p>
+                        {order.customer_phone && (
+                          <p className="text-xs text-gray-400">
+                            {order.customer_phone}
+                          </p>
+                        )}
                       </td>
                       <td className="px-6 py-4 text-gray-600">
                         {(order.order_items || []).length} items
                       </td>
                       <td className="px-6 py-4 font-medium text-gray-800">
                         ${Number(order.total_aud || 0).toFixed(2)}
+                      </td>
+                      <td className="px-6 py-4">
+                        <span
+                          className={`px-2 py-0.5 rounded-full text-xs font-medium ${
+                            order.delivery_method === "Pick-Up"
+                              ? "bg-blue-50 text-blue-600"
+                              : order.delivery_method
+                                ? "bg-green-50 text-green-600"
+                                : "text-gray-400"
+                          }`}
+                        >
+                          {order.delivery_method || "—"}
+                        </span>
                       </td>
                       <td className="px-6 py-4">
                         <select
