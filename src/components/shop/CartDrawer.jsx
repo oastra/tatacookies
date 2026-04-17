@@ -10,6 +10,7 @@ import QuantitySelector from "./QuantitySelector";
 const CartDrawer = () => {
   const [deliveryMethod, setDeliveryMethod] = useState("");
   const [featured, setFeatured] = useState([]);
+  const [showDeliveryError, setShowDeliveryError] = useState(false);
   const {
     cart,
     removeFromCart,
@@ -46,7 +47,7 @@ const CartDrawer = () => {
 
   const handleCheckout = async () => {
     if (!deliveryMethod) {
-      alert("Please select Delivery or Pick-Up before checkout.");
+      setShowDeliveryError(true);
       return;
     }
 
@@ -255,28 +256,40 @@ const CartDrawer = () => {
 
                 {/* Delivery method */}
                 <div className="space-y-2">
-                  <p className="text-sm font-medium text-text">
-                    Delivery / Pick-Up
+                  <p className={`text-sm font-medium ${showDeliveryError ? "text-red-500" : "text-text"}`}>
+                    {showDeliveryError
+                      ? "Please select Delivery or Pick-Up"
+                      : "Delivery / Pick-Up"}
                   </p>
                   <div className="flex gap-2">
                     <button
                       type="button"
-                      onClick={() => setDeliveryMethod("Australia Post")}
+                      onClick={() => {
+                        setDeliveryMethod("Australia Post");
+                        setShowDeliveryError(false);
+                      }}
                       className={`flex-1 py-2.5 rounded-full text-sm font-medium border transition ${
                         deliveryMethod === "Australia Post"
                           ? "bg-primary/10 border-primary text-title"
-                          : "bg-white border-gray-200 text-text60 hover:border-gray-300"
+                          : showDeliveryError
+                            ? "bg-white border-red-300 text-text60 animate-pulse"
+                            : "bg-white border-gray-200 text-text60 hover:border-gray-300"
                       }`}
                     >
                       Delivery
                     </button>
                     <button
                       type="button"
-                      onClick={() => setDeliveryMethod("Pick-Up")}
+                      onClick={() => {
+                        setDeliveryMethod("Pick-Up");
+                        setShowDeliveryError(false);
+                      }}
                       className={`flex-1 py-2.5 rounded-full text-sm font-medium border transition ${
                         deliveryMethod === "Pick-Up"
                           ? "bg-primary/10 border-primary text-title"
-                          : "bg-white border-gray-200 text-text60 hover:border-gray-300"
+                          : showDeliveryError
+                            ? "bg-white border-red-300 text-text60 animate-pulse"
+                            : "bg-white border-gray-200 text-text60 hover:border-gray-300"
                       }`}
                     >
                       Pick-Up
