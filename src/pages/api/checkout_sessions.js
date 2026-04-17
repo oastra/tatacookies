@@ -77,8 +77,8 @@ export default async function handler(req, res) {
         return sum + (variant ? Number(variant.price_aud) * item.qty : 0);
       }, 0);
 
-      const FREE_SHIPPING_THRESHOLD = 60;
-      const FLAT_RATE_CENTS = 1000; // $10 AUD
+      const FREE_SHIPPING_THRESHOLD = 300;
+      const FLAT_RATE_CENTS = 2000; // $20 AUD
 
       if (cartTotal >= FREE_SHIPPING_THRESHOLD) {
         sessionConfig.shipping_options = [
