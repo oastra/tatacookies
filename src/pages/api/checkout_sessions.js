@@ -23,7 +23,7 @@ export default async function handler(req, res) {
     if (variantIds.length > 0) {
       const { data: variants } = await supabase
         .from("product_variants")
-        .select("id, name, stock_count")
+        .select("id, name, stock_count, price_aud")
         .in("id", variantIds);
 
       const outOfStock = [];
@@ -65,11 +65,50 @@ export default async function handler(req, res) {
       },
     };
 
-    // Collect shipping address only for delivery orders
+    // Collect shipping address and add shipping cost for delivery orders
     if (isDelivery) {
       sessionConfig.shipping_address_collection = {
         allowed_countries: ["AU"],
       };
+
+      // Calculate cart total for free shipping threshold
+      const cartTotal = cart.reduce((sum, item) => {
+        const variant = variants?.find((v) => v.id === item.variantId);
+        return sum + (variant ? Number(variant.price_aud) * item.qty : 0);
+      }, 0);
+
+      const FREE_SHIPPING_THRESHOLD = 60;
+      const FLAT_RATE_CENTS = 1000; // $10 AUD
+
+      if (cartTotal >= FREE_SHIPPING_THRESHOLD) {
+        sessionConfig.shipping_options = [
+          {
+            shipping_rate_data: {
+              type: "fixed_amount",
+              fixed_amount: { amount: 0, currency: "aud" },
+              display_name: "Australia Post — Free shipping",
+              delivery_estimate: {
+                minimum: { unit: "business_day", value: 3 },
+                maximum: { unit: "business_day", value: 7 },
+              },
+            },
+          },
+        ];
+      } else {
+        sessionConfig.shipping_options = [
+          {
+            shipping_rate_data: {
+              type: "fixed_amount",
+              fixed_amount: { amount: FLAT_RATE_CENTS, currency: "aud" },
+              display_name: "Australia Post",
+              delivery_estimate: {
+                minimum: { unit: "business_day", value: 3 },
+                maximum: { unit: "business_day", value: 7 },
+              },
+            },
+          },
+        ];
+      }
     }
 
     const session = await stripe.checkout.sessions.create(sessionConfig);

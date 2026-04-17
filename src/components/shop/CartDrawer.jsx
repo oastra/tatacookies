@@ -259,7 +259,7 @@ const CartDrawer = () => {
               <div className="border-t border-gray-100 p-6 space-y-4">
                 {/* Shipping info */}
                 <div className="flex items-center justify-center gap-3 text-xs text-text60 bg-bgBlue rounded-lg py-2 px-3">
-                  <span>Australia-wide delivery</span>
+                  <span>Delivery from $10 · Free over $60</span>
                   <span className="text-gray-300">|</span>
                   <span>Free Sydney pick-up</span>
                 </div>
@@ -315,10 +315,22 @@ const CartDrawer = () => {
                     ${subtotal.toFixed(2)} AUD
                   </span>
                 </div>
+                {deliveryMethod === "Australia Post" && (
+                  <div className="flex justify-between items-center text-sm">
+                    <span className="text-text60">Shipping</span>
+                    <span className={subtotal >= 60 ? "text-green-600 font-medium" : "text-text"}>
+                      {subtotal >= 60 ? "Free" : "$10.00"}
+                    </span>
+                  </div>
+                )}
                 <p className="text-small text-text60">
                   {deliveryMethod === "Pick-Up"
                     ? "Pick up from our Sydney location"
-                    : "Shipping calculated at checkout"}
+                    : deliveryMethod === "Australia Post"
+                      ? subtotal >= 60
+                        ? "Free shipping applied!"
+                        : `Free shipping on orders over $60 (${(60 - subtotal).toFixed(0)} away)`
+                      : "Select delivery method above"}
                 </p>
                 <button
                   onClick={handleCheckout}

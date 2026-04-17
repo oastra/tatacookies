@@ -94,11 +94,17 @@ async function handleCheckoutCompleted(session) {
     (variants || []).map((v) => [v.id, v])
   );
 
-  // Calculate total
-  const total = cartItems.reduce((sum, item) => {
+  // Calculate subtotal (products only)
+  const subtotal = cartItems.reduce((sum, item) => {
     const variant = variantMap[item.variantId];
     return sum + (variant ? Number(variant.price_aud) * item.qty : 0);
   }, 0);
+
+  // Get shipping cost from Stripe session
+  const shippingCost = session.shipping_cost?.amount_total
+    ? session.shipping_cost.amount_total / 100
+    : 0;
+  const total = subtotal + shippingCost;
 
   // Format shipping address
   const shipping = session.shipping_details || session.customer_details;
@@ -122,7 +128,7 @@ async function handleCheckoutCompleted(session) {
       delivery_method: deliveryMethod,
       delivery_address: deliveryAddress,
       status: "paid",
-      subtotal_aud: total,
+      subtotal_aud: subtotal,
       total_aud: total,
     })
     .select("id, order_number")
