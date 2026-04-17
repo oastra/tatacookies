@@ -9,6 +9,7 @@ import QuantitySelector from "./QuantitySelector";
 
 const CartDrawer = () => {
   const [deliveryMethod, setDeliveryMethod] = useState("");
+  const [featured, setFeatured] = useState([]);
   const {
     cart,
     removeFromCart,
@@ -20,6 +21,16 @@ const CartDrawer = () => {
     setCartOpen,
     loaded,
   } = useCart();
+
+  // Fetch featured products when cart is empty and drawer opens
+  useEffect(() => {
+    if (isCartOpen && cart.length === 0 && featured.length === 0) {
+      fetch("/api/featured-products")
+        .then((res) => res.json())
+        .then((data) => Array.isArray(data) && setFeatured(data))
+        .catch(() => {});
+    }
+  }, [isCartOpen, cart.length]);
 
   // Lock body scroll when open
   useEffect(() => {
@@ -112,15 +123,63 @@ const CartDrawer = () => {
             {/* Items */}
             <div className="flex-1 overflow-y-auto p-6">
               {cart.length === 0 ? (
-                <div className="flex flex-col items-center justify-center h-full gap-4 text-center">
-                  <p className="text-text60 text-base">Your cart is empty</p>
-                  <Link
-                    href="/shop"
-                    onClick={() => setCartOpen(false)}
-                    className="text-title font-medium underline underline-offset-4 hover:text-primary transition"
-                  >
-                    Browse cookies
-                  </Link>
+                <div className="flex flex-col items-center gap-6 pt-8 text-center">
+                  {/* Empty state */}
+                  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#b0b0b0" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="9" cy="21" r="1" />
+                    <circle cx="20" cy="21" r="1" />
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                  </svg>
+                  <div>
+                    <p className="text-text60 text-base mb-2">Your cart is empty</p>
+                    <Link
+                      href="/shop"
+                      onClick={() => setCartOpen(false)}
+                      className="text-title font-medium underline underline-offset-4 hover:text-primary transition"
+                    >
+                      Browse cookies
+                    </Link>
+                  </div>
+
+                  {/* Featured products */}
+                  {featured.length > 0 && (
+                    <div className="w-full pt-4 border-t border-gray-100">
+                      <p className="text-sm font-medium text-text mb-4">
+                        Popular right now
+                      </p>
+                      <div className="flex flex-col gap-3">
+                        {featured.map((p) => (
+                          <Link
+                            key={p.id}
+                            href={`/shop/${p.slug}`}
+                            onClick={() => setCartOpen(false)}
+                            className="flex items-center gap-3 p-2 rounded-xl hover:bg-bgPink transition"
+                          >
+                            <div className="relative w-14 h-14 shrink-0 rounded-[10px] overflow-hidden">
+                              <Image
+                                src={p.image_url}
+                                alt={p.title}
+                                fill
+                                className="object-cover"
+                                sizes="56px"
+                              />
+                            </div>
+                            <div className="flex-1 text-left">
+                              <p className="text-sm font-medium text-title">
+                                {p.title}
+                              </p>
+                              <p className="text-xs text-text60">
+                                ${p.price} AUD
+                              </p>
+                            </div>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#b0b0b0" strokeWidth="1.5" strokeLinecap="round">
+                              <path d="M6 4l4 4-4 4" />
+                            </svg>
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
               ) : (
                 <div className="flex flex-col gap-6">
@@ -187,6 +246,13 @@ const CartDrawer = () => {
             {/* Footer */}
             {cart.length > 0 && (
               <div className="border-t border-gray-100 p-6 space-y-4">
+                {/* Shipping info */}
+                <div className="flex items-center justify-center gap-3 text-xs text-text60 bg-bgBlue rounded-lg py-2 px-3">
+                  <span>Australia-wide delivery</span>
+                  <span className="text-gray-300">|</span>
+                  <span>Free Sydney pick-up</span>
+                </div>
+
                 {/* Delivery method */}
                 <div className="space-y-2">
                   <p className="text-sm font-medium text-text">
