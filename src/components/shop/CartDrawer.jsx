@@ -51,6 +51,16 @@ const CartDrawer = () => {
       return;
     }
 
+    // Check for items missing Stripe price (stale cart data)
+    const invalidItems = cart.filter((item) => !item.stripePriceId);
+    if (invalidItems.length > 0) {
+      invalidItems.forEach((item) => removeFromCart(item.cartItemId));
+      alert(
+        "Some items in your cart were outdated and have been removed. Please re-add them and try again."
+      );
+      return;
+    }
+
     try {
       const res = await fetch("/api/checkout_sessions", {
         method: "POST",
