@@ -16,31 +16,31 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: "Cart is empty" });
     }
 
-    // Validate stock before checkout
+    // Fetch variants for stock validation and price calculation
     const supabase = getServiceSupabase();
     const variantIds = cart.map((item) => item.variantId).filter(Boolean);
 
-    if (variantIds.length > 0) {
-      const { data: variants } = await supabase
-        .from("product_variants")
-        .select("id, name, stock_count, price_aud")
-        .in("id", variantIds);
+    const { data: variants } = variantIds.length > 0
+      ? await supabase
+          .from("product_variants")
+          .select("id, name, stock_count, price_aud")
+          .in("id", variantIds)
+      : { data: [] };
 
-      const outOfStock = [];
-      for (const item of cart) {
-        const variant = variants?.find((v) => v.id === item.variantId);
-        if (variant && variant.stock_count < item.qty) {
-          outOfStock.push(
-            `${variant.name} (only ${variant.stock_count} available)`
-          );
-        }
+    const outOfStock = [];
+    for (const item of cart) {
+      const variant = variants?.find((v) => v.id === item.variantId);
+      if (variant && variant.stock_count < item.qty) {
+        outOfStock.push(
+          `${variant.name} (only ${variant.stock_count} available)`
+        );
       }
+    }
 
-      if (outOfStock.length > 0) {
-        return res.status(400).json({
-          error: `Some items are out of stock: ${outOfStock.join(", ")}`,
-        });
-      }
+    if (outOfStock.length > 0) {
+      return res.status(400).json({
+        error: `Some items are out of stock: ${outOfStock.join(", ")}`,
+      });
     }
 
     const isDelivery = deliveryMethod === "Australia Post";
