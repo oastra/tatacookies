@@ -324,6 +324,7 @@ export async function getStaticProps({ params }) {
           id,
           name,
           price_aud,
+          stripe_price_id,
           stock_count,
           is_active
         ),
