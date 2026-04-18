@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { supabase } from "@/lib/supabase";
+import imageToSquareWebp from "@/utils/imageToSquareWebp";
 
 export default function BlogForm({ blog, onSave }) {
   const isEdit = !!blog;
@@ -27,8 +28,13 @@ export default function BlogForm({ blog, onSave }) {
     const { data: session } = await supabase.auth.getSession();
     const token = session?.session?.access_token;
 
+    const processed = await imageToSquareWebp(file, {
+      size: 1200,
+      quality: 0.9,
+    });
+
     const formData = new FormData();
-    formData.append("image", file);
+    formData.append("image", processed);
 
     const res = await fetch("/api/admin/upload", {
       method: "POST",

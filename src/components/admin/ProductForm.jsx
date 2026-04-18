@@ -2,6 +2,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { supabase } from "@/lib/supabase";
 import australianSeasons from "@/data/australianSeasons";
+import imageToSquareWebp from "@/utils/imageToSquareWebp";
 
 const defaultVariant = {
   name: "Single Cookie",
@@ -46,8 +47,13 @@ export default function ProductForm({ product, categories, onSave }) {
     const { data: session } = await supabase.auth.getSession();
     const token = session?.session?.access_token;
 
+    const processed = await imageToSquareWebp(file, {
+      size: 1200,
+      quality: 0.9,
+    });
+
     const formData = new FormData();
-    formData.append("image", file);
+    formData.append("image", processed);
 
     const res = await fetch("/api/admin/upload", {
       method: "POST",
