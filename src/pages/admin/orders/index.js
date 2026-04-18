@@ -59,7 +59,17 @@ export default function AdminOrders() {
         <meta name="robots" content="noindex, nofollow" />
       </Head>
 
-      <AdminLayout title="Orders">
+      <AdminLayout
+        title="Orders"
+        headerAction={
+          <Link
+            href="/admin/orders/new"
+            className="px-4 py-2 bg-[#8FE3D9] text-[#46494C] text-sm font-semibold rounded-xl hover:bg-[#7DD4CA] transition"
+          >
+            + New Order
+          </Link>
+        }
+      >
         {/* Filters */}
         <div className="flex gap-2 mb-6">
           {["", "pending", "paid", "fulfilled", "cancelled"].map((status) => (
