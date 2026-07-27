@@ -121,12 +121,20 @@ export default function OrderDetail() {
                         <td className="px-6 py-4 text-gray-800">
                           <div className="flex items-center gap-3">
                             {item.image_url ? (
-                              // eslint-disable-next-line @next/next/no-img-element
-                              <img
-                                src={item.image_url}
-                                alt={item.product_title}
-                                className="w-12 h-12 rounded-lg object-cover border border-gray-200 flex-shrink-0"
-                              />
+                              <div className="group relative flex-shrink-0">
+                                {/* eslint-disable-next-line @next/next/no-img-element */}
+                                <img
+                                  src={item.image_url}
+                                  alt={item.product_title}
+                                  className="w-12 h-12 rounded-lg object-cover border border-gray-200 cursor-zoom-in"
+                                />
+                                {/* eslint-disable-next-line @next/next/no-img-element */}
+                                <img
+                                  src={item.image_url}
+                                  alt={item.product_title}
+                                  className="pointer-events-none absolute left-0 top-0 z-20 h-48 w-48 max-w-none origin-top-left scale-95 rounded-xl border border-gray-200 object-cover opacity-0 shadow-2xl transition-all duration-150 group-hover:scale-100 group-hover:opacity-100"
+                                />
+                              </div>
                             ) : (
                               <div className="w-12 h-12 rounded-lg bg-gray-100 flex-shrink-0" />
                             )}

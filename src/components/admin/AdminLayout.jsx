@@ -232,6 +232,22 @@ export default function AdminLayout({ children, title, headerAction, onSearch, s
               <p className="text-[10px] text-gray-400">Administrator</p>
             </div>
           </div>
+          <Link
+            href="/"
+            className="flex items-center gap-2 text-xs text-gray-400 hover:text-[#1985A1] transition mb-2"
+          >
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 14 14"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+            >
+              <path d="M5.5 12.5H2.5a1 1 0 01-1-1V6.2a1 1 0 01.4-.8l4.5-3.4a1 1 0 011.2 0l4.5 3.4a1 1 0 01.4.8v5.3a1 1 0 01-1 1H8.5M5.5 12.5v-3.5a1 1 0 011-1h1a1 1 0 011 1v3.5M5.5 12.5h3" />
+            </svg>
+            Back to Site
+          </Link>
           <button
             onClick={signOut}
             className="flex items-center gap-2 text-xs text-gray-400 hover:text-red-500 transition"
