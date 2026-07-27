@@ -132,7 +132,7 @@ export default function OrderDetail() {
                                 <img
                                   src={item.image_url}
                                   alt={item.product_title}
-                                  className="pointer-events-none absolute left-0 top-0 z-20 h-48 w-48 max-w-none origin-top-left scale-95 rounded-xl border border-gray-200 object-cover opacity-0 shadow-2xl transition-all duration-150 group-hover:scale-100 group-hover:opacity-100"
+                                  className="pointer-events-none fixed left-1/2 top-1/2 z-50 h-80 w-80 max-w-none -translate-x-1/2 -translate-y-1/2 scale-95 rounded-2xl border border-gray-200 bg-white object-cover opacity-0 shadow-2xl transition-all duration-150 group-hover:scale-100 group-hover:opacity-100"
                                 />
                               </div>
                             ) : (

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import Head from "next/head";
 import Link from "next/link";
 import AdminLayout from "@/components/admin/AdminLayout";
@@ -12,6 +13,7 @@ const statusColors = {
 };
 
 export default function AdminDashboard() {
+  const router = useRouter();
   const [stats, setStats] = useState({
     products: 0,
     orders: 0,
@@ -342,7 +344,8 @@ export default function AdminDashboard() {
                   recentOrders.map((order) => (
                     <tr
                       key={order.id}
-                      className="hover:bg-gray-50/50 transition"
+                      onClick={() => router.push(`/admin/orders/${order.id}`)}
+                      className="hover:bg-gray-50/50 transition cursor-pointer"
                     >
                       <td className="px-6 py-3.5">
                         <p className="text-sm text-gray-800 font-medium">

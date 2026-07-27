@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import Head from "next/head";
 import Link from "next/link";
 import AdminLayout from "@/components/admin/AdminLayout";
@@ -15,6 +16,7 @@ export default function AdminOrders() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState("");
+  const router = useRouter();
 
   useEffect(() => {
     fetchOrders();
@@ -109,7 +111,11 @@ export default function AdminOrders() {
                 </thead>
                 <tbody className="divide-y divide-gray-100">
                   {orders.map((order) => (
-                    <tr key={order.id} className="hover:bg-gray-50">
+                    <tr
+                      key={order.id}
+                      onClick={() => router.push(`/admin/orders/${order.id}`)}
+                      className="hover:bg-gray-50 cursor-pointer"
+                    >
                       <td className="px-6 py-4 text-gray-700 text-sm font-mono font-medium">
                         #{String(order.order_number).padStart(4, "0")}
                       </td>
@@ -164,7 +170,10 @@ export default function AdminOrders() {
                           {order.delivery_method || "—"}
                         </span>
                       </td>
-                      <td className="px-6 py-4">
+                      <td
+                        className="px-6 py-4"
+                        onClick={(e) => e.stopPropagation()}
+                      >
                         <select
                           value={order.status}
                           onChange={(e) =>
