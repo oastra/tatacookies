@@ -127,7 +127,26 @@ export default function AdminOrders() {
                         )}
                       </td>
                       <td className="px-6 py-4 text-gray-600">
-                        {(order.order_items || []).length} items
+                        <div className="flex items-center gap-2">
+                          <div className="flex -space-x-2">
+                            {(order.order_items || [])
+                              .filter((it) => it.image_url)
+                              .slice(0, 3)
+                              .map((it, i) => (
+                                // eslint-disable-next-line @next/next/no-img-element
+                                <img
+                                  key={i}
+                                  src={it.image_url}
+                                  alt={it.product_title}
+                                  title={it.product_title}
+                                  className="w-8 h-8 rounded-full object-cover border-2 border-white ring-1 ring-gray-200"
+                                />
+                              ))}
+                          </div>
+                          <span className="text-xs text-gray-500">
+                            {(order.order_items || []).length} items
+                          </span>
+                        </div>
                       </td>
                       <td className="px-6 py-4 font-medium text-gray-800">
                         ${Number(order.total_aud || 0).toFixed(2)}

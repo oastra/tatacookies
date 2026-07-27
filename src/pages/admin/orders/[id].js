@@ -119,7 +119,19 @@ export default function OrderDetail() {
                     {(order.order_items || []).map((item) => (
                       <tr key={item.id}>
                         <td className="px-6 py-4 text-gray-800">
-                          {item.product_title}
+                          <div className="flex items-center gap-3">
+                            {item.image_url ? (
+                              // eslint-disable-next-line @next/next/no-img-element
+                              <img
+                                src={item.image_url}
+                                alt={item.product_title}
+                                className="w-12 h-12 rounded-lg object-cover border border-gray-200 flex-shrink-0"
+                              />
+                            ) : (
+                              <div className="w-12 h-12 rounded-lg bg-gray-100 flex-shrink-0" />
+                            )}
+                            <span>{item.product_title}</span>
+                          </div>
                         </td>
                         <td className="px-6 py-4 text-gray-600">
                           {item.variant_name}

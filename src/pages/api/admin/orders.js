@@ -5,6 +5,7 @@ import { renderToString } from "react-dom/server";
 import ShopOrderShipped from "@/emails/shopOrderShipped";
 import ShopOrderConfirmation from "@/emails/shopOrderConfirmation";
 import ShopOrderAdminNotification from "@/emails/shopOrderAdminNotification";
+import { absoluteImageUrl } from "@/lib/imageUrl";
 
 async function verifyAdmin(req) {
   const token = req.headers.authorization?.replace("Bearer ", "");
@@ -30,7 +31,9 @@ export default async function handler(req, res) {
 
     let query = supabase
       .from("orders")
-      .select(`*, order_items (*)`)
+      .select(
+        `*, order_items (*, product_variants (products (image_url)))`
+      )
       .order("created_at", { ascending: false })
       .limit(parseInt(limit));
 
@@ -38,7 +41,17 @@ export default async function handler(req, res) {
 
     const { data, error } = await query;
     if (error) return res.status(500).json({ error: error.message });
-    return res.status(200).json(data);
+
+    // Flatten the joined product image onto each order item for the admin UI
+    const orders = (data || []).map((order) => ({
+      ...order,
+      order_items: (order.order_items || []).map((item) => ({
+        ...item,
+        image_url: item.product_variants?.products?.image_url || null,
+      })),
+    }));
+
+    return res.status(200).json(orders);
   }
 
   if (req.method === "POST") {
@@ -142,8 +155,6 @@ export default async function handler(req, res) {
     }
 
     if (shouldSendEmail) {
-      const siteUrl =
-        process.env.NEXT_PUBLIC_SITE_URL || "https://tatacookies.com";
       const emailItems = orderItemsToInsert.map((oi) => {
         const v = variantMap[oi.variant_id];
         return {
@@ -151,9 +162,7 @@ export default async function handler(req, res) {
           variant_name: oi.variant_name,
           price_aud: oi.price_aud,
           quantity: oi.quantity,
-          image_url: v?.products?.image_url
-            ? `${siteUrl}${v.products.image_url}`
-            : null,
+          image_url: absoluteImageUrl(v?.products?.image_url),
         };
       });
 
@@ -297,16 +306,13 @@ async function sendShippingEmail(order) {
   const from = `Tatacookies <${process.env.ORDER_EMAIL_FROM || "orders@tatacookies.com"}>`;
   const orderNumber = String(order.order_number).padStart(4, "0");
   const trackingUrl = `https://auspost.com.au/parcels-mail/track.html#/track?id=${order.tracking_number}`;
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tatacookies.com";
 
   const items = (order.order_items || []).map((item) => ({
     product_title: item.product_title,
     variant_name: item.variant_name,
     price_aud: item.price_aud,
     quantity: item.quantity,
-    image_url: item.product_variants?.products?.image_url
-      ? `${siteUrl}${item.product_variants.products.image_url}`
-      : null,
+    image_url: absoluteImageUrl(item.product_variants?.products?.image_url),
   }));
 
   const html = renderToString(

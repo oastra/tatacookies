@@ -4,6 +4,7 @@ import { renderToString } from "react-dom/server";
 import { getServiceSupabase } from "@/lib/supabase";
 import ShopOrderConfirmation from "@/emails/shopOrderConfirmation";
 import ShopOrderAdminNotification from "@/emails/shopOrderAdminNotification";
+import { absoluteImageUrl } from "@/lib/imageUrl";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
@@ -158,9 +159,7 @@ async function handleCheckoutCompleted(session) {
 
     orderItems.push({
       ...orderItem,
-      image_url: variant.products?.image_url
-        ? `${process.env.NEXT_PUBLIC_SITE_URL || "https://tatacookies.com"}${variant.products.image_url}`
-        : null,
+      image_url: absoluteImageUrl(variant.products?.image_url),
     });
 
     // Insert order item (snapshot product/variant info)
